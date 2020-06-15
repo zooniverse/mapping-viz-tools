@@ -1,19 +1,10 @@
 import React from 'react'
-import { Anchor, Box, Button, Image, Text } from 'grommet'
-import styled from 'styled-components'
+import { Anchor, Box, Image, Text } from 'grommet'
 import Kelp from 'images/kelp.png'
 import Title from 'images/title.svg'
 import Zooniverse from 'images/zooniverse.png'
-
-const StyledBox = styled(Box)`
-  display: inline;
-`
-
-const StyledImage = styled(Image)`
-  height: auto;
-  max-height: 100%;
-  max-width: 100%;
-`
+import ChooseLocation from './components/ChooseLocation'
+import ResponsiveImage from 'components/ResponsiveImage'
 
 export default function Home() {
   return (
@@ -29,30 +20,29 @@ export default function Home() {
           side: 'left',
           size: 'large'
         }}
-        pad={{ horizontal: 'large', top: 'large' }}
+        pad={{ horizontal: 'medium', top: 'large' }}
       >
-        <Box basis='2/3'>
+        <Box basis='2/3' pad='small'>
           <Box height='3rem' width='small'>
             <Image fit='contain' src={Zooniverse} />
           </Box>
-          <StyledBox margin={{ right: 'auto' }}>
-            <StyledImage fit='contain' src={Title} />
-          </StyledBox>
+          <ResponsiveImage src={Title} />
         </Box>
 
-        <Box basis='1/3' direction='row' justify='between'>
-          <Box border={{ color: 'kelp', side: 'right' }} fill='horizontal' margin={{ top: 'medium' }}>
-            <Text>Choose a location to begin</Text>
-            <Button onClick={() => console.log("Going Places")} label='Falkland Islands' plain />
-            <Button onClick={() => console.log("Going Places")} label='Baja, California' plain />
-            <Button onClick={() => console.log("Going Places")} label='Tasmania, Australia' plain />
+        <Box basis='auto' direction='row' justify='between'>
+          <Box
+            border={{ color: 'kelp', side: 'right' }}
+            fill='horizontal'
+            pad={{ top: 'medium' }}
+          >
+            <ChooseLocation />
           </Box>
           <Box
             gap='small'
             margin="medium"
             width='small'
           >
-            <Text wrap>
+            <Text>
               This project is a collaboration between Zooniverse-Adler Planetarium and the Floating Forests team.
             </Text>
             <Anchor href="#" label="Learn More" size='small' />
