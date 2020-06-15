@@ -1,9 +1,9 @@
 import React from 'react'
 import { Anchor, Box, Button, Image, Text } from 'grommet'
 import styled from 'styled-components'
-import Kelp from '../../images/kelp.png'
-import Title from '../../images/title.svg'
-import Zooniverse from '../../images/zooniverse.png'
+import Kelp from 'images/kelp.png'
+import Title from 'images/title.svg'
+import Zooniverse from 'images/zooniverse.png'
 
 const StyledBox = styled(Box)`
   display: inline;
@@ -41,16 +41,15 @@ export default function Home() {
         </Box>
 
         <Box basis='1/3' direction='row' justify='between'>
-          <Box margin={{ top: 'medium' }}>
+          <Box border={{ color: 'kelp', side: 'right' }} fill='horizontal' margin={{ top: 'medium' }}>
             <Text>Choose a location to begin</Text>
             <Button onClick={() => console.log("Going Places")} label='Falkland Islands' plain />
             <Button onClick={() => console.log("Going Places")} label='Baja, California' plain />
             <Button onClick={() => console.log("Going Places")} label='Tasmania, Australia' plain />
           </Box>
           <Box
-            border={{ color: 'kelp', side: 'left' }}
             gap='small'
-            pad='medium'
+            margin="medium"
             width='small'
           >
             <Text wrap>
