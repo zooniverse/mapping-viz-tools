@@ -17,3 +17,9 @@ Launches the test runner in the interactive watch mode.
 ### `yarn build`
 
 Builds the app for production to the `build` folder.
+
+## Analyze the Bundle
+
+Uses [source-map-explorer](https://www.npmjs.com/package/source-map-explorer) to visually analyze the bundle for bloats.  
+To run this:
+`yarn build && yarn analyze`
