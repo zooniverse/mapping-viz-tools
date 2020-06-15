@@ -1,3 +1,6 @@
+import zooTheme from '@zooniverse/grommet-theme'
+import merge from 'lodash/merge'
+
 const theme = {
     global: {
       colors: {
@@ -7,4 +10,4 @@ const theme = {
     }
 }
 
-export default theme;
+export default merge({}, theme, zooTheme);
