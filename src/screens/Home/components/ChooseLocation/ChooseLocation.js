@@ -1,5 +1,5 @@
 import React from 'react'
-import { Anchor, Box, Text } from 'grommet'
+  import { Anchor, Box, Text } from 'grommet'
 import styled from 'styled-components'
 import withThemeContext from 'helpers/withThemeContext'
 import Map from 'images/hover-map.png'
@@ -23,9 +23,9 @@ const StyledHr = styled.hr`
 
 const ChooseLocation = function() {
   return (
-    <Box direction='row'>
-      <Box width='100%'>
-        <Text margin='0.5em' size='medium' weight='bold'>Choose a location to begin</Text>
+    <Box direction='row' width='100%'>
+      <Box fill='horizontal'>
+        <Text margin={{ left: '0.5em' }} size='medium' weight='bold'>Choose a location to begin</Text>
         <Box direction='row'>
           <StyledAnchor size='small' label='Falkland Islands' pad='small' />
           <StyledHr />
@@ -40,7 +40,7 @@ const ChooseLocation = function() {
         </Box>
       </Box>
       <Box margin={{ left: 'small', right: 'medium' }}>
-        <ResponsiveImage src={Map} />
+        <ResponsiveImage border src={Map} />
       </Box>
     </Box>
   )

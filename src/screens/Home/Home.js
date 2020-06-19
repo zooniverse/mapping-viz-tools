@@ -22,18 +22,16 @@ export default function Home() {
         }}
         pad={{ horizontal: 'medium', top: 'large' }}
       >
-        <Box basis='2/3' pad='small'>
-          <Box height='3rem' width='small'>
-            <Image fit='contain' src={Zooniverse} />
-          </Box>
-          <ResponsiveImage src={Title} />
+        <Box>
+          <ResponsiveImage width={{ max: 'small' }} src={Zooniverse} />
+          <ResponsiveImage margin={{ right: 'xlarge' }}  src={Title} />
         </Box>
 
-        <Box basis='auto' direction='row' justify='between'>
+        <Box direction='row' justify='between'>
           <Box
             border={{ color: 'kelp', side: 'right' }}
             fill='horizontal'
-            pad={{ top: 'medium' }}
+            pad={{ vertical: 'medium' }}
           >
             <ChooseLocation />
           </Box>
