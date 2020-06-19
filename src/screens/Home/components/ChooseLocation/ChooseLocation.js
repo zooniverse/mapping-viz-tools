@@ -1,5 +1,5 @@
 import React from 'react'
-  import { Anchor, Box, Text } from 'grommet'
+import { Anchor, Box, Heading } from 'grommet'
 import styled from 'styled-components'
 import withThemeContext from 'helpers/withThemeContext'
 import Map from 'images/hover-map.png'
@@ -25,17 +25,17 @@ const ChooseLocation = function() {
   return (
     <Box direction='row' width='100%'>
       <Box fill='horizontal'>
-        <Text margin={{ left: '0.5em' }} size='medium' weight='bold'>Choose a location to begin</Text>
+        <Heading level='4' margin={{ bottom: 'xsmall', horizontal: 'xxsmall', top: 'none' }}>Choose a location to begin</Heading>
         <Box direction='row'>
-          <StyledAnchor size='small' label='Falkland Islands' pad='small' />
+          <StyledAnchor label='Falkland Islands' />
           <StyledHr />
         </Box>
         <Box direction='row'>
-          <StyledAnchor size='small' label='Baja, California' pad='small' />
+          <StyledAnchor label='Baja, California' />
           <StyledHr />
         </Box>
         <Box direction='row'>
-          <StyledAnchor size='small' label='Tasmania, Australia' />
+          <StyledAnchor label='Tasmania, Australia' />
           <StyledHr />
         </Box>
       </Box>

@@ -3,8 +3,13 @@ import { Anchor, Box, Image, Text } from 'grommet'
 import Kelp from 'images/kelp.png'
 import Title from 'images/title.svg'
 import Zooniverse from 'images/zooniverse.png'
-import ChooseLocation from './components/ChooseLocation'
 import ResponsiveImage from 'components/ResponsiveImage'
+import styled from 'styled-components'
+import ChooseLocation from './components/ChooseLocation'
+
+const StyledText = styled(Text)`
+  font-family: Neuton;
+`
 
 export default function Home() {
   return (
@@ -40,9 +45,9 @@ export default function Home() {
             margin="medium"
             width='small'
           >
-            <Text>
+            <StyledText size='1.15rem'>
               This project is a collaboration between Zooniverse-Adler Planetarium and the Floating Forests team.
-            </Text>
+            </StyledText>
             <Anchor href="#" label="Learn More" size='small' />
           </Box>
         </Box>
