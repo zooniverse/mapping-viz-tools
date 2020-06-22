@@ -8,27 +8,33 @@ const StyledBox = styled(Box)`
 `
 
 const StyledImage = styled(Image)`
-  ${props => props.border && css`border: 1px solid black;`}
   height: auto;
-  max-height: 100%;
   max-width: 100%;
+  ${props => props.border && css`border: 1px solid black;`}
+  ${props => props.maxHeight && css`max-height: ${props.maxHeight};`}
 `
 
-export default function ResponsiveImage({ border, height, margin, src, width }) {
+export default function ResponsiveImage({ border, height, margin, maxHeight, src, width }) {
+  console.log(maxHeight);
   return (
     <StyledBox height={height} margin={margin} width={width}>
-      <StyledImage border={border} fit='contain' src={src} />
+      <StyledImage border={border} fit='contain' maxHeight={maxHeight} src={src} />
     </StyledBox>
   )
+}
+
+ResponsiveImage.defaultProps = {
 }
 
 ResponsiveImage.propTypes = {
   height: string,
   margin: object,
+  maxHeight: string,
   src: string.isRequired
 }
 
 ResponsiveImage.defaultProps = {
   height: 'auto',
-  margin: 0
+  margin: 0,
+  maxHeight: '100%'
 }

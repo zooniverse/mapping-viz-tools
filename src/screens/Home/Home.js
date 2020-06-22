@@ -26,6 +26,7 @@ export default function Home() {
           size: 'large'
         }}
         pad={{ horizontal: 'medium', top: 'large' }}
+        width={{ max: '60rem' }}
       >
         <Box>
           <ResponsiveImage width={{ max: 'small' }} src={Zooniverse} />
@@ -46,7 +47,8 @@ export default function Home() {
             width='small'
           >
             <StyledText size='1.15rem'>
-              This project is a collaboration between Zooniverse-Adler Planetarium and the Floating Forests team.
+              This project is a collaboration between Zooniverse-Adler Planetarium
+              and the Floating Forests team.
             </StyledText>
             <Anchor href="#" label="Learn More" size='small' />
           </Box>

@@ -21,11 +21,20 @@ const StyledHr = styled.hr`
   width: 100%;
 `
 
+const BasisBox = styled(Box)`
+  flex: 1 1 175px;
+`
+
 const ChooseLocation = function() {
   return (
-    <Box direction='row' width='100%'>
-      <Box fill='horizontal'>
-        <Heading level='4' margin={{ bottom: 'xsmall', horizontal: 'xxsmall', top: 'none' }}>Choose a location to begin</Heading>
+    <Box direction='row' width='100%' wrap>
+      <BasisBox fill='horizontal' margin={{ right: 'small' }} width={{ min: '50%' }}>
+        <Heading
+          level='4'
+          margin={{ bottom: 'xsmall', horizontal: 'xxsmall', top: 'none' }}
+        >
+          Choose a location to begin
+        </Heading>
         <Box direction='row'>
           <StyledAnchor label='Falkland Islands' />
           <StyledHr />
@@ -38,10 +47,10 @@ const ChooseLocation = function() {
           <StyledAnchor label='Tasmania, Australia' />
           <StyledHr />
         </Box>
-      </Box>
-      <Box margin={{ left: 'small', right: 'medium' }}>
-        <ResponsiveImage border src={Map} />
-      </Box>
+      </BasisBox>
+      <BasisBox margin='small'>
+        <ResponsiveImage border maxHeight='8em' src={Map} />
+      </BasisBox>
     </Box>
   )
 }
