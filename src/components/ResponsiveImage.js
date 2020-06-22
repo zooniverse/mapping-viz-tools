@@ -15,7 +15,6 @@ const StyledImage = styled(Image)`
 `
 
 export default function ResponsiveImage({ border, height, margin, maxHeight, src, width }) {
-  console.log(maxHeight);
   return (
     <StyledBox height={height} margin={margin} width={width}>
       <StyledImage border={border} fit='contain' maxHeight={maxHeight} src={src} />
