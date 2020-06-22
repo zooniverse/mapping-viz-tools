@@ -1,13 +1,13 @@
 import React from 'react'
 import { Box, Image } from 'grommet'
 import styled, { css } from 'styled-components'
-import { object, string } from 'prop-types'
+import PropTypes from 'prop-types'
 
 const StyledBox = styled(Box)`
   display: inline;
 `
 
-const StyledImage = styled(Image)`
+export const StyledImage = styled(Image)`
   height: auto;
   max-width: 100%;
   ${props => props.border && css`border: 1px solid black;`}
@@ -26,10 +26,13 @@ ResponsiveImage.defaultProps = {
 }
 
 ResponsiveImage.propTypes = {
-  height: string,
-  margin: object,
-  maxHeight: string,
-  src: string.isRequired
+  height: PropTypes.string,
+  margin: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.object
+  ]),
+  maxHeight: PropTypes.string,
+  src: PropTypes.string.isRequired
 }
 
 ResponsiveImage.defaultProps = {
