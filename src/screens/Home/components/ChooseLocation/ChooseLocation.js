@@ -17,7 +17,7 @@ const OPTIONS = [
   { label: 'Tasmania, Australia', map: Map}
 ]
 
-const ChooseLocation = function() {
+function ChooseLocation() {
   const [activeMap, setActiveMap] = React.useState(null)
 
   return (
@@ -47,3 +47,4 @@ const ChooseLocation = function() {
 }
 
 export default withThemeContext(ChooseLocation, theme)
+export { ChooseLocation }

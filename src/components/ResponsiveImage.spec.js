@@ -5,7 +5,7 @@ import 'jest-styled-components'
 import ResponsiveImage, { StyledImage } from './ResponsiveImage';
 
 describe('Component > ReponsiveImage', function () {
-  it('should without crashing', () => {
+  it('should render without crashing', () => {
     const wrapper = shallow(<ResponsiveImage src='source.png' />);
     expect(wrapper).toBeDefined()
   });
