@@ -1,8 +1,9 @@
 import React from 'react'
 import { Box, Button } from 'grommet'
 import styled from 'styled-components'
+import { func, string } from 'prop-types'
 
-const StyledButton = styled(Button)`
+export const StyledButton = styled(Button)`
   padding: 0.5em;
   white-space: nowrap;
 
@@ -12,14 +13,14 @@ const StyledButton = styled(Button)`
   }
 `
 
-const StyledHr = styled.hr`
+export const StyledHr = styled.hr`
   border-top: 1px solid black;
   margin: auto;
   width: 100%;
 `
 
 export default function MapLabel({ location, map, onActivate }) {
-  const [isHovered, onHover] = React.useState()
+  const [isHovered, onHover] = React.useState(false)
 
   return (
     <Box direction='row'>
@@ -38,4 +39,14 @@ export default function MapLabel({ location, map, onActivate }) {
       {isHovered && <StyledHr />}
     </Box>
   )
+}
+
+MapLabel.propTypes = {
+  location: string.isRequired,
+  map: string.isRequired,
+  onActivate: func
+}
+
+MapLabel.defaultProp = {
+  onActivate: () => {}
 }
