@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Heading } from 'grommet'
+import { Box, Text } from 'grommet'
 import styled from 'styled-components'
 import withThemeContext from 'helpers/withThemeContext'
 import Map from 'images/hover-map.png'
@@ -9,6 +9,10 @@ import theme from './theme'
 
 const BasisBox = styled(Box)`
   flex: 1 1 175px;
+`
+
+const StyledText = styled(Text)`
+  font-family: Neuton;
 `
 
 const OPTIONS = [
@@ -21,14 +25,14 @@ function ChooseLocation() {
   const [activeMap, setActiveMap] = React.useState(null)
 
   return (
-    <Box direction='row' width='100%' wrap>
-      <BasisBox fill='horizontal' margin={{ right: 'small' }} width={{ min: '50%' }}>
-        <Heading
-          level='4'
-          margin={{ bottom: 'xsmall', horizontal: 'xxsmall', top: 'none' }}
+    <Box direction='row' gap='small' wrap>
+      <BasisBox fill='horizontal' width={{ min: '50%' }}>
+        <StyledText
+          margin='xxsmall'
+          size='1.25rem'
         >
           Choose a location to begin
-        </Heading>
+        </StyledText>
         {OPTIONS.map((location, i) => {
           return (
             <MapLabel
@@ -39,8 +43,8 @@ function ChooseLocation() {
             />
         )})}
       </BasisBox>
-      <BasisBox align='center' margin='small' height='8em'>
-        {activeMap && <ResponsiveImage border maxHeight='8em' src={activeMap} />}
+      <BasisBox align='start'>
+        {activeMap && <ResponsiveImage border src={activeMap} />}
       </BasisBox>
     </Box>
   )

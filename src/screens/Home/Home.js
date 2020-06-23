@@ -30,23 +30,23 @@ export default function Home() {
       >
         <Box>
           <ResponsiveImage width={{ max: 'small' }} src={Zooniverse} />
-          <ResponsiveImage margin={{ right: 'xlarge' }}  src={Title} />
+          <ResponsiveImage margin={{ right: 'xlarge' }} maxHeight='15em' src={Title} />
         </Box>
 
         <Box direction='row' justify='between'>
           <Box
             border={{ color: 'kelp', side: 'right' }}
             fill='horizontal'
-            pad={{ vertical: 'medium' }}
+            pad={{ right: 'small', vertical: 'medium' }}
           >
             <ChooseLocation />
           </Box>
           <Box
             gap='small'
             margin="medium"
-            width='small'
+            width='20%'
           >
-            <StyledText size='1.15rem'>
+            <StyledText size='1rem'>
               This project is a collaboration between Zooniverse-Adler Planetarium
               and the Floating Forests team.
             </StyledText>
