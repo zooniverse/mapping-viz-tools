@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  dev:
+    image: mapping-viz-tools:latest
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    entrypoint:
+      - "yarn"
+    command: ["start"]
+    ports:
+      - "4000:4000"
+    volumes:
+      - ${PWD}/src:/usr/src/src
