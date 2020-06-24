@@ -13,3 +13,13 @@ services:
       - "4000:4000"
     volumes:
       - ${PWD}/src:/usr/src/src
+  test:
+    container_name: mapping-viz-tools-test
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ${PWD}/src:/usr/src/src
+    environment:
+      - CI=true
+    command: yarn test-docker
