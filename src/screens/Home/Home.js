@@ -28,9 +28,9 @@ export default function Home() {
         pad={{ horizontal: 'medium', top: 'large' }}
         width={{ max: '60rem' }}
       >
-        <Box>
-          <ResponsiveImage width={{ max: 'small' }} src={Zooniverse} />
-          <ResponsiveImage margin={{ right: 'xlarge' }} maxHeight='15em' src={Title} />
+        <Box margin={{ right: 'large' }} width={{ max: '40rem' }}>
+          <ResponsiveImage height='1.25rem' src={Zooniverse} />
+          <ResponsiveImage src={Title} />
         </Box>
 
         <Box direction='row' justify='between'>

@@ -14,13 +14,11 @@ const StyledGrommet = styled(Grommet)`
 function App() {
   return (
     <Router history={history}>
-      <>
         <main>
           <StyledGrommet theme={theme}>
             <Route exact path="/" component={Home} />
           </StyledGrommet>
         </main>
-      </>
     </Router>
   );
 }

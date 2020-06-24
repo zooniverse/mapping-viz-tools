@@ -4,6 +4,7 @@ import merge from 'lodash/merge'
 const theme = {
   global: {
     colors: {
+      border: 'black',
       kelp: '#113E3B',
       sand: '#F5F4F1',
       text: {

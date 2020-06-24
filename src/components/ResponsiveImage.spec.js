@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme'
 import renderer from 'react-test-renderer'
 import 'jest-styled-components'
-import ResponsiveImage, { StyledImage } from './ResponsiveImage';
+import ResponsiveImage, { StyledDiv } from './ResponsiveImage';
 
 describe('Component > ReponsiveImage', function () {
   it('should render without crashing', () => {
@@ -18,10 +18,9 @@ describe('Component > ReponsiveImage', function () {
           maxHeight='6em'
           src='source.png'
         />);
-      const Image = wrapper.find(StyledImage).first()
+      const Image = wrapper.find(StyledDiv).first()
       const renderedImage = renderer.create(Image).toJSON()
       expect(renderedImage).toHaveStyleRule('border', '1px solid black')
-      expect(renderedImage).toHaveStyleRule('max-height', '6em')
     })
   })
 })
