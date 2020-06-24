@@ -7,7 +7,7 @@ export const StyledButton = styled(Button)`
   padding: 0.5em;
   white-space: nowrap;
 
-  :hover {
+  :focus, :hover {
     background: white;
     text-decoration: underline;
   }
@@ -21,19 +21,24 @@ export const StyledHr = styled.hr`
 
 export default function MapLabel({ location, map, onActivate }) {
   const [isHovered, onHover] = React.useState(false)
+  const activate = () => {
+    onHover(true)
+    onActivate(map)
+  }
+
+  const deactivate = () => {
+    onHover(false)
+    onActivate(null)
+  }
 
   return (
     <Box direction='row'>
       <StyledButton
         label={location}
-        onMouseEnter={() => {
-          onHover(true)
-          onActivate(map)
-        }}
-        onMouseLeave={() => {
-          onHover(false)
-          onActivate(null)
-        }}
+        onBlur={deactivate}
+        onFocus={activate}
+        onMouseEnter={activate}
+        onMouseLeave={deactivate}
         plain
       />
       {isHovered && <StyledHr />}
