@@ -1,5 +1,5 @@
 import React from 'react'
-import { Anchor, Box, Image, Text } from 'grommet'
+import { Anchor, Box, Grid, Image, Text } from 'grommet'
 import Kelp from 'images/kelp.png'
 import Title from 'images/title.svg'
 import Zooniverse from 'images/zooniverse.png'
@@ -14,26 +14,34 @@ const StyledText = styled(Text)`
 export default function Home() {
   return (
     <Box background='sand' direction='row' fill>
-      <Box basis='1/4' fill>
-        <Image fit='cover' src={Kelp} />
-      </Box>
-
-      <Box
-        basis='3/4'
-        border={{
-          color: 'kelp',
-          side: 'left',
-          size: 'large'
-        }}
-        pad={{ horizontal: 'medium', top: 'large' }}
-        width={{ max: '60rem' }}
+      <Grid
+        rows={['1/2', '1/2']}
+        columns={['1/4', '3/4']}
+        areas={[
+          { name: 'banner', start: [0, 0], end: [0, 1] },
+          { name: 'intro', start: [1, 0], end: [1, 1] },
+          { name: 'body', start: [1, 1], end: [1, 1] }
+        ]}
       >
-        <Box margin={{ right: 'large' }} width={{ max: '40rem' }}>
+        <Box gridArea='banner' border={{ color: 'kelp', side: 'right', size: 'large' }}>
+          <Image gridArea='banner' fit='cover' src={Kelp} />
+        </Box>
+
+        <Box
+          gridArea='intro'
+          margin={{ horizontal: 'medium', top: 'auto' }}
+          width={{ max: '40rem' }}
+        >
           <ResponsiveImage height='1.25rem' src={Zooniverse} />
           <ResponsiveImage src={Title} />
         </Box>
 
-        <Box direction='row' justify='between'>
+        <Box
+          direction='row'
+          gridArea='body'
+          margin={{ horizontal: 'medium', bottom: 'auto' }}
+          justify='between'
+        >
           <Box
             border={{ color: 'kelp', side: 'right' }}
             fill='horizontal'
@@ -53,7 +61,7 @@ export default function Home() {
             <Anchor href="#" label="Learn More" size='small' />
           </Box>
         </Box>
-      </Box>
+      </Grid>
     </Box>
   )
 }
