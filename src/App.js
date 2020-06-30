@@ -9,7 +9,7 @@ function App() {
   return (
     <Router history={history}>
         <main>
-          <Grommet theme={theme}>
+          <Grommet full theme={theme}>
             <Route exact path="/" component={Home} />
           </Grommet>
         </main>

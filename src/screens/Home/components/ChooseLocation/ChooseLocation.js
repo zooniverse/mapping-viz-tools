@@ -36,7 +36,7 @@ function ChooseLocation() {
         {OPTIONS.map((location, i) => {
           return (
             <MapLabel
-              key={`MAP_LABEL_${i}`}
+              key={location.label}
               location={location.label}
               map={location.map}
               onActivate={setActiveMap}

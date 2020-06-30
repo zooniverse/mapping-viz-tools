@@ -15,13 +15,14 @@ export default function Home() {
   return (
     <Box background='sand' direction='row' fill>
       <Grid
-        rows={['1/2', '1/2']}
-        columns={['1/4', '3/4']}
         areas={[
           { name: 'banner', start: [0, 0], end: [0, 1] },
           { name: 'intro', start: [1, 0], end: [1, 1] },
           { name: 'body', start: [1, 1], end: [1, 1] }
         ]}
+        rows={['medium', 'auto']}
+        columns={['1/4', '3/4']}
+        fill
       >
         <Box gridArea='banner' border={{ color: 'kelp', side: 'right', size: 'large' }}>
           <Image gridArea='banner' fit='cover' src={Kelp} />
