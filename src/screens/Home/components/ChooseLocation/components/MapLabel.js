@@ -1,9 +1,9 @@
 import React from 'react'
-import { Box, Button } from 'grommet'
+import { Anchor, Box } from 'grommet'
 import styled from 'styled-components'
 import { func, string } from 'prop-types'
 
-export const StyledButton = styled(Button)`
+export const StyledAnchor = styled(Anchor)`
   padding: 0.5em;
   white-space: nowrap;
 
@@ -33,13 +33,13 @@ export default function MapLabel({ location, map, onActivate }) {
 
   return (
     <Box direction='row'>
-      <StyledButton
+      <StyledAnchor
+        href='#'
         label={location}
         onBlur={deactivate}
         onFocus={activate}
         onMouseEnter={activate}
         onMouseLeave={deactivate}
-        plain
       />
       {isHovered && <StyledHr />}
     </Box>
