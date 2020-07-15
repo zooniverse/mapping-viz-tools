@@ -7,10 +7,6 @@ import ResponsiveImage from 'components/ResponsiveImage'
 import MapLabel from './components/MapLabel'
 import theme from './theme'
 
-const BasisBox = styled(Box)`
-  flex: 1 1 175px;
-`
-
 const StyledText = styled(Text)`
   font-family: Neuton;
 `
@@ -25,8 +21,11 @@ function ChooseLocation() {
   const [activeMap, setActiveMap] = React.useState(null)
 
   return (
-    <Box direction='row' gap='small' wrap>
-      <BasisBox fill='horizontal' width={{ min: '50%' }}>
+    <Box
+      direction='row'
+      wrap
+    >
+      <Box flex='grow'>
         <StyledText
           margin='xxsmall'
           size='1.25rem'
@@ -42,10 +41,10 @@ function ChooseLocation() {
               onActivate={setActiveMap}
             />
         )})}
-      </BasisBox>
-      <BasisBox align='start'>
-        {activeMap && <ResponsiveImage border src={activeMap} />}
-      </BasisBox>
+      </Box>
+      <Box align='center' flex='grow' pad='xxsmall'>
+        {activeMap && <ResponsiveImage border height='8em' src={activeMap} />}
+      </Box>
     </Box>
   )
 }

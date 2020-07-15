@@ -1,5 +1,5 @@
 import React from 'react'
-import { Anchor, Box, Grid, Image, Text } from 'grommet'
+import { Box, Image, Text } from 'grommet'
 import Kelp from 'images/kelp.png'
 import Title from 'images/title.svg'
 import Zooniverse from 'images/zooniverse.png'
@@ -13,24 +13,17 @@ const StyledText = styled(Text)`
 
 export default function Home() {
   return (
-    <Box background='sand' direction='row' fill>
-      <Grid
-        areas={[
-          { name: 'banner', start: [0, 0], end: [0, 1] },
-          { name: 'intro', start: [1, 0], end: [1, 1] },
-          { name: 'body', start: [1, 1], end: [1, 1] }
-        ]}
-        rows={['medium', 'auto']}
-        columns={['1/4', '3/4']}
-        fill
+    <Box background='sand' direction='row'>
+      <Box
+        basis='1/4'
+        border={{ color: 'kelp', side: 'right', size: 'large' }}
       >
-        <Box gridArea='banner' border={{ color: 'kelp', side: 'right', size: 'large' }}>
-          <Image gridArea='banner' fit='cover' src={Kelp} />
-        </Box>
+        <Image fit='cover' src={Kelp} />
+      </Box>
 
+      <Box gap='medium'>
         <Box
-          gridArea='intro'
-          margin={{ horizontal: 'medium', top: 'auto' }}
+          margin={{ horizontal: 'medium', top: 'large' }}
           width={{ max: '40rem' }}
         >
           <ResponsiveImage height='1.25rem' src={Zooniverse} />
@@ -39,30 +32,30 @@ export default function Home() {
 
         <Box
           direction='row'
-          gridArea='body'
-          margin={{ horizontal: 'medium', bottom: 'auto' }}
-          justify='between'
+          margin={{ horizontal: 'medium' }}
+          width={{ max: '50rem' }}
+          wrap
         >
           <Box
-            border={{ color: 'kelp', side: 'right' }}
-            fill='horizontal'
-            pad={{ right: 'small', vertical: 'medium' }}
+            basis='3/4'
+            flex='grow'
+            margin={{ right: 'xsmall' }}
           >
             <ChooseLocation />
           </Box>
           <Box
-            gap='small'
-            margin="medium"
-            width='20%'
+            basis='10rem'
+            border='left'
+            flex='grow'
+            pad='medium'
           >
             <StyledText size='1rem'>
               This project is a collaboration between Zooniverse-Adler Planetarium
               and the Floating Forests team.
             </StyledText>
-            <Anchor href="#" label="Learn More" size='small' />
           </Box>
         </Box>
-      </Grid>
+      </Box>
     </Box>
   )
 }
