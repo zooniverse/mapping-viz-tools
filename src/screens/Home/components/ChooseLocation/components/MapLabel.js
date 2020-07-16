@@ -1,7 +1,7 @@
 import React from 'react'
 import { Anchor, Box } from 'grommet'
 import styled from 'styled-components'
-import { func, string } from 'prop-types'
+import { func, shape, string } from 'prop-types'
 
 export const StyledAnchor = styled(Anchor)`
   padding: 0.5em;
@@ -19,11 +19,11 @@ export const StyledHr = styled.hr`
   width: 100%;
 `
 
-export default function MapLabel({ location, map, onActivate }) {
+export default function MapLabel({ location, onActivate }) {
   const [isHovered, onHover] = React.useState(false)
   const activate = () => {
     onHover(true)
-    onActivate(map)
+    onActivate(location)
   }
 
   const deactivate = () => {
@@ -35,7 +35,7 @@ export default function MapLabel({ location, map, onActivate }) {
     <Box direction='row'>
       <StyledAnchor
         href='#'
-        label={location}
+        label={location.label}
         onBlur={deactivate}
         onFocus={activate}
         onMouseEnter={activate}
@@ -47,8 +47,10 @@ export default function MapLabel({ location, map, onActivate }) {
 }
 
 MapLabel.propTypes = {
-  location: string.isRequired,
-  map: string.isRequired,
+  location: shape({
+    label: string,
+    map: string
+  }),
   onActivate: func
 }
 

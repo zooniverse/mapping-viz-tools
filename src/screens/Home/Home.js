@@ -2,10 +2,10 @@ import React from 'react'
 import { Box, Image, Text } from 'grommet'
 import Kelp from 'images/kelp.png'
 import Title from 'images/title.svg'
-import Zooniverse from 'images/zooniverse.png'
 import ResponsiveImage from 'components/ResponsiveImage'
 import styled from 'styled-components'
 import ChooseLocation from './components/ChooseLocation'
+import { ZooniverseLogotype } from '@zooniverse/react-components'
 
 const StyledText = styled(Text)`
   font-family: Neuton;
@@ -18,7 +18,7 @@ export default function Home() {
         basis='1/4'
         border={{ color: 'kelp', side: 'right', size: 'large' }}
       >
-        <Image fit='cover' src={Kelp} />
+        <Image a11yTitle='Kelp Background' fit='cover' src={Kelp} />
       </Box>
 
       <Box gap='medium'>
@@ -26,8 +26,8 @@ export default function Home() {
           margin={{ horizontal: 'medium', top: 'large' }}
           width={{ max: '40rem' }}
         >
-          <ResponsiveImage height='1.25rem' src={Zooniverse} />
-          <ResponsiveImage src={Title} />
+          <ZooniverseLogotype />
+          <ResponsiveImage a11yTitle='Floating Forests: Mapping Visualizations' src={Title} />
         </Box>
 
         <Box

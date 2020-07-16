@@ -9,15 +9,27 @@ export const StyledImage = styled(Image)`
   max-width: 100%;
 `
 
-export default function ResponsiveImage({ border = false, height = 'auto', src }) {
+export default function ResponsiveImage({
+  a11yTitle = '',
+  border = false,
+  height = 'auto',
+  src
+}) {
   return (
     <div>
-      <StyledImage border={border} height={height} fit='contain' src={src} />
+      <StyledImage
+        a11yTitle={a11yTitle}
+        border={border}
+        height={height}
+        fit='contain'
+        src={src}
+      />
     </div>
   )
 }
 
 ResponsiveImage.propTypes = {
+  a11yTitle: PropTypes.string,
   height: PropTypes.string,
   margin: PropTypes.oneOfType([
     PropTypes.number,

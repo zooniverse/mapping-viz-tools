@@ -18,7 +18,7 @@ const OPTIONS = [
 ]
 
 function ChooseLocation() {
-  const [activeMap, setActiveMap] = React.useState(null)
+  const [activeLocation, setActiveLocation] = React.useState(null)
 
   return (
     <Box
@@ -36,14 +36,20 @@ function ChooseLocation() {
           return (
             <MapLabel
               key={location.label}
-              location={location.label}
-              map={location.map}
-              onActivate={setActiveMap}
+              location={location}
+              onActivate={setActiveLocation}
             />
         )})}
       </Box>
       <Box align='center' flex='grow' pad='xxsmall'>
-        {activeMap && <ResponsiveImage border height='8em' src={activeMap} />}
+        {activeLocation && (
+          <ResponsiveImage
+            a11yTitle={`Map of ${activeLocation.label}`}
+            border
+            height='8em'
+            src={activeLocation.map}
+          />
+        )}
       </Box>
     </Box>
   )

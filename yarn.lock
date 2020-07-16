@@ -1955,10 +1955,10 @@
   dependencies:
     deep-freeze "~0.0.1"
 
-"@zooniverse/react-components@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@zooniverse/react-components/-/react-components-1.0.1.tgz#55c95b177eb8000c5f0eb052df9c05741fb8588c"
-  integrity sha512-LIOgyt1AnU6pS4zSW1AK/97oNq0o5qM9QTzNbr6nNSTeu+e5kkWjbvkw+EQzgOv0CcDeG2s8m9R4xsd66J6wlg==
+"@zooniverse/react-components@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@zooniverse/react-components/-/react-components-1.0.2.tgz#984f0232d05309b99637e1c4d67dfb621fb71d46"
+  integrity sha512-07erJqxc9eXSDeHIJqVXlV9Ow7nQKrLZnXy3rB+8boDOtOZ1aUeX2BJC+eaEqDjz5gnXOjnbWRmUzdhRCUqsCQ==
   dependencies:
     "@fortawesome/fontawesome-svg-core" "~1.2.8"
     "@fortawesome/free-regular-svg-icons" "~5.7.0"
