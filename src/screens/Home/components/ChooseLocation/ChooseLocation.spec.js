@@ -18,7 +18,7 @@ describe('Component > ChooseLocation', function () {
   describe('when activating a label', function () {
     it('should show a map image', function () {
       const label = wrapper.find(MapLabel).first()
-      label.props().onActivate('test.png')
+      label.props().onActivate({ label: 'California', map: 'test.png'})
       wrapper.update()
       const images = wrapper.find(ResponsiveImage)
       expect(images.length).toBe(1)

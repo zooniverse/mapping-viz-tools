@@ -20,8 +20,6 @@ const OPTIONS = [
 function ChooseLocation() {
   const [activeLocation, setActiveLocation] = React.useState(null)
 
-  console.log(activeLocation);
-
   return (
     <Box
       direction='row'
