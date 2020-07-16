@@ -1,18 +1,20 @@
 import React from 'react';
 import { shallow } from 'enzyme'
-import MapLabel, { StyledButton, StyledHr } from './MapLabel';
+import MapLabel, { StyledAnchor, StyledHr } from './MapLabel';
 
 let wrapper
 
 describe('Component > MapLabel', function () {
   const onActivateSpy = jest.fn()
-  const mapImage = 'image.png'
+  const location = {
+    label: 'Baja, California',
+    map: 'image.png'
+  }
 
   beforeEach(function () {
     wrapper = shallow(
       <MapLabel
-        location='Baja, California'
-        map={mapImage}
+        location={location}
         onActivate={onActivateSpy}
       />);
   })
@@ -26,15 +28,15 @@ describe('Component > MapLabel', function () {
   describe('Events > MapLabel', function () {
     describe('onMouseEnter', function () {
       it('should trigger onHover and onActivate', function () {
-        wrapper.find(StyledButton).first().simulate('mouseenter')
-        expect(onActivateSpy).toHaveBeenCalledWith(mapImage)
+        wrapper.find(StyledAnchor).first().simulate('mouseenter')
+        expect(onActivateSpy).toHaveBeenCalledWith(location)
         expect(wrapper.find(StyledHr).length).toBe(1)
       })
     })
 
     describe('onMouseLeave', function () {
       it('should trigger onHover and onActivate', function () {
-        wrapper.find(StyledButton).first().simulate('mouseleave')
+        wrapper.find(StyledAnchor).first().simulate('mouseleave')
         expect(onActivateSpy).toHaveBeenCalledWith(null)
         expect(wrapper.find(StyledHr).length).toBe(0)
       })
