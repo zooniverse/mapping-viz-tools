@@ -6,6 +6,7 @@ const theme = {
     colors: {
       border: 'black',
       kelp: '#113E3B',
+      indiglo: '#EEFEC0',
       sand: '#F5F4F1',
       text: {
         dark: '#222222',
@@ -47,7 +48,17 @@ const theme = {
         }
       `
     }
+  },
+  checkBox: {
+    border: {
+      width: '1px'
+    },
+    check: {
+      radius: 0
+    },
+    gap: '0.25em',
+    size: '0.75rem',
   }
 }
 
-export default merge({}, zooTheme, theme);
+export default merge({}, theme, zooTheme);
