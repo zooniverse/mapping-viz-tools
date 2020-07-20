@@ -34,7 +34,7 @@ export default function MapLabel({ location, onActivate }) {
   return (
     <Box direction='row'>
       <StyledAnchor
-        href='#'
+        href='/map'
         label={location.label}
         onBlur={deactivate}
         onFocus={activate}
