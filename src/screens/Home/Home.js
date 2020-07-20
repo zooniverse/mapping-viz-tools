@@ -18,7 +18,7 @@ export default function Home() {
         basis='1/4'
         border={{ color: 'kelp', side: 'right', size: 'large' }}
       >
-        <Image a11yTitle='Kelp Background' fit='cover' src={Kelp} />
+        <Image alt='Kelp Background' fit='cover' src={Kelp} />
       </Box>
 
       <Box gap='medium'>
