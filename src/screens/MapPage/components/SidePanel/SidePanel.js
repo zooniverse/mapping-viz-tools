@@ -9,6 +9,7 @@ import {
 } from 'grommet'
 import Logo from 'images/logo.png'
 import RectangleIcon from 'images/rectangle_icon.svg'
+import Map from 'images/map.png'
 import styled from 'styled-components'
 
 const StyledButton = styled(Button)`
@@ -36,7 +37,7 @@ export default function SidePanel() {
       pad='small'
       width='15rem'
     >
-      <Box gap='xsmall' margin={{ bottom: 'xsmall' }} width='10rem'>
+      <Box margin={{ bottom: 'xsmall' }} width='10rem'>
         <Image fit='contain' margin={{ right: 'auto' }} src={Logo} />
         <StyledText color='kelp' size='xlarge'>
           Falkland Islands
@@ -46,7 +47,7 @@ export default function SidePanel() {
 
       <Box
         border={{ color: 'kelp', side: 'horizontal', size: 'xsmall' }}
-        gap='xsmall'
+        gap='0.25rem'
         pad={{ vertical: 'small' }}
       >
         <Text color='kelp'>Getting started</Text>
@@ -62,13 +63,21 @@ export default function SidePanel() {
         />
       </Box>
 
-      <Box gap='xsmall' margin={{ vertical: 'small' }}>
+      <Box gap='0.25rem' margin={{ vertical: 'small' }}>
         <Text color='kelp'>Dig deeper</Text>
         <Text size='xsmall'>
           Toggle additional data layers to see how environmental factors affect
           kelp forests.
         </Text>
         <CheckBox label={<Text color='kelp' size='xsmall'>WIND SPEED</Text>} />
+        <CheckBox label={<Text color='kelp' size='xsmall'>TEMPERATURE DATA</Text>} />
+        <CheckBox label={<Text color='kelp' size='xsmall'>WIND DATA</Text>} />
+        <CheckBox label={<Text color='kelp' size='xsmall'>SATELLITE IMAGERY</Text>} />
+      </Box>
+
+      <Box border={{ color: 'kelp', side: 'top' }}>
+        <Text color='kelp' margin={{ top: 'xsmall' }}>World map</Text>
+        <Image src={Map} />
       </Box>
     </Box>
   )
