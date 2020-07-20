@@ -1,7 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="762px" height="355px" viewBox="0 0 762 355" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>646B4B12-CAE8-49AE-962A-EBD8CE33CEB0</title>
-    <g id="visual" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+import React from 'react'
+
+export default function TitleLogo () {
+  return (
+    <g id="visual" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
         <g id="title" transform="translate(-498.000000, -107.000000)" fill="#113E3B">
             <g transform="translate(457.000000, 35.000000)">
                 <g transform="translate(41.000000, 72.000000)">
@@ -45,4 +46,5 @@
             </g>
         </g>
     </g>
-</svg>
+  )
+}

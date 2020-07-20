@@ -1,8 +1,7 @@
 import React from 'react'
 import { Box, Image, Text } from 'grommet'
 import Kelp from 'images/kelp.png'
-import Title from 'images/title.svg'
-import ResponsiveImage from 'components/ResponsiveImage'
+import MappingVizLogo from 'components/MappingVizLogo'
 import styled from 'styled-components'
 import ChooseLocation from './components/ChooseLocation'
 import { ZooniverseLogotype } from '@zooniverse/react-components'
@@ -27,7 +26,7 @@ export default function Home() {
           width={{ max: '40rem' }}
         >
           <ZooniverseLogotype />
-          <ResponsiveImage a11yTitle='Floating Forests: Mapping Visualizations' src={Title} />
+          <MappingVizLogo id='MappingVizualizationsLogo' />
         </Box>
 
         <Box
