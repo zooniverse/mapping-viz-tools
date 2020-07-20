@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box, Text } from 'grommet'
 import styled from 'styled-components'
-import withThemeContext from 'helpers/withThemeContext'
+import { withThemeContext } from '@zooniverse/react-components'
 import Map from 'images/hover-map.png'
 import ResponsiveImage from 'components/ResponsiveImage'
 import MapLabel from './components/MapLabel'
