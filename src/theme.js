@@ -47,6 +47,11 @@ const theme = {
         }
       `
     }
+  },
+  anchor: {
+    color: 'black',
+    fontWeight: 'medium',
+    textDecoration: 'underline'
   }
 }
 
