@@ -4,7 +4,7 @@ import SidePanel from './components/SidePanel'
 
 export default function MapPage() {
   return (
-    <Box direction='row' fill>
+    <Box direction='row' height='auto'>
       <SidePanel />
       <Box>
         <Text>I am a map</Text>
