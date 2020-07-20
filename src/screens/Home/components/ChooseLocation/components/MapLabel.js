@@ -50,7 +50,7 @@ MapLabel.propTypes = {
   location: shape({
     label: string,
     map: string
-  }),
+  }).isRequired,
   onActivate: func
 }
 

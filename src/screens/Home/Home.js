@@ -1,6 +1,5 @@
 import React from 'react'
-import { Box, Image, Text } from 'grommet'
-import Kelp from 'images/kelp.png'
+import { Box, Text } from 'grommet'
 import MappingVizLogo from 'components/MappingVizLogo'
 import styled from 'styled-components'
 import ChooseLocation from './components/ChooseLocation'
@@ -15,10 +14,9 @@ export default function Home() {
     <Box background='sand' direction='row'>
       <Box
         basis='1/4'
+        background={{ image: 'url(/kelp.png)' }}
         border={{ color: 'kelp', side: 'right', size: 'large' }}
-      >
-        <Image alt='Kelp Background' fit='cover' src={Kelp} />
-      </Box>
+      />
 
       <Box gap='medium'>
         <Box
