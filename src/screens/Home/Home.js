@@ -11,14 +11,14 @@ const StyledText = styled(Text)`
 
 export default function Home() {
   return (
-    <Box background='sand' direction='row'>
+    <Box background='sand' direction='row' height={{ min: '100%' }}>
       <Box
         basis='1/4'
         background={{ image: 'url(/kelp.png)' }}
         border={{ color: 'kelp', side: 'right', size: 'large' }}
       />
 
-      <Box gap='medium'>
+      <Box gap='medium' justify='between'>
         <Box
           margin={{ horizontal: 'medium', top: 'large' }}
           width={{ max: '40rem' }}
