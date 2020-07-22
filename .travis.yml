@@ -10,7 +10,7 @@ branches:
 cache: yarn
 
 install:
-  -yarn install
+  - yarn install
 
 script:
   - yarn test
