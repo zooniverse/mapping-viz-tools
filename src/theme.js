@@ -66,4 +66,4 @@ const theme = {
   }
 }
 
-export default merge({}, theme, zooTheme);
+export default merge({}, zooTheme, theme);

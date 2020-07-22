@@ -4,25 +4,19 @@ import {
   Button,
   CheckBox,
   Image,
-  Menu,
   Text
 } from 'grommet'
 import Logo from 'images/logo.png'
 import RectangleIcon from 'images/rectangle_icon.svg'
 import Map from 'images/map.png'
 import styled from 'styled-components'
+import LocationDrop from '../LocationDrop'
 
 const StyledButton = styled(Button)`
   background: #EEFEC0;
   box-shadow: 0px 2.5px 5px gray;
   padding: 0.5em;
   width: 10rem;
-`
-
-const StyledMenu = styled(Menu)`
-  div {
-    padding: 0;
-  }
 `
 
 const StyledText = styled(Text)`
@@ -37,17 +31,17 @@ export default function SidePanel() {
       pad='small'
       width='15rem'
     >
-      <Box margin={{ bottom: 'xsmall' }} width='10rem'>
+      <Box gap='xsmall' margin={{ bottom: 'small' }} width='10rem'>
         <Image fit='contain' margin={{ right: 'auto' }} src={Logo} />
         <StyledText color='kelp' size='xlarge'>
           Falkland Islands
         </StyledText>
-        <StyledMenu color='kelp' label='Choose Location' />
+        <LocationDrop />
       </Box>
 
       <Box
         border={{ color: 'kelp', side: 'horizontal', size: 'xsmall' }}
-        gap='0.25rem'
+        gap='xsmall'
         pad={{ vertical: 'small' }}
       >
         <Text color='kelp'>Getting started</Text>
@@ -63,7 +57,7 @@ export default function SidePanel() {
         />
       </Box>
 
-      <Box gap='0.25rem' margin={{ vertical: 'small' }}>
+      <Box gap='xsmall' margin={{ vertical: 'small' }}>
         <Text color='kelp'>Dig deeper</Text>
         <Text size='xsmall'>
           Toggle additional data layers to see how environmental factors affect
@@ -75,7 +69,7 @@ export default function SidePanel() {
         <CheckBox label={<Text color='kelp' size='xsmall'>SATELLITE IMAGERY</Text>} />
       </Box>
 
-      <Box border={{ color: 'kelp', side: 'top' }}>
+      <Box border={{ color: 'kelp', side: 'top' }} gap='xsmall'>
         <Text color='kelp' margin={{ top: 'xsmall' }}>World map</Text>
         <Image src={Map} />
       </Box>
