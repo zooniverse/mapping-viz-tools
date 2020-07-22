@@ -49,7 +49,6 @@ const theme = {
       `
     }
   },
-<<<<<<< HEAD
   anchor: {
     color: 'black',
     fontWeight: 'medium',
