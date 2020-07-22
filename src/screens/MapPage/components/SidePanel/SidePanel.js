@@ -13,7 +13,6 @@ import styled from 'styled-components'
 import LocationDrop from '../LocationDrop'
 
 const StyledButton = styled(Button)`
-  background: #EEFEC0;
   box-shadow: 0px 2.5px 5px gray;
   padding: 0.5em;
   width: 10rem;
@@ -50,10 +49,12 @@ export default function SidePanel() {
           area of the map you'd like to learn more about
         </Text>
         <StyledButton
-          color='indiglo'
+          color='kelp'
           gap='xsmall'
+          hoverIndicator={{ color: 'indiglo' }}
           icon={<Image src={RectangleIcon} />}
           label={<Text size='xsmall'>RECTANGLE TOOL</Text>}
+          plain
         />
       </Box>
 
