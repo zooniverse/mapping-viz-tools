@@ -1,3 +1,4 @@
+import { css } from 'styled-components'
 import zooTheme from '@zooniverse/grommet-theme'
 import merge from 'lodash/merge'
 
@@ -59,11 +60,16 @@ const theme = {
       width: '1px'
     },
     check: {
-      radius: 0
+      radius: '0'
     },
+    extend: css`
+      div {
+        background-color: #ffffff;
+      }
+    `,
     gap: '0.25em',
     size: '0.75rem',
   }
 }
 
-export default merge({}, zooTheme, theme);
+export default merge({}, zooTheme, theme)

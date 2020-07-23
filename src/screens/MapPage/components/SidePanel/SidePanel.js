@@ -13,6 +13,7 @@ import styled from 'styled-components'
 import LocationDrop from '../LocationDrop'
 
 const StyledButton = styled(Button)`
+  background: white;
   box-shadow: 0px 2.5px 5px gray;
   padding: 0.5em;
   width: 10rem;
@@ -73,7 +74,7 @@ export default function SidePanel() {
         </Box>
 
         <Box border={{ color: 'kelp', side: 'top' }} gap='xsmall'>
-          <Text color='kelp' margin={{ top: 'xsmall' }}>World map</Text>
+          <Text color='kelp' margin={{ top: 'small' }}>World map</Text>
           <Image src={Map} />
         </Box>
       </Box>
