@@ -11,6 +11,7 @@ import styled from 'styled-components'
 import { Close } from 'grommet-icons'
 import FalklandsMap from 'images/falk_map.png'
 import Charts from './components/Charts'
+import Timeline from './components/Timeline'
 
 const StyledText = styled(Text)`
   font-family: Neuton;
@@ -43,7 +44,7 @@ export default function MapDetail() {
       </Box>
 
       <Box direction='row' gap='medium'>
-        <Box basis='2/3'>
+        <Box basis='2/3' gap='xsmall'>
           <Box>
             <Heading level='4'>Falkland Islands</Heading>
             <Box direction='row' justify='between'>
@@ -57,6 +58,7 @@ export default function MapDetail() {
               <Image src={FalklandsMap} />
             </Box>
           </Box>
+          <Timeline />
         </Box>
 
         <Box basis='1/3' gap='small'>
