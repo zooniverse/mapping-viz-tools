@@ -22,7 +22,7 @@ export default function MapDetail() {
   return (
     <Box
       background='sand'
-      border='kelp'
+      border={{ color: 'kelp' }}
       gap='medium'
       pad={{ horizontal: 'medium', vertical: 'small' }}
     >
