@@ -10,6 +10,7 @@ import {
 import styled from 'styled-components'
 import { Close } from 'grommet-icons'
 import FalklandsMap from 'images/falk_map.png'
+import AssociatedSubjects from './components/AssociatedSubjects'
 import Charts from './components/Charts'
 import Timeline from './components/Timeline'
 
@@ -68,6 +69,7 @@ export default function MapDetail() {
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
           </Text>
           <Charts />
+          <AssociatedSubjects />
         </Box>
       </Box>
     </Box>
