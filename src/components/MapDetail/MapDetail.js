@@ -14,8 +14,21 @@ import AssociatedSubjects from './components/AssociatedSubjects'
 import Charts from './components/Charts'
 import Timeline from './components/Timeline'
 
+const StyledHeading = styled(Heading)`
+  font-family: Neuton;
+`
+
 const StyledText = styled(Text)`
   font-family: Neuton;
+`
+
+const HeadingTwo = styled(StyledHeading)`
+  font-size: 2.5rem;
+  font-weight: 300;
+`
+
+const Uppercase = styled(Text)`
+  text-transform: uppercase;
 `
 
 export default function MapDetail() {
@@ -32,13 +45,19 @@ export default function MapDetail() {
         justify='between'
         pad={{ vertical: 'small' }}
       >
-        <StyledText size='large'>Map Detail</StyledText>
+        <StyledHeading
+          color='kelp'
+          level='4'
+          margin='none'
+        >
+          Map Detail
+        </StyledHeading>
         <Button
           alignSelf='end'
           color='kelp'
           gap='xsmall'
           icon={<Close color='black' size='small' />}
-          label={<Text size='xsmall'>Close</Text>}
+          label={<Uppercase size='xsmall'>Close</Uppercase>}
           plain
           reverse
         />
@@ -46,14 +65,20 @@ export default function MapDetail() {
 
       <Box direction='row' gap='medium'>
         <Box basis='2/3' gap='xsmall'>
-          <Box>
-            <Heading level='4'>Falkland Islands</Heading>
-            <Box direction='row' justify='between'>
+          <Box gap='xsmall'>
+            <HeadingTwo
+              color='kelp'
+              level='2'
+              margin='none'
+            >
+              Falkland Islands
+            </HeadingTwo>
+            <Box align='center' direction='row' justify='between'>
               <Box direction='row' gap='small'>
-                <Text>51&#176;42'S 57&#176;51'W</Text>
-                <Text>3492 SQ MI / 9044 SQ KM</Text>
+                <Text color='kelp'>51&#176;42'S 57&#176;51'W</Text>
+                <Text color='kelp'>3492 SQ MI / 9044 SQ KM</Text>
               </Box>
-              <CheckBox label='SUBJECT GRID' />
+              <CheckBox label={<Uppercase color='kelp'>Subject Grid</Uppercase>} />
             </Box>
             <Box border={{ color: 'kelp' }} elevation='small'>
               <Image src={FalklandsMap} />
@@ -62,12 +87,12 @@ export default function MapDetail() {
           <Timeline />
         </Box>
 
-        <Box basis='1/3' gap='small'>
+        <Box basis='1/3' gap='xsmall'>
           <Text color='kelp'>Additional data</Text>
-          <Text>
+          <StyledText>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-          </Text>
+          </StyledText>
           <Charts />
           <AssociatedSubjects />
         </Box>

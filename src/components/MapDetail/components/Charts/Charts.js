@@ -13,6 +13,7 @@ export default function Charts() {
       ]}
       columns={['1/2', '1/2']}
       gap='xsmall'
+      margin={{ bottom: 'xsmall' }}
       rows={['1/2', '1/2']}
     >
       <Chart gridArea="Graph1" text='Kelp Over Time' />

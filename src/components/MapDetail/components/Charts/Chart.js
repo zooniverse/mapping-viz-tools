@@ -11,7 +11,9 @@ const Uppercase = styled(Text)`
 export default function Chart({ text = '' }) {
   return (
     <Box gap='xsmall'>
-      <Image src={Graph} />
+      <Box border={{ color: 'kelp' }}>
+        <Image src={Graph} />
+      </Box>
       <Uppercase color='kelp'>{text}</Uppercase>
     </Box>
   )

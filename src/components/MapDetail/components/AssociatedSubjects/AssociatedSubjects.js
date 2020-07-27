@@ -10,9 +10,13 @@ const Uppercase = styled(Text)`
 
 export default function AssociatedSubjects() {
   return (
-    <Box gap='xsmall'>
+    <Box
+      border={{ color: 'kelp', side: 'top' }}
+      gap='xsmall'
+      pad={{ top: 'medium' }}
+    >
       <Box align='center' direction='row' justify='between'>
-        <Text color='kelp'>Associated Subjects (32)</Text>
+        <Text color='kelp'>Associated Zooniverse Subjects (32)</Text>
         <Button
           gap='0.2em'
           icon={<FormNext size='small' />}
