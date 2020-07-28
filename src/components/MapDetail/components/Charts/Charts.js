@@ -11,10 +11,10 @@ export default function Charts() {
         { name: 'Graph3', start: [1, 0], end: [1, 0] },
         { name: 'Graph4', start: [1, 1], end: [1, 1] },
       ]}
-      columns={['1/2', '1/2']}
+      columns={['auto', 'auto']}
       gap='xsmall'
-      margin={{ bottom: 'xsmall' }}
-      rows={['1/2', '1/2']}
+      margin={{ bottom: 'xxsmall' }}
+      rows={['auto', 'auto']}
     >
       <Chart gridArea="Graph1" text='Kelp Over Time' />
       <Chart gridArea="Graph2" text='Wind Patterns' />

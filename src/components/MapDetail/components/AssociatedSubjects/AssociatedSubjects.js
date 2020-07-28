@@ -13,7 +13,8 @@ export default function AssociatedSubjects() {
     <Box
       border={{ color: 'kelp', side: 'top' }}
       gap='xsmall'
-      pad={{ top: 'medium' }}
+      pad={{ top: 'small' }}
+      width='medium'
     >
       <Box align='center' direction='row' justify='between'>
         <Text color='kelp'>Associated Zooniverse Subjects (32)</Text>
@@ -25,7 +26,7 @@ export default function AssociatedSubjects() {
           reverse
         />
       </Box>
-      <Image src={Subjects} />
+      <Image fit='contain' src={Subjects} />
     </Box>
   )
 }

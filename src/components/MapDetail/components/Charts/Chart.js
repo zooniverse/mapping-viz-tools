@@ -1,8 +1,9 @@
 import React from 'react'
-import { Box, Image, Text } from 'grommet'
+import { Box, Text } from 'grommet'
 import Graph from 'images/graph.png'
 import { string } from 'prop-types'
 import styled from 'styled-components'
+import ResponsiveImage from 'components/ResponsiveImage'
 
 const Uppercase = styled(Text)`
   text-transform: uppercase;
@@ -10,10 +11,8 @@ const Uppercase = styled(Text)`
 
 export default function Chart({ text = '' }) {
   return (
-    <Box gap='xsmall'>
-      <Box border={{ color: 'kelp' }}>
-        <Image src={Graph} />
-      </Box>
+    <Box gap='xxsmall'>
+      <ResponsiveImage border src={Graph} />
       <Uppercase color='kelp'>{text}</Uppercase>
     </Box>
   )

@@ -4,7 +4,6 @@ import {
   Button,
   CheckBox,
   Heading,
-  Image,
   Text
 } from 'grommet'
 import styled from 'styled-components'
@@ -13,6 +12,7 @@ import FalklandsMap from 'images/falk_map.png'
 import AssociatedSubjects from './components/AssociatedSubjects'
 import Charts from './components/Charts'
 import Timeline from './components/Timeline'
+import ResponsiveImage from 'components/ResponsiveImage'
 
 const StyledHeading = styled(Heading)`
   font-family: Neuton;
@@ -36,8 +36,10 @@ export default function MapDetail() {
     <Box
       background='sand'
       border={{ color: 'kelp' }}
+      fill
       gap='medium'
-      pad={{ horizontal: 'medium', vertical: 'small' }}
+      pad={{ horizontal: 'large', vertical: 'xsmall' }}
+      width={{ max: '70rem' }}
     >
       <Box
         border={{ color: 'kelp', side: 'bottom' }}
@@ -63,8 +65,8 @@ export default function MapDetail() {
         />
       </Box>
 
-      <Box direction='row' gap='medium'>
-        <Box basis='2/3' gap='xsmall'>
+      <Box direction='row' gap='large'>
+        <Box gap='xsmall'>
           <Box gap='xsmall'>
             <HeadingTwo
               color='kelp'
@@ -80,14 +82,12 @@ export default function MapDetail() {
               </Box>
               <CheckBox label={<Uppercase color='kelp'>Subject Grid</Uppercase>} />
             </Box>
-            <Box border={{ color: 'kelp' }} elevation='small'>
-              <Image src={FalklandsMap} />
-            </Box>
+            <ResponsiveImage border src={FalklandsMap} />
           </Box>
           <Timeline />
         </Box>
 
-        <Box basis='1/3' gap='xsmall'>
+        <Box basis='40%' gap='xsmall'>
           <Text color='kelp'>Additional data</Text>
           <StyledText>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
