@@ -4,6 +4,7 @@ import { Close } from 'grommet-icons'
 import styled from 'styled-components'
 import data from './mockData'
 import Satellite from 'images/satellite_map.png'
+import ConditionalLink from './components/ConditionalLink'
 
 const Uppercase = styled(Text)`
   text-transform: uppercase;
@@ -44,7 +45,7 @@ export default function Metadata() {
                 <Uppercase color='kelp'>{key}</Uppercase>
               </Box>
               <Box basis='2/3'>
-                <Text color='kelp'>{value}</Text>
+                <ConditionalLink color='kelp' text={value} />
               </Box>
             </Box>
           )
