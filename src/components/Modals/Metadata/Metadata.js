@@ -35,19 +35,21 @@ export default function Metadata() {
       >
         <Image fit='contain' src={Satellite} />
       </Box>
-      {Object.entries(data).map(datum => {
-        const [key, value] = datum
-        return (
-          <Box direction='row' gap='xsmall'>
-            <Box align='end' basis='1/3'>
-              <Uppercase color='kelp'>{key}</Uppercase>
+      <Box gap='xsmall' overflow={{ vertical: 'auto' }}>
+        {Object.entries(data).map(datum => {
+          const [key, value] = datum
+          return (
+            <Box direction='row' gap='xsmall'>
+              <Box align='end' basis='1/3'>
+                <Uppercase color='kelp'>{key}</Uppercase>
+              </Box>
+              <Box basis='2/3'>
+                <Text color='kelp'>{value}</Text>
+              </Box>
             </Box>
-            <Box basis='2/3'>
-              <Text color='kelp'>{value}</Text>
-            </Box>
-          </Box>
-        )
-      })}
+          )
+        })}
+      </Box>
     </Box>
   )
 }
