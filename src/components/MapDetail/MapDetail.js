@@ -28,6 +28,7 @@ const HeadingTwo = styled(StyledHeading)`
 `
 
 const Uppercase = styled(Text)`
+  letter-spacing: 1.23px;
   text-transform: uppercase;
 `
 
@@ -77,8 +78,8 @@ export default function MapDetail() {
             </HeadingTwo>
             <Box align='center' direction='row' justify='between'>
               <Box direction='row' gap='small'>
-                <Text color='kelp'>51&#176;42'S 57&#176;51'W</Text>
-                <Text color='kelp'>3492 SQ MI / 9044 SQ KM</Text>
+                <Uppercase color='kelp'>51&#176;42'S 57&#176;51'W</Uppercase>
+                <Uppercase color='kelp'>3492 SQ MI / 9044 SQ KM</Uppercase>
               </Box>
               <CheckBox label={<Uppercase color='kelp'>Subject Grid</Uppercase>} />
             </Box>
