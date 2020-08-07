@@ -22,4 +22,4 @@ services:
       - ${PWD}/src:/usr/src/src
     environment:
       - CI=true
-    command: yarn test-docker
+    command: yarn test
