@@ -3,6 +3,12 @@ language: node_js
 node_js:
   - '10'
 
+addons:
+  chrome: stable
+
+before_install:
+  - yarn global add @lhci/cli@0.4.x
+
 branches:
   only:
     - master
@@ -13,4 +19,6 @@ install:
   - yarn install
 
 script:
+  - yarn build
+  - lhci autorun
   - yarn test
