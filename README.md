@@ -18,6 +18,10 @@ Launches the test runner in the interactive watch mode.
 
 Builds the app for production to the `build` folder.
 
+### `yarn storybook`
+
+Launches the Storybook viewer at [http://localhost:9009/](http://localhost:9009/)
+
 ## Analyze the Bundle
 
 Uses [source-map-explorer](https://www.npmjs.com/package/source-map-explorer) to visually analyze the bundle for bloats.  
