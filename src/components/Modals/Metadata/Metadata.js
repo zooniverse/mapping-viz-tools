@@ -15,9 +15,10 @@ export default function Metadata() {
     <Box
       border={{ color: 'kelp' }}
       elevation='small'
-      gap='small'
+      gap='xsmall'
+      height='32rem'
       pad='medium'
-      width={{ max: '35rem' }}
+      width='27rem'
     >
       <Box direction='row' justify='between'>
         <Text>Subject Metadata</Text>
@@ -33,10 +34,11 @@ export default function Metadata() {
       <Box
         background='sand'
         border={{ color: 'kelp' }}
+        height={{ max: '16rem' }}
       >
         <Image fit='contain' src={Satellite} />
       </Box>
-      <Box gap='xsmall' overflow={{ vertical: 'auto' }}>
+      <Box gap='xxsmall' overflow={{ vertical: 'auto' }}>
         {Object.entries(data).map(datum => {
           const [key, value] = datum
           return (
