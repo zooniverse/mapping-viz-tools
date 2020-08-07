@@ -21,7 +21,7 @@ export default function Metadata() {
       width='27rem'
     >
       <Box direction='row' justify='between'>
-        <Text>Subject Metadata</Text>
+        <Text color='kelp'>Subject Metadata</Text>
         <Button
           gap='xsmall'
           icon={<Close color='black' size='small' />}
