@@ -2,6 +2,7 @@ import React from 'react'
 import { Box, Button, Image, Text } from 'grommet'
 import { Close } from 'grommet-icons'
 import styled from 'styled-components'
+import { PlainButton } from '@zooniverse/react-components'
 import data from './mockData'
 import Satellite from 'images/satellite_map.png'
 import ConditionalLink from './components/ConditionalLink'
@@ -22,12 +23,10 @@ export default function Metadata() {
     >
       <Box direction='row' justify='between'>
         <Text color='kelp'>Subject Metadata</Text>
-        <Button
-          gap='xsmall'
+        <PlainButton
           icon={<Close color='black' size='small' />}
           label={<Uppercase color='kelp' size='small'>Close</Uppercase>}
           onClick={() => console.log('Close the modal')}
-          plain
           reverse
         />
       </Box>
