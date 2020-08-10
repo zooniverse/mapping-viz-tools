@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Button, Image, Text } from 'grommet'
+import { Box, Image, Text } from 'grommet'
 import { Close } from 'grommet-icons'
 import styled from 'styled-components'
 import { PlainButton } from '@zooniverse/react-components'
