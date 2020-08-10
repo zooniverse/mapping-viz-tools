@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Image, Text } from 'grommet'
+import { Box, DataTable, Image, Text } from 'grommet'
 import { Close } from 'grommet-icons'
 import styled from 'styled-components'
 import { PlainButton } from '@zooniverse/react-components'
@@ -7,9 +7,24 @@ import data from './mockData'
 import Satellite from 'images/satellite_map.png'
 import ConditionalLink from './components/ConditionalLink'
 
+const StyledDataTable = styled(DataTable)`
+  width: 100%;
+
+  thead { display: none; }
+  th { text-align: right; }
+`
+
 const Uppercase = styled(Text)`
   text-transform: uppercase;
 `
+
+const columns = [{
+  property: 'key',
+  render: datum => <Uppercase color='kelp' weight='bold'>{datum.key}</Uppercase>
+}, {
+  property: 'value',
+  render: datum => <ConditionalLink color='kelp' text={datum.value} />
+}]
 
 export default function Metadata() {
   return (
@@ -18,7 +33,7 @@ export default function Metadata() {
       elevation='small'
       gap='xsmall'
       height='32rem'
-      pad='medium'
+      pad={{ horizontal: 'medium', vertical: 'small' }}
       width='27rem'
     >
       <Box direction='row' justify='between'>
@@ -37,20 +52,12 @@ export default function Metadata() {
       >
         <Image fit='contain' src={Satellite} />
       </Box>
-      <Box gap='xxsmall' overflow={{ vertical: 'auto' }}>
-        {Object.entries(data).map(datum => {
-          const [key, value] = datum
-          return (
-            <Box direction='row' gap='xsmall'>
-              <Box align='end' basis='1/3'>
-                <Uppercase color='kelp'>{key}</Uppercase>
-              </Box>
-              <Box basis='2/3'>
-                <ConditionalLink color='kelp' text={value} />
-              </Box>
-            </Box>
-          )
-        })}
+      <Box overflow={{ vertical: 'auto' }}>
+        <StyledDataTable
+          columns={columns}
+          data={data}
+          pad={{ horizontal: 'xxsmall' }}
+        />
       </Box>
     </Box>
   )

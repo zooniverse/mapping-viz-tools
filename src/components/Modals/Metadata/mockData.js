@@ -1,11 +1,11 @@
-const data = {
-  map_link: 'http://maps.google.com/maps?',
-  sensor_id: 'OLI_TIRS',
-  center_lat: '25.556547906085438',
-  center_lon: '-112.12049702154756',
-  spacecraft: 'LANDSAT_8',
-  acquired_date: '2016-09-16',
-  acquired_time: '17:54:16:4310090Z'
-}
+const data = [
+  { key: 'map_link', value: 'http://maps.google.com/maps?' },
+  { key: 'sensor_id', value: 'OLI_TIRS' },
+  { key: 'center_lat', value: '25.556547906085438' },
+  { key: 'center_lon', value: '-112.12049702154756' },
+  { key: 'spacecraft', value: 'LANDSAT_8' },
+  { key: 'acquired_date', value: '2016-09-16' },
+  { key: 'acquired_time', value: '17:54:16:4310090Z' }
+]
 
 export default data
