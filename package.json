@@ -29,7 +29,7 @@
     "start": "react-scripts start",
     "storybook": "start-storybook -p 9009 -s public",
     "test": "react-scripts test --coverage --watchAll=false",
-    "test-pa11y": "./node_modules/.bin/pa11y-ci"
+    "test-pa11y": "pa11y-ci"
   },
   "eslintConfig": {
     "extends": "react-app"
