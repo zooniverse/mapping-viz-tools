@@ -1,0 +1,12 @@
+{
+  "defaults": {
+    "chromeLaunchConfig": {
+      "ignoreHTTPSErrors": true
+    },
+    "timeout": 5000
+  },
+  "urls": [
+    "https://localhost:4000/",
+    "https://localhost:4000/map"
+  ]
+}
