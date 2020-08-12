@@ -52,6 +52,6 @@
     "@storybook/addons": "^5.3.19",
     "@storybook/preset-create-react-app": "^3.1.4",
     "@storybook/react": "^5.3.19",
-    "pa11y-ci": "~1.0",
+    "pa11y-ci": "~1.0"
   }
 }
