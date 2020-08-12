@@ -13,4 +13,4 @@ install:
   - yarn install
 
 script:
-  - yarn test; yarn start & sleep 5; yarn test-pa11y
+  - yarn test; yarn start & sleep 10; yarn test-pa11y
