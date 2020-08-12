@@ -20,5 +20,5 @@ install:
 
 script:
   - yarn build
-  - lhci autorun
+  - lhci autorun --rc-overrides.upload.target=temporary-public-storage
   - yarn test
