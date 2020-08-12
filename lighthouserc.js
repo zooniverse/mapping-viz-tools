@@ -1,8 +1,10 @@
 module.exports = {
   ci: {
     collect: {
-      chromeFlags: ['--ignore-certificate-errors'],
       url: ['https://localhost:4000/'],
+      settings: {
+        chromeFlags: '--ignore-certificate-errors',
+      },
       startServerCommand: 'yarn start'
     },
     upload: {
