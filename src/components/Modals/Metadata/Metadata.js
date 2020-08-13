@@ -27,7 +27,6 @@ const columns = [{
 }]
 
 export default function Metadata() {
-  console.log(PlainButton);
   return (
     <Box
       border={{ color: 'kelp' }}
