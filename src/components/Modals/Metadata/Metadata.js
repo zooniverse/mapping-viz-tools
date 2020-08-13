@@ -27,6 +27,7 @@ const columns = [{
 }]
 
 export default function Metadata() {
+  console.log(PlainButton);
   return (
     <Box
       border={{ color: 'kelp' }}
@@ -40,8 +41,8 @@ export default function Metadata() {
         <Text color='kelp'>Subject Metadata</Text>
         <PlainButton
           icon={<Close color='black' size='small' />}
-          label={<Uppercase color='kelp' size='small'>Close</Uppercase>}
           onClick={() => console.log('Close the modal')}
+          text='Close'
           reverse
         />
       </Box>
