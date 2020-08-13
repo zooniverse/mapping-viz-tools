@@ -2,10 +2,13 @@ import { css } from 'styled-components'
 import zooTheme from '@zooniverse/grommet-theme'
 import merge from 'lodash/merge'
 
+const brand = '#113E3B'
+
 const theme = {
   global: {
     colors: {
       border: 'black',
+      brand,
       kelp: '#113E3B',
       indiglo: '#EEFEC0',
       sand: '#F5F4F1',
