@@ -1,17 +1,21 @@
 import React from 'react'
-import { Box, Button, Image, Text } from 'grommet'
-import { Close, FormNext, FormPrevious } from 'grommet-icons'
+import { Anchor, Box, Button, Image, Text } from 'grommet'
+import { Close } from 'grommet-icons'
 import { number } from 'prop-types'
 import { PlainButton } from '@zooniverse/react-components'
 import Map from 'images/satellite_map.png'
 import styled from 'styled-components'
+
+const Neuton = styled(Text)`
+  font-family: Neuton;
+`
 
 const StyledText = styled(Text)`
   vertical-align: middle;
 `
 
 const mockSubjects = new Array(19)
-mockSubjects.fill({ alt: 'Falkland Islands Map', src: Map })
+mockSubjects.fill({ alt: 'Falkland Islands Map', link: '#', src: Map })
 
 const chunk = (arr, size) => {
   return Array.from(
@@ -28,13 +32,14 @@ export default function Subjects ({ subjects = mockSubjects }) {
   return (
     <Box
       border
+      elevation='small'
       gap='xsmall'
       height='25em'
       pad='small'
       width='medium'
     >
       <Box direction='row' justify='between'>
-        <Text>Associated subjects ({subjects.length})</Text>
+        <Text color='kelp'>Associated subjects ({subjects.length})</Text>
         <PlainButton
           icon={<Close color='black' size='small' />}
           onClick={() => console.log('Close the modal')}
@@ -42,7 +47,7 @@ export default function Subjects ({ subjects = mockSubjects }) {
           reverse
         />
       </Box>
-      <Text>Click a subject to view it on Zooniverse Talk</Text>
+      <Neuton>Click a subject to view it on Zooniverse Talk</Neuton>
       <Box
         direction='row'
         justify='between'
@@ -57,7 +62,13 @@ export default function Subjects ({ subjects = mockSubjects }) {
               margin={{ bottom: 'xsmall' }}
               height='5.5em'
             >
-              <Image fit='contain' src={subject.src} />
+              <Anchor href={subject.link}>
+                <Image
+                  fit='contain'
+                  src={subject.src}
+                  width='100%'
+                />
+              </Anchor>
             </Box>
           )
         })}
@@ -68,6 +79,7 @@ export default function Subjects ({ subjects = mockSubjects }) {
         margin={{ horizontal: 'auto', top: 'auto' }}
       >
         <Button
+          disabled={subjectIndex === 0}
           label={<StyledText size='0.5em'>&#9664;</StyledText>}
           onClick={() => changeSubjectIndex(0)}
           plain
@@ -81,6 +93,7 @@ export default function Subjects ({ subjects = mockSubjects }) {
           )
         })}
         <Button
+          disabled={subjectIndex === lastIndex}
           label={<StyledText size='0.5em'>&#9654;</StyledText>}
           onClick={() => changeSubjectIndex(lastIndex)}
           plain
