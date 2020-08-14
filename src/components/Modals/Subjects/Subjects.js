@@ -87,7 +87,7 @@ export default function Subjects ({ subjects = mockSubjects }) {
         {chunkedSubjects.map((subj, i) => {
           const char = i === subjectIndex ? `\u25CF` : `\u25CB`
           return (
-            <Button onClick={() => changeSubjectIndex(i)}>
+            <Button key={`SUBJECTS_${i}`} onClick={() => changeSubjectIndex(i)}>
              {char}
             </Button>
           )
