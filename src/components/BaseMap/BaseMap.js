@@ -12,8 +12,11 @@ export default function BaseMap() {
     return (
         <Relative>
             <Map 
-                center={[-51.75, -59.5]} 
-                zoom={8} 
+                center={[-51.75, -59.5]}
+                doubleClickZoom={false}
+                dragging={false}
+                zoom={8}
+                scrollWheelZoom={false}
                 style={{ width: '100%', height: '100%', position: 'absolute'}}
             >
                 <TileLayer
