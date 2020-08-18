@@ -22,7 +22,10 @@ export default function MapPage() {
 
       <Relative>
         <BaseMap />
-        <DrawingOverlay canDraw={canDraw} />
+        <DrawingOverlay
+          canDraw={canDraw}
+          changeDrawing={changeDrawing}
+        />
       </Relative>
     </Box>
   )

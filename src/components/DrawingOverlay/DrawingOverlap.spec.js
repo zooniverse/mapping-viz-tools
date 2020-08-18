@@ -1,6 +1,8 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import DrawingOverlay from './DrawingOverlay'
+import DrawingOverlay, { SVG } from './DrawingOverlay'
+import renderer from 'react-test-renderer'
+import 'jest-styled-components'
 
 describe('Components > DrawingOverlay', function () {
   let wrapper
@@ -11,6 +13,15 @@ describe('Components > DrawingOverlay', function () {
   
   it('should render without crashing', function () {
     expect(wrapper).toBeDefined()
+  })
+  
+  describe('props', function () {
+    it('should show a crosshair when able to draw', function () {
+      wrapper = shallow(<DrawingOverlay canDraw />)
+      const svg = wrapper.find(SVG).first()
+      const renderedSvg = renderer.create(svg).toJSON()
+      expect(renderedSvg).toHaveStyleRule('cursor', 'crosshair')
+    })
   })
   
   describe('functions', function () {
