@@ -1,4 +1,5 @@
 import React from 'react'
+import { bool } from 'prop-types'
 
 export default function DrawingOverlay({ canDraw = false }) {
     const [initCoords, setInitCoords] = React.useState({})
@@ -8,8 +9,7 @@ export default function DrawingOverlay({ canDraw = false }) {
 
     const getXY = (e) => {
         const ref = svgRef?.current
-        if (!ref) return
-        const boundingBox = ref.getBoundingClientRect();
+        const boundingBox = ref?.getBoundingClientRect();
         if (!boundingBox) return
         let clientX = e?.clientX || 0
         let clientY = e?.clientY || 0
@@ -21,8 +21,7 @@ export default function DrawingOverlay({ canDraw = false }) {
 
     const onMouseDown = (e) => {
         setIsDrawing(true)
-        let coords = getXY(e)
-        setInitCoords(coords)
+        setInitCoords(getXY(e))
     }   
     const onMouseMove = (e) => {
         if (!canDraw || !isDrawing) return
@@ -61,4 +60,8 @@ export default function DrawingOverlay({ canDraw = false }) {
             />
         </svg>
     )
+}
+
+DrawingOverlay.propTypes = {
+    canDraw: bool
 }

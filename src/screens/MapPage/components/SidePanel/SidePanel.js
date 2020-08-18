@@ -10,6 +10,7 @@ import Logo from 'images/logo.png'
 import RectangleIcon from 'images/rectangle_icon.svg'
 import Map from 'images/map.png'
 import styled, { css } from 'styled-components'
+import { bool, func } from 'prop-types'
 import LocationDrop from '../LocationDrop'
 
 const Uppercase = styled(Text)`
@@ -85,4 +86,9 @@ export default function SidePanel({ changeDrawing, isDrawing = false }) {
       </Box>
     </Box>
   )
+}
+
+SidePanel.propTypes = {
+  changeDrawing: func.isRequired,
+  isDrawing: bool
 }
