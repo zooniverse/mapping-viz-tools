@@ -9,7 +9,7 @@ import {
 import Logo from 'images/logo.png'
 import RectangleIcon from 'images/rectangle_icon.svg'
 import Map from 'images/map.png'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import LocationDrop from '../LocationDrop'
 
 const Uppercase = styled(Text)`
@@ -17,7 +17,7 @@ const Uppercase = styled(Text)`
 `
 
 const StyledButton = styled(Button)`
-  background: white;
+  ${props => props.isDrawing ? css`background: #EEFEC0;` : css`background: white;`}
   box-shadow: 0px 2.5px 5px gray;
   padding: 0.5em;
   width: 10rem;
@@ -27,7 +27,7 @@ const StyledText = styled(Text)`
   font-family: 'Neuton-Light';
 `
 
-export default function SidePanel() {
+export default function SidePanel({ changeDrawing, isDrawing = false }) {
   return (
     <Box
       as='aside'
@@ -65,7 +65,9 @@ export default function SidePanel() {
           gap='xsmall'
           hoverIndicator={{ color: 'indiglo' }}
           icon={<Image alt='Rectangle tool icon' src={RectangleIcon} />}
+          isDrawing={isDrawing}
           label={<Uppercase size='xsmall'>Rectangle Tool</Uppercase>}
+          onClick={() => changeDrawing(!isDrawing)}
           plain
         />
       </Box>
