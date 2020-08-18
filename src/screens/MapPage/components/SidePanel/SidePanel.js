@@ -17,7 +17,7 @@ const Uppercase = styled(Text)`
   text-transform: uppercase;
 `
 
-const StyledButton = styled(Button)`
+export const StyledButton = styled(Button)`
   ${props => props.isDrawing ? css`background: #EEFEC0;` : css`background: white;`}
   box-shadow: 0px 2.5px 5px gray;
   padding: 0.5em;
