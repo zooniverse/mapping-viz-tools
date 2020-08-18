@@ -1,6 +1,8 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import SidePanel, { StyledButton } from './SidePanel'
+import renderer from 'react-test-renderer'
+import 'jest-styled-components'
 
 describe('Component > SidePanel', function () {
   let wrapper
@@ -9,11 +11,20 @@ describe('Component > SidePanel', function () {
   beforeEach(function () {
     wrapper = shallow(<SidePanel changeDrawing={changeDrawingSpy} />)
   })
-
+  
   afterEach(() => jest.clearAllMocks());
-
+  
   it('should render without crashing', function () {
     expect(wrapper).toBeDefined()
+  })
+  
+  describe('when drawing', function () {
+    it('should change the button background', function () {
+      wrapper = shallow(<SidePanel isDrawing />)
+      let btn = wrapper.find(StyledButton).first()
+      const renderedBtn = renderer.create(btn).toJSON()
+      expect(renderedBtn).toHaveStyleRule('background', '#EEFEC0')
+    })
   })
 
   describe('use rectangle tool', function () {
