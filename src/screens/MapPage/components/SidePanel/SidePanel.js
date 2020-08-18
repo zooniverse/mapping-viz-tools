@@ -28,7 +28,7 @@ const StyledText = styled(Text)`
   font-family: 'Neuton-Light';
 `
 
-export default function SidePanel({ changeDrawing, isDrawing = false }) {
+export default function SidePanel({ changeDrawing = () => {}, isDrawing = false }) {
   return (
     <Box
       as='aside'
@@ -89,6 +89,6 @@ export default function SidePanel({ changeDrawing, isDrawing = false }) {
 }
 
 SidePanel.propTypes = {
-  changeDrawing: func.isRequired,
+  changeDrawing: func,
   isDrawing: bool
 }
