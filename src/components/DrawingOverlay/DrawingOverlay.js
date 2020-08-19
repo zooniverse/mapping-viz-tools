@@ -7,7 +7,12 @@ export const SVG = styled.svg`
     ${props => props.canDraw ? css`cursor: crosshair;` : css`cursor: default;`}
 `
 
-export default function DrawingOverlay({ canDraw = false, changeDrawing = () => {}, mapRef }) {
+export default function DrawingOverlay({
+    canDraw = false,
+    changeDrawing = () => {},
+    mapRef,
+    setCoords = () => {}
+}) {
     const [initCoords, setInitCoords] = React.useState({})
     const [rectangle, setRectangle] = React.useState({})
     const [isDrawing, setIsDrawing] = React.useState(false)
@@ -47,8 +52,7 @@ export default function DrawingOverlay({ canDraw = false, changeDrawing = () => 
         changeDrawing(false)
         
         if (mapRef && mapRef.current) {
-            let rectBounds = getRectBounds(mapRef, rectangle)
-            console.log(rectBounds)
+            setCoords(getRectBounds(mapRef, rectangle))
         }
         setRectangle({})
     }    
