@@ -12,6 +12,8 @@ const Relative = styled.div`
 
 export default function MapPage() {
   const [canDraw, changeDrawing] = React.useState(false)
+  const [popupCoords, setCoords] = React.useState(null)
+  const mapRef = React.useRef(null)
 
   return (
     <Box direction='row' height={{ min: '100%' }}>
@@ -21,10 +23,11 @@ export default function MapPage() {
       />
 
       <Relative>
-        <BaseMap />
+        <BaseMap ref={mapRef} />
         <DrawingOverlay
           canDraw={canDraw}
           changeDrawing={changeDrawing}
+          mapRef={mapRef}
         />
       </Relative>
     </Box>
