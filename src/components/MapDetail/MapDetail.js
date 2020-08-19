@@ -10,6 +10,7 @@ import {
 import styled from 'styled-components'
 import { Close } from 'grommet-icons'
 import FalklandsMap from 'images/falk_map.png'
+import { func } from 'prop-types'
 import AssociatedSubjects from './components/AssociatedSubjects'
 import Charts from './components/Charts'
 import Plot from './components/Plot'
@@ -34,14 +35,15 @@ const Uppercase = styled(Text)`
   text-transform: uppercase;
 `
 
-export default function MapDetail() {
+export default function MapDetail({ onClose = () => {} }) {
   return (
     <Box
       background='sand'
       border={{ color: 'kelp' }}
       gap='medium'
+      overflow='auto'
       pad={{ horizontal: 'large', vertical: 'xsmall' }}
-      width={{ max: '70rem' }}
+      width="60rem"
     >
       <Box
         border={{ color: 'kelp', side: 'bottom' }}
@@ -62,6 +64,7 @@ export default function MapDetail() {
           gap='xsmall'
           icon={<Close color='black' size='small' />}
           label={<Uppercase size='xsmall'>Close</Uppercase>}
+          onClick={onClose}
           plain
           reverse
         />
@@ -99,4 +102,8 @@ export default function MapDetail() {
       </Box>
     </Box>
   )
+}
+
+MapDetail.propTypes = {
+  onClose: func
 }
