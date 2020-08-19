@@ -7,7 +7,7 @@ const brand = '#113E3B'
 const theme = {
   global: {
     colors: {
-      border: 'black',
+      border: brand,
       brand,
       kelp: '#113E3B',
       indiglo: '#EEFEC0',
