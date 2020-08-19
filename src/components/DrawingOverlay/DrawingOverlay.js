@@ -1,17 +1,18 @@
 import React from 'react'
-import { bool, func } from 'prop-types'
+import { bool, func, object, shape } from 'prop-types'
 import styled, { css } from 'styled-components'
+import getRectBounds from 'helpers/getRectBounds'
 
 export const SVG = styled.svg`
 	${props => props.canDraw ? css`cursor: crosshair;` : css`cursor: default;`}
   touch-action: none;
 `
 
-export default function DrawingOverlay({ canDraw = false, changeDrawing = () => {} }) {
-  const [initCoords, setInitCoords] = React.useState({})
-  const [rectangle, setRectangle] = React.useState(null)
-  const [isDrawing, setIsDrawing] = React.useState(false)
-  const svgRef = React.useRef(null)
+export default function DrawingOverlay({ canDraw = false, changeDrawing = () => {}, mapRef }) {
+    const [initCoords, setInitCoords] = React.useState({})
+    const [rectangle, setRectangle] = React.useState(null)
+    const [isDrawing, setIsDrawing] = React.useState(false)
+    const svgRef = React.useRef(null)
 
   const getXY = (e) => {
     const ref = svgRef?.current
@@ -47,6 +48,12 @@ export default function DrawingOverlay({ canDraw = false, changeDrawing = () => 
 	const onPointerUp = (e) => {
 		setIsDrawing(false)
 		changeDrawing(false)
+
+		if (mapRef && mapRef.current) {
+			let rectBounds = getRectBounds(mapRef, rectangle)
+			console.log(rectBounds)
+		}
+
 		setRectangle(null)
 	}    
 
@@ -76,5 +83,8 @@ export default function DrawingOverlay({ canDraw = false, changeDrawing = () => 
 
 DrawingOverlay.propTypes = {
 	canDraw: bool,
-	changeDrawing: func
+	changeDrawing: func,
+	mapRef: shape({
+		current: object
+	})
 }
