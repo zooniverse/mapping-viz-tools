@@ -81,7 +81,7 @@ export default function Subjects ({ subjects = mockSubjects }) {
         <Button
           disabled={subjectIndex === 0}
           label={<StyledText size='0.5em'>&#9664;</StyledText>}
-          onClick={() => changeSubjectIndex(0)}
+          onClick={() => changeSubjectIndex(subjectIndex - 1)}
           plain
         />
         {chunkedSubjects.map((subj, i) => {
@@ -95,7 +95,7 @@ export default function Subjects ({ subjects = mockSubjects }) {
         <Button
           disabled={subjectIndex === lastIndex}
           label={<StyledText size='0.5em'>&#9654;</StyledText>}
-          onClick={() => changeSubjectIndex(lastIndex)}
+          onClick={() => changeSubjectIndex(subjectIndex + 1)}
           plain
         />
       </Box>
