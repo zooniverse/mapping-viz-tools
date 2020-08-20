@@ -94,8 +94,9 @@ export default function MapDetail({ coordinates, onClose = () => {} }) {
             style={{ position: 'relative' }}
           >
             <Map 
-              bounds={[[coordinates.minLat, coordinates.maxLng], [coordinates.maxLat, coordinates.minLng]]}
+              bounds={[coordinates.southWest, coordinates.northEast]}
               style={{ width: coordinates.width, height: coordinates.height }}
+              zoomSnap={0}
             >
               <TileLayer
                   attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
