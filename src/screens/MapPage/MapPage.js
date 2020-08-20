@@ -21,6 +21,7 @@ export default function MapPage() {
       {miniMapCoords && (
         <Layer>
           <MapDetail
+            coordinates={miniMapCoords}
             onClose={() => setCoords(null)}
           />
         </Layer>

@@ -48,6 +48,8 @@ export default function DrawingOverlay({
         setRectangle(newRect) 
     }    
     const onMouseUp = (e) => {
+        if (!canDraw || !isDrawing) return
+
         setIsDrawing(false)
         changeDrawing(false)
         
