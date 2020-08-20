@@ -1,3 +1,17 @@
+function getAspectSize(rectangle) {
+    let height, width
+
+    if (rectangle.height > rectangle.width) {
+        height = '100%'
+        width = `${rectangle.width / rectangle.height * 100}%`
+    } else {
+        height = `${rectangle.height / rectangle.width * 100}%`
+        width = '100%'
+    }
+
+    return { height, width }
+}
+
 function getUnknownValue(bounds, input, range, minVal, maxVal) {
     let percent = input / bounds
     let increment = percent * range
@@ -7,6 +21,7 @@ function getUnknownValue(bounds, input, range, minVal, maxVal) {
 export default function getRectBounds(mapRef, rectangle) {
     const refDim = mapRef?.current?.container.getBoundingClientRect()
     const mapBounds = mapRef?.current?.leafletElement.getBounds()
+    const aspectSize = getAspectSize(rectangle)
 
     let mapMinLat = mapBounds._northEast.lat
     let mapMaxLat = mapBounds._southWest.let
@@ -20,5 +35,5 @@ export default function getRectBounds(mapRef, rectangle) {
     let minLat = getUnknownValue(refDim.height, rectangle.y, latRange, mapMinLat, mapMaxLat)
     let maxLat = getUnknownValue(refDim.height, rectangle.y + rectangle.height, latRange, mapMinLat, mapMaxLat)
 
-    return { minLng, maxLng, minLat, maxLat }
+    return { minLng, maxLng, minLat, maxLat, ...aspectSize }
 }

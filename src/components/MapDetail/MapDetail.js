@@ -9,13 +9,12 @@ import {
 } from 'grommet'
 import styled from 'styled-components'
 import { Close } from 'grommet-icons'
-import FalklandsMap from 'images/falk_map.png'
-import { func } from 'prop-types'
+import { func, number, shape } from 'prop-types'
 import AssociatedSubjects from './components/AssociatedSubjects'
 import Charts from './components/Charts'
 import Plot from './components/Plot'
 import Timeline from './components/Timeline'
-import ResponsiveImage from 'components/ResponsiveImage'
+import { Map, TileLayer } from 'react-leaflet'
 
 const StyledHeading = styled(Heading)`
   font-family: Neuton;
@@ -35,7 +34,7 @@ const Uppercase = styled(Text)`
   text-transform: uppercase;
 `
 
-export default function MapDetail({ onClose = () => {} }) {
+export default function MapDetail({ coordinates, onClose = () => {} }) {
   return (
     <Box
       background='sand'
@@ -86,6 +85,24 @@ export default function MapDetail({ onClose = () => {} }) {
             </Box>
             <CheckBox label={<Uppercase color='kelp'>Subject Grid</Uppercase>} />
           </Box>
+          <Box
+            align='center'
+            background='gray'
+            border={{ color: 'kelp' }}
+            flex
+            justify='center'
+            style={{ position: 'relative' }}
+          >
+            <Map 
+              bounds={[[coordinates.minLat, coordinates.maxLng], [coordinates.maxLat, coordinates.minLng]]}
+              style={{ width: coordinates.width, height: coordinates.height }}
+            >
+              <TileLayer
+                  attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
+            </Map>
+          </Box>
           <ResponsiveImage border src={FalklandsMap} />
           <Timeline />
         </Box>
@@ -105,5 +122,11 @@ export default function MapDetail({ onClose = () => {} }) {
 }
 
 MapDetail.propTypes = {
+  coordinates: shape({
+    minLat: number,
+    minLng: number,
+    maxLat: number,
+    maxLng: number,
+  }),
   onClose: func
 }

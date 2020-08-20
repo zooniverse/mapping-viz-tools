@@ -51,6 +51,8 @@ export default function DrawingOverlay({
 	}    
 
 	const onPointerUp = (e) => {
+		if (!canDraw || !isDrawing) return
+
 		setIsDrawing(false)
 		changeDrawing(false)
 
