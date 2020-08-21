@@ -29,8 +29,8 @@ describe('Components > DrawingOverlay', function () {
       it('should not draw a rectangle', function () {
         let eventOne = { clientX: 100, clientY: 100 }
         let eventTwo = { clientX: 200, clientY: 200 }
-        wrapper.simulate('mousedown', eventOne)
-        wrapper.simulate('mousemove', eventTwo)
+        wrapper.simulate('pointerdown', eventOne)
+        wrapper.simulate('pointermove', eventTwo)
         let rect = wrapper.find('rect').first()
         
         expect(rect.props().x).toBe(undefined)
@@ -52,13 +52,13 @@ describe('Components > DrawingOverlay', function () {
         wrapper = shallow(<DrawingOverlay canDraw />)
         let eventOne = { clientX: 100, clientY: 100 }
         let eventTwo = { clientX: 200, clientY: 200 }
-        wrapper.simulate('mousedown', eventOne)
-        wrapper.simulate('mousemove', eventTwo)
+        wrapper.simulate('pointerdown', eventOne)
+        wrapper.simulate('pointermove', eventTwo)
         let rect = wrapper.find('rect').first()
         expect(rect.props().x).toBe(eventOne.clientX)
         expect(rect.props().y).toBe(eventOne.clientY)
         
-        wrapper.simulate('mouseup')
+        wrapper.simulate('pointerup')
         let rectSecondInstance = wrapper.find('rect').first()
         expect(rectSecondInstance.props().x).toBe(undefined)
         expect(rectSecondInstance.props().y).toBe(undefined)

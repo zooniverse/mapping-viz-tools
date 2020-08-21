@@ -4,6 +4,7 @@ import styled, { css } from 'styled-components'
 
 export const SVG = styled.svg`
     ${props => props.canDraw ? css`cursor: crosshair;` : css`cursor: default;`}
+    touch-action: none;
 `
 
 export default function DrawingOverlay({ canDraw = false, changeDrawing = () => {} }) {
@@ -24,11 +25,11 @@ export default function DrawingOverlay({ canDraw = false, changeDrawing = () => 
         return { x, y }
     }
 
-    const onMouseDown = (e) => {
+    const onPointerDown = (e) => {
         setIsDrawing(true)
         setInitCoords(getXY(e))
     }   
-    const onMouseMove = (e) => {
+    const onPointerMove = (e) => {
         if (!canDraw || !isDrawing) return
         let newCoords = getXY(e)
         let width = Math.abs(newCoords.x - initCoords.x) || 0
@@ -41,7 +42,7 @@ export default function DrawingOverlay({ canDraw = false, changeDrawing = () => 
         }
         setRectangle(newRect) 
     }    
-    const onMouseUp = (e) => {
+    const onPointerUp = (e) => {
         setIsDrawing(false)
         changeDrawing(false)
         setRectangle({})
@@ -50,9 +51,9 @@ export default function DrawingOverlay({ canDraw = false, changeDrawing = () => 
     return (
         <SVG
             canDraw={canDraw}
-            onMouseDown={onMouseDown}
-            onMouseMove={onMouseMove}
-            onMouseUp={onMouseUp}
+            onPointerDown={onPointerDown}
+            onPointerMove={onPointerMove}
+            onPointerUp={onPointerUp}
             ref={svgRef}
             style={{ width: '100%', height: '100%', position: 'absolute', zIndex: '1000' }}
         >
