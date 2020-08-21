@@ -62,6 +62,7 @@ export default function SidePanel({ changeDrawing = () => {}, isDrawing = false 
           area of the map you'd like to learn more about
         </Text>
         <StyledButton
+          aria-checked={isDrawing}
           color='kelp'
           gap='xsmall'
           hoverIndicator={{ color: 'indiglo' }}
@@ -70,6 +71,7 @@ export default function SidePanel({ changeDrawing = () => {}, isDrawing = false 
           label={<Uppercase size='xsmall'>Rectangle Tool</Uppercase>}
           onClick={() => changeDrawing(!isDrawing)}
           plain
+          role='checkbox'          
         />
       </Box>
 
