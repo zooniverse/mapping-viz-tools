@@ -31,10 +31,8 @@ describe('Components > DrawingOverlay', function () {
         let eventTwo = { clientX: 200, clientY: 200 }
         wrapper.simulate('pointerdown', eventOne)
         wrapper.simulate('pointermove', eventTwo)
-        let rect = wrapper.find('rect').first()
-        
-        expect(rect.props().x).toBe(undefined)
-        expect(rect.props().y).toBe(undefined)
+        let rect = wrapper.find('rect')
+        expect(rect.length).toBe(0)
       })
     })
     
@@ -59,9 +57,8 @@ describe('Components > DrawingOverlay', function () {
         expect(rect.props().y).toBe(eventOne.clientY)
         
         wrapper.simulate('pointerup')
-        let rectSecondInstance = wrapper.find('rect').first()
-        expect(rectSecondInstance.props().x).toBe(undefined)
-        expect(rectSecondInstance.props().y).toBe(undefined)
+        let rectSecondInstance = wrapper.find('rect')
+        expect(rectSecondInstance.length).toBe(0)
       })
     })
   })

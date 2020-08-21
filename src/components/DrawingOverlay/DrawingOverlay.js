@@ -9,7 +9,7 @@ export const SVG = styled.svg`
 
 export default function DrawingOverlay({ canDraw = false, changeDrawing = () => {} }) {
     const [initCoords, setInitCoords] = React.useState({})
-    const [rectangle, setRectangle] = React.useState({})
+    const [rectangle, setRectangle] = React.useState(null)
     const [isDrawing, setIsDrawing] = React.useState(false)
     const svgRef = React.useRef(null)
 
@@ -45,7 +45,7 @@ export default function DrawingOverlay({ canDraw = false, changeDrawing = () => 
     const onPointerUp = (e) => {
         setIsDrawing(false)
         changeDrawing(false)
-        setRectangle({})
+        setRectangle(null)
     }    
 
     return (
@@ -57,15 +57,17 @@ export default function DrawingOverlay({ canDraw = false, changeDrawing = () => 
             ref={svgRef}
             style={{ width: '100%', height: '100%', position: 'absolute', zIndex: '1000' }}
         >
-            <rect
-                x={rectangle.x}
-                y={rectangle.y}
-                width={rectangle.width}
-                height={rectangle.height}
-                fill='transparent'
-                stroke='#AFFF00'
-                strokeWidth='2'
-            />
+            {rectangle && (
+                <rect
+                    x={rectangle.x}
+                    y={rectangle.y}
+                    width={rectangle.width}
+                    height={rectangle.height}
+                    fill='transparent'
+                    stroke='#AFFF00'
+                    strokeWidth='2'
+                />
+            )}
         </SVG>
     )
 }
