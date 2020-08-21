@@ -22,6 +22,13 @@ describe('Components > DrawingOverlay', function () {
       const renderedSvg = renderer.create(svg).toJSON()
       expect(renderedSvg).toHaveStyleRule('cursor', 'crosshair')
     })
+
+    it('should show a default cursor when unable to draw', function () {
+      wrapper = shallow(<DrawingOverlay />)
+      const svg = wrapper.find(SVG).first()
+      const renderedSvg = renderer.create(svg).toJSON()
+      expect(renderedSvg).toHaveStyleRule('cursor', 'default')
+    })
   })
   
   describe('functions', function () {
