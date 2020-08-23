@@ -64,6 +64,7 @@ export default function Subjects ({ subjects = mockSubjects }) {
             >
               <Anchor href={subject.link}>
                 <Image
+                  alt={subject.alt}
                   fit='contain'
                   src={subject.src}
                   width='100%'

@@ -26,7 +26,7 @@ export default function AssociatedSubjects() {
           reverse
         />
       </Box>
-      <Image fit='contain' src={Subjects} />
+      <Image alt='Subjects associated with this location' fit='contain' src={Subjects} />
     </Box>
   )
 }

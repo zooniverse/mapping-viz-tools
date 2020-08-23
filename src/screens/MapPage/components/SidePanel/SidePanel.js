@@ -38,7 +38,12 @@ export default function SidePanel() {
       width='15rem'
     >
       <Box gap='xsmall' margin={{ bottom: 'small' }} width='10rem'>
-        <Image fit='contain' margin={{ right: 'auto' }} src={Logo} />
+        <Image
+          alt='Floating Forests logo'
+          fit='contain'
+          margin={{ right: 'auto' }}
+          src={Logo}
+        />
         <StyledText color='kelp' size='xlarge'>
           Falkland Islands
         </StyledText>
@@ -59,7 +64,7 @@ export default function SidePanel() {
           color='kelp'
           gap='xsmall'
           hoverIndicator={{ color: 'indiglo' }}
-          icon={<Image src={RectangleIcon} />}
+          icon={<Image alt='Rectangle tool icon' src={RectangleIcon} />}
           label={<Uppercase size='xsmall'>Rectangle Tool</Uppercase>}
           plain
         />
@@ -79,7 +84,7 @@ export default function SidePanel() {
 
       <Box border={{ color: 'kelp', side: 'top' }} gap='xsmall'>
         <Text color='kelp' margin={{ top: 'small' }}>World map</Text>
-        <Image src={Map} />
+        <Image alt='Current location on a world map' src={Map} />
       </Box>
     </Box>
   )
