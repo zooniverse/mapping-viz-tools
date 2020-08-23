@@ -50,7 +50,7 @@ export default function Metadata() {
         border={{ color: 'kelp' }}
         height={{ max: '16rem' }}
       >
-        <Image fit='contain' src={Satellite} />
+        <Image alt='Satellite Map of Falklands' fit='contain' src={Satellite} />
       </Box>
       <Box overflow={{ vertical: 'auto' }}>
         <StyledDataTable
