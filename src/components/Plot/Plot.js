@@ -2,14 +2,29 @@ import React from 'react'
 import { Box } from 'grommet'
 import { Line } from '@nivo/line'
 
-function getAverages() {
-	
+function getAverages(data) {
+	let pos = 0
+	let total = 0
+
+	return data.map(datum => {
+		total += datum.y
+		pos += 1
+		return {
+			x: datum.x,
+			y: Math.round((total / pos) * 100) / 100 
+		}
+	})
 }
 
 const commonProperties = {
-	width: 900,
-	height: 400,
-	margin: { top: 20, right: 20, bottom: 60, left: 80 },
+	width: 400,
+	height: 200,
+	margin: {
+		top: 20,
+		right: 20,
+		bottom: 60,
+		left: 80
+	}
 }
 
 const mockData = [
@@ -24,44 +39,37 @@ const mockData = [
 	{ x: '2020', y: 84 },
 ]
 
+const years = ['1980', '1985', '1990', '1995', '2000', '2005', '2010', '2015', '2020']
+
 export default function Plot() {
-	const average = getAverages(mockData)
-	
+	const averages = getAverages(mockData)
+
 	return (
 		<div>
 			<Box width='5em' height='5em'>
 				<Line
 					{...commonProperties}
-					isInteractive={false}
 					axisLeft={{
-            orient: 'left',
+						orient: 'left',
 						legend: 'temperature',
 						legendOffset: -40,
-						legendPosition: 'middle'
+						legendPosition: 'middle',
+						tickValues: 5
 					}}
+					yScale={{ type: 'linear', min: 'auto', max: 'auto', stacked: false }}
 					axisBottom={{
-            orient: 'bottom',
+           	orient: 'bottom',
 						legend: 'time',
 						legendOffset: 36,
-            legendPosition: 'middle'
+						legendPosition: 'middle'
 					}}
 					data={[
 						{
-							id: 'bing bong land',
-							data: [
-								{ x: '1980', y: 60 },
-								{ x: '1985', y: 65 },
-								{ x: '1990', y: 62 },
-								{ x: '1995', y: 64 },
-								{ x: '2000', y: 69 },
-								{ x: '2005', y: 63 },
-								{ x: '2010', y: 77 },
-								{ x: '2015', y: 79 },
-								{ x: '2020', y: 84 },
-							]
+							id: 'Average',
+							data: averages
 						},
 						{
-							id: 'fake corp. B',
+							id: 'Temperature',
 							data: mockData,
 						},
 					]}
