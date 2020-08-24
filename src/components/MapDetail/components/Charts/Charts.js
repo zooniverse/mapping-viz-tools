@@ -1,6 +1,7 @@
 import React from 'react'
 import { Grid } from 'grommet'
 import Chart from './Chart'
+import Plot from '../Plot'
 
 export default function Charts() {
   return (
@@ -11,15 +12,15 @@ export default function Charts() {
         { name: 'Graph3', start: [1, 0], end: [1, 0] },
         { name: 'Graph4', start: [1, 1], end: [1, 1] },
       ]}
-      columns={['auto', 'auto']}
-      gap='xsmall'
+      columns={['1/2', '1/2']}
+      gap='xxsmall'
       margin={{ bottom: 'xxsmall' }}
-      rows={['auto', 'auto']}
+      rows={['flex', 'flex']}
     >
-      <Chart gridArea="Graph1" text='Kelp Over Time' />
-      <Chart gridArea="Graph2" text='Wind Patterns' />
-      <Chart gridArea="Graph3" text='Temperature' />
-      <Chart gridArea="Graph4" text='Wave Patterns' />
+      <Plot gridArea="Graph1" text='Kelp Over Time' />
+      <Plot gridArea="Graph2" text='Wind Patterns' />
+      <Plot gridArea="Graph3" text='Temperature' />
+      <Plot gridArea="Graph4" text='Wave Patterns' />
     </Grid>
   )
 }

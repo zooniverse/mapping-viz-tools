@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box } from 'grommet'
-import { Line } from '@nivo/line'
+import { Line, ResponsiveLine } from '@nivo/line'
 
 function getAverages(data) {
 	let pos = 0
@@ -17,13 +17,11 @@ function getAverages(data) {
 }
 
 const commonProperties = {
-	width: 400,
-	height: 200,
 	margin: {
-		top: 20,
-		right: 20,
-		bottom: 60,
-		left: 80
+		top: 5,
+		right: 12,
+		bottom: 24,
+		left: 25
 	}
 }
 
@@ -41,27 +39,42 @@ const mockData = [
 
 const years = ['1980', '1985', '1990', '1995', '2000', '2005', '2010', '2015', '2020']
 
+const theme = {
+	fontSize: 8,
+	axis: {
+		legend: {
+			text: {
+				fontSize: 8
+			}
+		}
+	}
+};
+
 export default function Plot() {
 	const averages = getAverages(mockData)
 
 	return (
 		<div>
-			<Box width='5em' height='5em'>
-				<Line
+			<Box background='white' border={{ color: 'kelp' }} width='100%' height='5em'>
+				<ResponsiveLine
 					{...commonProperties}
 					axisLeft={{
 						orient: 'left',
-						legend: 'temperature',
-						legendOffset: -40,
+						legend: 'temp',
+						legendOffset: -20,
 						legendPosition: 'middle',
-						tickValues: 5
+						tickSize: 0,
+						tickValues: 4
 					}}
 					yScale={{ type: 'linear', min: 'auto', max: 'auto', stacked: false }}
+					yScale={{ type: 'linear', min: 'auto', max: 'auto', stacked: false }}
 					axisBottom={{
-           	orient: 'bottom',
+						orient: 'bottom',
 						legend: 'time',
-						legendOffset: 36,
-						legendPosition: 'middle'
+						legendOffset: 18,
+						legendPosition: 'middle',
+						tickSize: 0,
+						tickValues: ['1980', '2000', '2020']
 					}}
 					data={[
 						{
@@ -73,6 +86,7 @@ export default function Plot() {
 							data: mockData,
 						},
 					]}
+					theme={theme}
 				/>
 			</Box>
 		</div>

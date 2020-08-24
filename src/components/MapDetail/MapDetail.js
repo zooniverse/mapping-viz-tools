@@ -11,6 +11,7 @@ import { Close } from 'grommet-icons'
 import FalklandsMap from 'images/falk_map.png'
 import AssociatedSubjects from './components/AssociatedSubjects'
 import Charts from './components/Charts'
+import Plot from './components/Plot'
 import Timeline from './components/Timeline'
 import ResponsiveImage from 'components/ResponsiveImage'
 
@@ -66,7 +67,7 @@ export default function MapDetail() {
         />
       </Box>
 
-      <Box direction='row' gap='large'>
+      <Box direction='row' gap='small'>
         <Box gap='xsmall'>
           <Box gap='xsmall'>
             <HeadingTwo
