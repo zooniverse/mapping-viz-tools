@@ -1,20 +1,13 @@
 import React from 'react'
-import { Box } from 'grommet'
+import { Box, Text } from 'grommet'
 import { Line, ResponsiveLine } from '@nivo/line'
+import { string } from 'prop-types'
+import getAverages from 'helpers/getAverages'
+import styled from 'styled-components'
 
-function getAverages(data) {
-	let pos = 0
-	let total = 0
-
-	return data.map(datum => {
-		total += datum.y
-		pos += 1
-		return {
-			x: datum.x,
-			y: Math.round((total / pos) * 100) / 100 
-		}
-	})
-}
+const Uppercase = styled(Text)`
+	text-transform: uppercase;
+`
 
 const commonProperties = {
 	margin: {
@@ -50,12 +43,17 @@ const theme = {
 	}
 };
 
-export default function Plot() {
+export default function Plot({ title }) {
 	const averages = getAverages(mockData)
 
 	return (
-		<div>
-			<Box background='white' border={{ color: 'kelp' }} width='100%' height='5em'>
+		<Box>
+			<Box
+				background='white'
+				border={{ color: 'kelp' }}
+				height='5em'
+				width={{ max: '10em' }}
+			>
 				<ResponsiveLine
 					{...commonProperties}
 					axisLeft={{
@@ -89,6 +87,11 @@ export default function Plot() {
 					theme={theme}
 				/>
 			</Box>
-		</div>
+			<Uppercase color='kelp'>{title}</Uppercase>
+		</Box>
 	)
+}
+
+Plot.propTypes = {
+	title: string
 }

@@ -15,12 +15,12 @@ export default function Charts() {
       columns={['1/2', '1/2']}
       gap='xxsmall'
       margin={{ bottom: 'xxsmall' }}
-      rows={['flex', 'flex']}
+      rows={['auto', 'auto']}
     >
-      <Plot gridArea="Graph1" text='Kelp Over Time' />
-      <Plot gridArea="Graph2" text='Wind Patterns' />
-      <Plot gridArea="Graph3" text='Temperature' />
-      <Plot gridArea="Graph4" text='Wave Patterns' />
+      <Plot gridArea="Graph1" title='Kelp Over Time' />
+      <Plot gridArea="Graph2" title='Wind Patterns' />
+      <Plot gridArea="Graph3" title='Temperature' />
+      <Plot gridArea="Graph4" title='Wave Patterns' />
     </Grid>
   )
 }
