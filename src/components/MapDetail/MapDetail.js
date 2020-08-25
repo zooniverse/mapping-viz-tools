@@ -4,6 +4,7 @@ import {
   Button,
   CheckBox,
   Heading,
+  Image,
   Text
 } from 'grommet'
 import styled from 'styled-components'
@@ -38,7 +39,6 @@ export default function MapDetail() {
     <Box
       background='sand'
       border={{ color: 'kelp' }}
-      fill
       gap='medium'
       pad={{ horizontal: 'large', vertical: 'xsmall' }}
       width={{ max: '70rem' }}
@@ -67,29 +67,27 @@ export default function MapDetail() {
         />
       </Box>
 
-      <Box direction='row' gap='small'>
+      <Box direction='row' gap='medium'>
         <Box gap='xsmall'>
-          <Box gap='xsmall'>
-            <HeadingTwo
-              color='kelp'
-              level='2'
-              margin='none'
-            >
-              Falkland Islands
-            </HeadingTwo>
-            <Box align='center' direction='row' justify='between'>
-              <Box direction='row' gap='small'>
-                <Uppercase color='kelp'>51&#176;42'S 57&#176;51'W</Uppercase>
-                <Uppercase color='kelp'>3492 SQ MI / 9044 SQ KM</Uppercase>
-              </Box>
-              <CheckBox label={<Uppercase color='kelp'>Subject Grid</Uppercase>} />
+          <HeadingTwo
+            color='kelp'
+            level='2'
+            margin='none'
+          >
+            Falkland Islands
+          </HeadingTwo>
+          <Box align='center' direction='row' justify='between'>
+            <Box direction='row' gap='small'>
+              <Uppercase color='kelp'>51&#176;42'S 57&#176;51'W</Uppercase>
+              <Uppercase color='kelp'>3492 SQ MI / 9044 SQ KM</Uppercase>
             </Box>
-            <ResponsiveImage border src={FalklandsMap} />
+            <CheckBox label={<Uppercase color='kelp'>Subject Grid</Uppercase>} />
           </Box>
+          <ResponsiveImage border src={FalklandsMap} />
           <Timeline />
         </Box>
 
-        <Box basis='40%' gap='xsmall'>
+        <Box basis='45%' gap='xsmall'>
           <Text color='kelp'>Additional data</Text>
           <StyledText>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
