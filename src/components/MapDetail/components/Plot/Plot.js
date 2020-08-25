@@ -43,7 +43,7 @@ const theme = {
 	}
 };
 
-export default function Plot({ title }) {
+export default function Plot({ title = '' }) {
 	const averages = getAverages(mockData)
 
 	return (
