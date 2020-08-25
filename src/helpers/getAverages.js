@@ -1,4 +1,4 @@
-export default function getAverages(data) {
+export default function getAverages(data = []) {
 	let pos = 0
 	let total = 0
 
