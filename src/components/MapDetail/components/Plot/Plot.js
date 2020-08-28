@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box, Text } from 'grommet'
-import { Line, ResponsiveLine } from '@nivo/line'
+import { ResponsiveLine } from '@nivo/line'
 import { string } from 'prop-types'
 import getAverages from 'helpers/getAverages'
 import styled from 'styled-components'
@@ -29,8 +29,6 @@ const mockData = [
 	{ x: '2015', y: 79 },
 	{ x: '2020', y: 84 },
 ]
-
-const years = ['1980', '1985', '1990', '1995', '2000', '2005', '2010', '2015', '2020']
 
 const theme = {
 	fontSize: 8,
@@ -64,7 +62,6 @@ export default function Plot({ title = '' }) {
 						tickSize: 0,
 						tickValues: 4
 					}}
-					yScale={{ type: 'linear', min: 'auto', max: 'auto', stacked: false }}
 					yScale={{ type: 'linear', min: 'auto', max: 'auto', stacked: false }}
 					axisBottom={{
 						orient: 'bottom',

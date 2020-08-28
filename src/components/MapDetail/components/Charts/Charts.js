@@ -1,6 +1,5 @@
 import React from 'react'
 import { Grid } from 'grommet'
-import Chart from './Chart'
 import Plot from '../Plot'
 
 export default function Charts() {
