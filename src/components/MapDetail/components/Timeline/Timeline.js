@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text } from 'grommet'
+import { Box, Text } from 'grommet'
 import styled from 'styled-components'
 
 const StyledSVG = styled.svg`
@@ -8,7 +8,7 @@ const StyledSVG = styled.svg`
 
 export default function Timeline() {
   return (
-    <div>
+    <Box direction='column'>
       <Text color='kelp'>Time</Text>
       <StyledSVG
         height='100%'
@@ -40,6 +40,6 @@ export default function Timeline() {
           <text fill='#113E3B' fontSize='4' textAnchor='end' x='200' y='8'>2020</text>
         </g>
       </StyledSVG>
-    </div>
+    </Box>
   )
 }
