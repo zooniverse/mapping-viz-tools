@@ -4,7 +4,6 @@ import {
   Button,
   CheckBox,
   Heading,
-  Image,
   Text
 } from 'grommet'
 import styled from 'styled-components'
@@ -12,7 +11,6 @@ import { Close } from 'grommet-icons'
 import { func, number, shape } from 'prop-types'
 import AssociatedSubjects from './components/AssociatedSubjects'
 import Charts from './components/Charts'
-import Plot from './components/Plot'
 import Timeline from './components/Timeline'
 import { Map, TileLayer } from 'react-leaflet'
 
@@ -99,12 +97,11 @@ export default function MapDetail({ coordinates, onClose = () => {} }) {
               zoomSnap={0}
             >
               <TileLayer
-                  attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               />
             </Map>
           </Box>
-          <ResponsiveImage border src={FalklandsMap} />
           <Timeline />
         </Box>
 
@@ -122,12 +119,22 @@ export default function MapDetail({ coordinates, onClose = () => {} }) {
   )
 }
 
+MapDetail.defaultProps = {
+  coordinates: {
+    southWest: 0,
+    northEast: 0,
+    height: 0,
+    width: 0
+  },
+  onClose: () => {}
+}
+
 MapDetail.propTypes = {
   coordinates: shape({
-    minLat: number,
-    minLng: number,
-    maxLat: number,
-    maxLng: number,
+    southWest: number,
+    northEast: number,
+    height: number,
+    width: number
   }),
   onClose: func
 }
