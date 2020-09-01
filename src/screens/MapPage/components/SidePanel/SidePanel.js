@@ -9,15 +9,16 @@ import {
 import Logo from 'images/logo.png'
 import RectangleIcon from 'images/rectangle_icon.svg'
 import Map from 'images/map.png'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
+import { bool, func } from 'prop-types'
 import LocationDrop from '../LocationDrop'
 
 const Uppercase = styled(Text)`
   text-transform: uppercase;
 `
 
-const StyledButton = styled(Button)`
-  background: white;
+export const StyledButton = styled(Button)`
+  ${props => props.isDrawing ? css`background: #EEFEC0;` : css`background: white;`}
   box-shadow: 0px 2.5px 5px gray;
   padding: 0.5em;
   width: 10rem;
@@ -27,7 +28,7 @@ const StyledText = styled(Text)`
   font-family: 'Neuton-Light';
 `
 
-export default function SidePanel() {
+export default function SidePanel({ changeDrawing = () => {}, isDrawing = false }) {
   return (
     <Box
       as='aside'
@@ -61,12 +62,16 @@ export default function SidePanel() {
           area of the map you'd like to learn more about
         </Text>
         <StyledButton
+          aria-checked={isDrawing}
           color='kelp'
           gap='xsmall'
           hoverIndicator={{ color: 'indiglo' }}
           icon={<Image alt='Rectangle tool icon' src={RectangleIcon} />}
+          isDrawing={isDrawing}
           label={<Uppercase size='xsmall'>Rectangle Tool</Uppercase>}
+          onClick={() => changeDrawing(!isDrawing)}
           plain
+          role='checkbox'          
         />
       </Box>
 
@@ -88,4 +93,9 @@ export default function SidePanel() {
       </Box>
     </Box>
   )
+}
+
+SidePanel.propTypes = {
+  changeDrawing: func,
+  isDrawing: bool
 }
