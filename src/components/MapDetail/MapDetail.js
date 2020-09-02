@@ -68,7 +68,7 @@ export default function MapDetail({ coordinates, onClose = () => {} }) {
       </Box>
 
       <Box direction='row' gap='medium'>
-        <Box gap='xsmall'>
+        <Box basis='60%' gap='xsmall'>
           <HeadingTwo
             color='kelp'
             level='2'
@@ -77,11 +77,11 @@ export default function MapDetail({ coordinates, onClose = () => {} }) {
             Falkland Islands
           </HeadingTwo>
           <Box align='center' direction='row' justify='between'>
-            <Box direction='row' gap='small'>
-              <Uppercase color='kelp'>51&#176;42'S 57&#176;51'W</Uppercase>
-              <Uppercase color='kelp'>3492 SQ MI / 9044 SQ KM</Uppercase>
+            <Box direction='row' gap='xsmall'>
+              <Uppercase color='kelp' size='0.75rem'>51&#176;42'S 57&#176;51'W</Uppercase>
+              <Uppercase color='kelp' size='0.75rem'>3492 SQ MI / 9044 SQ KM</Uppercase>
             </Box>
-            <CheckBox label={<Uppercase color='kelp'>Subject Grid</Uppercase>} />
+            <CheckBox label={<Uppercase color='kelp' size='0.75rem'>Subject Grid</Uppercase>} />
           </Box>
           <Box
             align='center'
@@ -93,6 +93,9 @@ export default function MapDetail({ coordinates, onClose = () => {} }) {
           >
             <Map 
               bounds={[coordinates.southWest, coordinates.northEast]}
+              doubleClickZoom={false}
+              dragging={false}
+              scrollWheelZoom={false}
               style={{ width: coordinates.width, height: coordinates.height }}
               zoomSnap={0}
             >
@@ -105,7 +108,7 @@ export default function MapDetail({ coordinates, onClose = () => {} }) {
           <Timeline />
         </Box>
 
-        <Box basis='45%' gap='xsmall'>
+        <Box basis='40%' gap='xsmall'>
           <Text color='kelp'>Additional data</Text>
           <StyledText>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
