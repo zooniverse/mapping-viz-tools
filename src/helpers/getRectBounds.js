@@ -1,5 +1,7 @@
-function getAspectSize(rectangle) {
+export function getAspectSize(rectangle) {
     let height, width
+
+    if (!rectangle) return { height: '0%', width: '0%' }
 
     if (rectangle.height > rectangle.width) {
         height = '100%'
@@ -16,8 +18,8 @@ export default function getRectBounds(mapRef, rectangle) {
     const aspectSize = getAspectSize(rectangle)
 
     let map = mapRef?.current?.leafletElement
-    let northEast = map.layerPointToLatLng({ x: rectangle.x + rectangle.width, y: rectangle.y})
-    let southWest = map.layerPointToLatLng({ x: rectangle.x, y: rectangle.y + rectangle.height })
+    let northEast = map?.layerPointToLatLng({ x: rectangle.x + rectangle.width, y: rectangle.y}) || {}
+    let southWest = map?.layerPointToLatLng({ x: rectangle.x, y: rectangle.y + rectangle.height }) || {}
 
     return { northEast, southWest, ...aspectSize }
 }
