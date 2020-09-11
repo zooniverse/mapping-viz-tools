@@ -8,14 +8,21 @@ import {
 } from 'grommet'
 import styled from 'styled-components'
 import { Close } from 'grommet-icons'
-import { func, number, shape } from 'prop-types'
+import { func, number, shape, string } from 'prop-types'
 import AssociatedSubjects from './components/AssociatedSubjects'
 import Charts from './components/Charts'
 import Timeline from './components/Timeline'
 import { Map, TileLayer } from 'react-leaflet'
+import 'leaflet/dist/leaflet.css';
 
 const StyledHeading = styled(Heading)`
   font-family: Neuton;
+`
+
+const StyledMap = styled(Map)`
+  .leaflet-control-zoom {
+    display: none;
+  }
 `
 
 const StyledText = styled(Text)`
@@ -91,7 +98,7 @@ export default function MapDetail({ coordinates, onClose = () => {} }) {
             justify='center'
             style={{ position: 'relative' }}
           >
-            <Map 
+            <StyledMap 
               bounds={[coordinates.southWest, coordinates.northEast]}
               doubleClickZoom={false}
               dragging={false}
@@ -103,7 +110,7 @@ export default function MapDetail({ coordinates, onClose = () => {} }) {
                 attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               />
-            </Map>
+            </StyledMap>
           </Box>
           <Timeline />
         </Box>
@@ -124,20 +131,32 @@ export default function MapDetail({ coordinates, onClose = () => {} }) {
 
 MapDetail.defaultProps = {
   coordinates: {
-    southWest: 0,
-    northEast: 0,
-    height: 0,
-    width: 0
+    northEast: {
+      lat: -51.4,
+      lng: -59.5
+    },
+    southWest: {
+      lat: -52,
+      lng: -60.7
+    },
+    height: '100%',
+    width: '100%'
   },
   onClose: () => {}
 }
 
 MapDetail.propTypes = {
   coordinates: shape({
-    southWest: number,
-    northEast: number,
-    height: number,
-    width: number
+    northEast: shape({
+      lat: number,
+      lng: number
+    }),
+    southWest: shape({
+      lat: number,
+      lng: number
+    }),
+    height: string,
+    width: string
   }),
   onClose: func
 }
