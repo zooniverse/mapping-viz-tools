@@ -72,6 +72,9 @@ const theme = {
     `,
     gap: '0.25em',
     size: '0.75rem',
+  },
+  layer: {
+    zIndex: '1000'
   }
 }
 

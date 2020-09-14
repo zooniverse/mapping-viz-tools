@@ -2,15 +2,16 @@ import React from 'react'
 import { Map, TileLayer } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css';
 
-export default function BaseMap() {
+function BaseMap(props, ref) {
     return (
         <Map 
             center={[-51.75, -59.5]}
             doubleClickZoom={false}
             dragging={false}
-            zoom={8}
+            ref={ref}
             scrollWheelZoom={false}
             style={{ width: '100%', height: '100%', position: 'absolute'}}
+            zoom={8}
         >
             <TileLayer
                 attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -19,3 +20,5 @@ export default function BaseMap() {
         </Map>
     )
 }
+
+export default React.forwardRef(BaseMap)

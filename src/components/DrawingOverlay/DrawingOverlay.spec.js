@@ -46,15 +46,20 @@ describe('Components > DrawingOverlay', function () {
     describe('when able to draw', function () {
       it('should set the rectangle', function () {
         let clientRect = { left: 0, top: 0 }
-        let ref = {
+        let svgRef = {
           current: {
             getBoundingClientRect: () => clientRect
           }
         }
         jest
           .spyOn(React, 'useRef')
-          .mockImplementation(() => ref)
-        wrapper = shallow(<DrawingOverlay canDraw />)
+          .mockImplementation(() => svgRef)
+        let mapRef = { current: {} }
+        wrapper = shallow(
+          <DrawingOverlay
+            canDraw
+            mapRef={mapRef}
+          />)
         let eventOne = { clientX: 100, clientY: 100 }
         let eventTwo = { clientX: 200, clientY: 200 }
         wrapper.simulate('pointerdown', eventOne)
