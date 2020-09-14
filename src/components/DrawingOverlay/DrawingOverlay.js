@@ -32,6 +32,8 @@ export default function DrawingOverlay({
 	}
 
 	const onPointerDown = (e) => {
+		if (!canDraw) return
+
 		setIsDrawing(true)
 		setInitCoords(getXY(e))
 	}   
