@@ -7,6 +7,10 @@ Be sure to check out [Zoomapper](https://github.com/zooniverse/zoomapper), which
 
 In the project directory, you can run:
 
+### `yarn install`
+
+This will install all dependencies for the project. Run this command the first time you check out the code for this repo. If you get a node version error, either update your Node.js version or try running the install with the `--ignore-engines` flag like so: `yarn install --ignore-engines`
+
 ### `yarn start`
 
 Runs the app in the development mode.<br />
