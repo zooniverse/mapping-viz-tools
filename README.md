@@ -1,6 +1,8 @@
 # Mapping Viz Tools
 Tools to Visualize Floating Forest Classifications
 
+Don't forget the [Wiki](https://github.com/zooniverse/mapping-viz-tools/wiki)! You can find some great information there about the Mapping Viz Tools infrastructure.
+
 Be sure to check out [Zoomapper](https://github.com/zooniverse/zoomapper), which serves custom mbtiles for this app to consume.
 
 ## Available Scripts
