@@ -11,27 +11,24 @@ const options = {
     vectorTileLayerStyles: {
         water: {
             weight: 0,
-            fillColor: '#9bc2c4',
+            fillColor: 'white',
             fillOpacity: 1,
             fill: true
         },
-        boundary: {
+        place: {
             weight: 0
         },
         transportation: {
             weight: 0
         },
-        waterway: {
-            weight: 0
-        },
         test: {
             weight: 0,
-            fillColor: '#00FF00',
+            fillColor: 'green',
             fillOpacity: 1,
             fill: true
         }
     },
-    url: 'http://localhost:8080/data/v3/{z}/{x}/{y}.pbf'
+    url: 'https://zoomapper-staging.zooniverse.org/data/falklands/{z}/{x}/{y}.pbf'
 }
 
 function BaseMap(props, ref) {
