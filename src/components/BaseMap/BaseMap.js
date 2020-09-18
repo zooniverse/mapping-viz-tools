@@ -1,5 +1,5 @@
 import React from 'react'
-import { Map, TileLayer, withLeaflet } from 'react-leaflet'
+import { Map, withLeaflet } from 'react-leaflet'
 import VectorGridDefault from 'react-leaflet-vectorgrid';
 import 'leaflet/dist/leaflet.css';
 
