@@ -38,8 +38,9 @@ export default function AssociatedSubjects({
         {firstTenSubjects.map((subject, i) => {
           return (
             <Button
-              plain
+              key={`ASSOCIATED_SUBJECT_${i}`}
               onClick={() => setActiveSubject(subject)}
+              plain
             >
               <Box
                 height='2.75em'
@@ -47,7 +48,6 @@ export default function AssociatedSubjects({
                 margin={{ bottom: '0.5rem', right: '0.5rem' }}
               >
                 <Image
-                  key={`ASSOCIATED_SUBJECT_${i}`}
                   fit='contain'
                   src={`//${subject.subjectMediaLocation}`}
                 />

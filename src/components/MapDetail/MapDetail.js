@@ -56,7 +56,10 @@ export default function MapDetail({ coordinates, onClose = () => {} }) {
     >
       {activeSubject && (
         <Layer>
-          <MetadataModal />
+          <MetadataModal
+            onClose={setActiveSubject}
+            subject={activeSubject}
+          />
         </Layer>
       )}
       <Box
