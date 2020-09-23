@@ -1,7 +1,7 @@
 import React from 'react'
-import { Anchor, Box, Button, Image, Text } from 'grommet'
+import { Box, Button, Image, Text } from 'grommet'
 import { Close } from 'grommet-icons'
-import { arrayOf, shape, string } from 'prop-types'
+import { arrayOf, func, shape, string } from 'prop-types'
 import { PlainButton } from '@zooniverse/react-components'
 import styled from 'styled-components'
 
@@ -24,6 +24,8 @@ const chunk = (arr, size) => {
 }
 
 export default function Subjects ({
+  onClose = () => {},
+  onSelectSubject = () => {},
   subjects = []
 }) {
   const [subjectIndex, changeSubjectIndex] = React.useState(0)
@@ -43,12 +45,12 @@ export default function Subjects ({
         <Text color='kelp'>Associated subjects ({subjects.length})</Text>
         <PlainButton
           icon={<Close color='black' size='small' />}
-          onClick={() => console.log('Close the modal')}
+          onClick={() => onClose()}
           text='Close'
           reverse
         />
       </Box>
-      <Neuton>Click a subject to view it on Zooniverse Talk</Neuton>
+      <Neuton>Click a subject to view more information</Neuton>
       <Box
         direction='row'
         justify='between'
@@ -63,14 +65,20 @@ export default function Subjects ({
               margin={{ bottom: 'xsmall' }}
               height='5.5em'
             >
-              <Anchor href={subject.link}>
+              <Button
+                onClick={() => {
+                  onClose()
+                  onSelectSubject(subject)
+                }}
+                plain
+              >
                 <Image
                   alt={subject.alt}
                   fit='contain'
                   src={`//${subject.subjectMediaLocation}`}
                   width='100%'
                 />
-              </Anchor>
+              </Button>
             </Box>
           )
         })}
@@ -108,6 +116,8 @@ export default function Subjects ({
 }
 
 Subjects.propTypes = {
+  onClose: func,
+  onSelectSubject: func,
   subjects: arrayOf(shape({
     subjectMediaLocation: string
   }))

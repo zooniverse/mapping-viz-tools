@@ -66,7 +66,11 @@ export default function MapDetail({ coordinates, onClose = () => {} }) {
       )}
       {showSubjectsModal && (
         <Layer>
-          <SubjectsModal subjects={data} />
+          <SubjectsModal
+            onClose={setShowSubjectsModal}
+            onSelectSubject={setActiveSubject}
+            subjects={data}
+          />
         </Layer>
       )}
       <Box
