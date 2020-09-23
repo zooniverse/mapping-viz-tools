@@ -3,6 +3,7 @@ import {
   Box,
   Button,
   CheckBox,
+  Layer,
   Heading,
   Text
 } from 'grommet'
@@ -11,6 +12,7 @@ import { Close } from 'grommet-icons'
 import { func, number, shape, string } from 'prop-types'
 import { Map, TileLayer } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css';
+import MetadataModal from '../Modals/Metadata'
 import AssociatedSubjects from './components/AssociatedSubjects'
 import Charts from './components/Charts'
 import Timeline from './components/Timeline'
@@ -41,6 +43,8 @@ const Uppercase = styled(Text)`
 `
 
 export default function MapDetail({ coordinates, onClose = () => {} }) {
+  const [activeSubject, setActiveSubject] = React.useState(null)
+  
   return (
     <Box
       background='sand'
@@ -50,6 +54,11 @@ export default function MapDetail({ coordinates, onClose = () => {} }) {
       pad={{ horizontal: 'large', vertical: 'xsmall' }}
       width="60rem"
     >
+      {activeSubject && (
+        <Layer>
+          <MetadataModal />
+        </Layer>
+      )}
       <Box
         border={{ color: 'kelp', side: 'bottom' }}
         direction='row'
@@ -123,7 +132,10 @@ export default function MapDetail({ coordinates, onClose = () => {} }) {
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
           </StyledText>
           <Charts />
-          <AssociatedSubjects subjects={data} />
+          <AssociatedSubjects
+            setActiveSubject={setActiveSubject}
+            subjects={data}
+          />
         </Box>
       </Box>
     </Box>

@@ -8,7 +8,10 @@ const Uppercase = styled(Text)`
   text-transform: uppercase;
 `
 
-export default function AssociatedSubjects({ subjects }) {
+export default function AssociatedSubjects({
+  setActiveSubject = () => {},
+  subjects = []
+}) {
   const firstTenSubjects = subjects.slice(0,10)
 
   return (
@@ -30,23 +33,26 @@ export default function AssociatedSubjects({ subjects }) {
       </Box>
       <Box
         direction='row'
-        height={{ max: '7.5rem' }}
         wrap
       >
         {firstTenSubjects.map((subject, i) => {
           return (
-            <Box
-              flex={false}
-              height='40%'
-              margin={{ right: '0.25rem' }}
-              width='15%'
+            <Button
+              plain
+              onClick={() => setActiveSubject(subject)}
             >
-              <Image
-                key={`ASSOCIATED_SUBJECT_${i}`}
-                fit='contain'
-                src={`//${subject.subjectMediaLocation}`}
-              />
-            </Box>
+              <Box
+                height='2.75em'
+                width='2.75em'
+                margin={{ bottom: '0.5rem', right: '0.5rem' }}
+              >
+                <Image
+                  key={`ASSOCIATED_SUBJECT_${i}`}
+                  fit='contain'
+                  src={`//${subject.subjectMediaLocation}`}
+                />
+              </Box>
+            </Button>
           )
         })}
       </Box>
