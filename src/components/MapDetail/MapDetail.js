@@ -12,6 +12,7 @@ import { Close } from 'grommet-icons'
 import { func, number, shape, string } from 'prop-types'
 import { Map, Marker, TileLayer } from 'react-leaflet'
 import MetadataModal from '../Modals/Metadata'
+import SubjectsModal from '../Modals/Subjects'
 import AssociatedSubjects from './components/AssociatedSubjects'
 import Charts from './components/Charts'
 import Timeline from './components/Timeline'
@@ -44,6 +45,7 @@ const Uppercase = styled(Text)`
 export default function MapDetail({ coordinates, onClose = () => {} }) {
   const [activeSubject, setActiveSubject] = React.useState(null)
   const [showSubjects, setShowSubjects] = React.useState(false)
+  const [showSubjectsModal, setShowSubjectsModal] = React.useState(false)
   
   return (
     <Box
@@ -60,6 +62,11 @@ export default function MapDetail({ coordinates, onClose = () => {} }) {
             onClose={setActiveSubject}
             subject={activeSubject}
           />
+        </Layer>
+      )}
+      {showSubjectsModal && (
+        <Layer>
+          <SubjectsModal subjects={data} />
         </Layer>
       )}
       <Box
@@ -150,6 +157,7 @@ export default function MapDetail({ coordinates, onClose = () => {} }) {
           <Charts />
           <AssociatedSubjects
             setActiveSubject={setActiveSubject}
+            setShowSubjectsModal={setShowSubjectsModal}
             subjects={data}
           />
         </Box>

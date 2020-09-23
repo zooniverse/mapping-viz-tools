@@ -1,9 +1,8 @@
 import React from 'react'
 import { Anchor, Box, Button, Image, Text } from 'grommet'
 import { Close } from 'grommet-icons'
-import { number } from 'prop-types'
+import { arrayOf, shape, string } from 'prop-types'
 import { PlainButton } from '@zooniverse/react-components'
-import Map from 'images/satellite_map.png'
 import styled from 'styled-components'
 
 const Neuton = styled(Text)`
@@ -15,7 +14,7 @@ const StyledText = styled(Text)`
 `
 
 const mockSubjects = new Array(19)
-mockSubjects.fill({ alt: 'Falkland Islands Map', link: '#', src: Map })
+mockSubjects.fill({ alt: 'Falkland Islands Map', link: '#', src: '' })
 
 const chunk = (arr, size) => {
   return Array.from(
@@ -24,7 +23,9 @@ const chunk = (arr, size) => {
   )
 }
 
-export default function Subjects ({ subjects = mockSubjects }) {
+export default function Subjects ({
+  subjects = []
+}) {
   const [subjectIndex, changeSubjectIndex] = React.useState(0)
   const chunkedSubjects = chunk(subjects, 9)
   const lastIndex = chunkedSubjects.length - 1
@@ -66,7 +67,7 @@ export default function Subjects ({ subjects = mockSubjects }) {
                 <Image
                   alt={subject.alt}
                   fit='contain'
-                  src={subject.src}
+                  src={`//${subject.subjectMediaLocation}`}
                   width='100%'
                 />
               </Anchor>
@@ -74,36 +75,40 @@ export default function Subjects ({ subjects = mockSubjects }) {
           )
         })}
       </Box>
-      <Box
-        direction='row'
-        gap='xxsmall'
-        margin={{ horizontal: 'auto', top: 'auto' }}
-      >
-        <Button
-          disabled={subjectIndex === 0}
-          label={<StyledText size='0.5em'>&#9664;</StyledText>}
-          onClick={() => changeSubjectIndex(subjectIndex - 1)}
-          plain
-        />
-        {chunkedSubjects.map((subj, i) => {
-          const char = i === subjectIndex ? `\u25CF` : `\u25CB`
-          return (
-            <Button key={`SUBJECTS_${i}`} onClick={() => changeSubjectIndex(i)}>
-             {char}
-            </Button>
-          )
-        })}
-        <Button
-          disabled={subjectIndex === lastIndex}
-          label={<StyledText size='0.5em'>&#9654;</StyledText>}
-          onClick={() => changeSubjectIndex(subjectIndex + 1)}
-          plain
-        />
-      </Box>
+      {subjects.length > 9 && (
+        <Box
+          direction='row'
+          gap='xxsmall'
+          margin={{ horizontal: 'auto', top: 'auto' }}
+        >
+          <Button
+            disabled={subjectIndex === 0}
+            label={<StyledText size='0.5em'>&#9664;</StyledText>}
+            onClick={() => changeSubjectIndex(subjectIndex - 1)}
+            plain
+          />
+          {chunkedSubjects.map((subj, i) => {
+            const char = i === subjectIndex ? `\u25CF` : `\u25CB`
+            return (
+              <Button key={`SUBJECTS_${i}`} onClick={() => changeSubjectIndex(i)}>
+                {char}
+              </Button>
+            )
+          })}
+          <Button
+            disabled={subjectIndex === lastIndex}
+            label={<StyledText size='0.5em'>&#9654;</StyledText>}
+            onClick={() => changeSubjectIndex(subjectIndex + 1)}
+            plain
+          />
+        </Box>
+      )}
     </Box>
   )
 }
 
 Subjects.propTypes = {
-  count: number
+  subjects: arrayOf(shape({
+    subjectMediaLocation: string
+  }))
 }
