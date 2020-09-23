@@ -4,8 +4,6 @@ import { Close } from 'grommet-icons'
 import styled from 'styled-components'
 import { PlainButton } from '@zooniverse/react-components'
 import { func, shape, string } from 'prop-types'
-import data from './mockData'
-import Satellite from 'images/satellite_map.png'
 import ConditionalLink from './components/ConditionalLink'
 
 const StyledDataTable = styled(DataTable)`

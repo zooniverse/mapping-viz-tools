@@ -9,7 +9,7 @@ const StyledAnchor = styled(Anchor)`
 
 export default function ConditionalLink({ color, text }) {
   const sanitizedText = DOMPurify.sanitize(text)
-  const expression = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi;
+  const expression = /[-a-zA-Z0-9@:%._~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_.~#?&//=]*)?/gi;
   const regex = new RegExp(expression);
   const isLink = text.match(regex)
   return isLink ?

@@ -10,7 +10,7 @@ import {
 import styled from 'styled-components'
 import { Close } from 'grommet-icons'
 import { func, number, shape, string } from 'prop-types'
-import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
+import { Map, Marker, TileLayer } from 'react-leaflet'
 import MetadataModal from '../Modals/Metadata'
 import AssociatedSubjects from './components/AssociatedSubjects'
 import Charts from './components/Charts'
@@ -43,6 +43,7 @@ const Uppercase = styled(Text)`
 
 export default function MapDetail({ coordinates, onClose = () => {} }) {
   const [activeSubject, setActiveSubject] = React.useState(null)
+  const [showSubjects, setShowSubjects] = React.useState(false)
   
   return (
     <Box
@@ -100,7 +101,11 @@ export default function MapDetail({ coordinates, onClose = () => {} }) {
               <Uppercase color='kelp' size='0.75rem'>51&#176;42'S 57&#176;51'W</Uppercase>
               <Uppercase color='kelp' size='0.75rem'>3492 SQ MI / 9044 SQ KM</Uppercase>
             </Box>
-            <CheckBox label={<Uppercase color='kelp' size='0.75rem'>Subject Grid</Uppercase>} />
+            <CheckBox
+              checked={showSubjects}
+              label={<Uppercase color='kelp' size='0.75rem'>Subjects</Uppercase>}
+              onChange={() => setShowSubjects(!showSubjects)}
+            />
           </Box>
           <Box
             align='center'
@@ -122,7 +127,7 @@ export default function MapDetail({ coordinates, onClose = () => {} }) {
                 attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               />
-              {data.map((subject, i) => {
+              {showSubjects && data.map((subject, i) => {
                 return (
                   <Marker
                     key={`SUBJECT_MARKER_${i}`}
