@@ -10,8 +10,7 @@ import {
 import styled from 'styled-components'
 import { Close } from 'grommet-icons'
 import { func, number, shape, string } from 'prop-types'
-import { Map, TileLayer } from 'react-leaflet'
-import 'leaflet/dist/leaflet.css';
+import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
 import MetadataModal from '../Modals/Metadata'
 import AssociatedSubjects from './components/AssociatedSubjects'
 import Charts from './components/Charts'
@@ -123,6 +122,15 @@ export default function MapDetail({ coordinates, onClose = () => {} }) {
                 attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               />
+              {data.map((subject, i) => {
+                return (
+                  <Marker
+                    key={`SUBJECT_MARKER_${i}`}
+                    onClick={() => setActiveSubject(subject)}
+                    position={[subject.lat, subject.lon]}
+                  />
+                )
+              })}
             </StyledMap>
           </Box>
           <Timeline />
