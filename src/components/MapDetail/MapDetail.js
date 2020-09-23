@@ -9,11 +9,12 @@ import {
 import styled from 'styled-components'
 import { Close } from 'grommet-icons'
 import { func, number, shape, string } from 'prop-types'
+import { Map, TileLayer } from 'react-leaflet'
+import 'leaflet/dist/leaflet.css';
 import AssociatedSubjects from './components/AssociatedSubjects'
 import Charts from './components/Charts'
 import Timeline from './components/Timeline'
-import { Map, TileLayer } from 'react-leaflet'
-import 'leaflet/dist/leaflet.css';
+import data from './mockData'
 
 const StyledHeading = styled(Heading)`
   font-family: Neuton;
