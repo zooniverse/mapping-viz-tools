@@ -123,7 +123,7 @@ export default function MapDetail({ coordinates, onClose = () => {} }) {
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
           </StyledText>
           <Charts />
-          <AssociatedSubjects />
+          <AssociatedSubjects subjects={data} />
         </Box>
       </Box>
     </Box>
