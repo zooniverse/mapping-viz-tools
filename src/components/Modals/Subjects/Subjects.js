@@ -13,9 +13,6 @@ const StyledText = styled(Text)`
   vertical-align: middle;
 `
 
-const mockSubjects = new Array(19)
-mockSubjects.fill({ alt: 'Falkland Islands Map', link: '#', src: '' })
-
 const chunk = (arr, size) => {
   return Array.from(
     { length: Math.ceil(arr.length / size) },
@@ -31,6 +28,7 @@ export default function Subjects ({
   const [subjectIndex, changeSubjectIndex] = React.useState(0)
   const chunkedSubjects = chunk(subjects, 9)
   const lastIndex = chunkedSubjects.length - 1
+  const currentPage = chunkedSubjects[subjectIndex] || []
 
   return (
     <Box
@@ -57,7 +55,7 @@ export default function Subjects ({
         width='medium'
         wrap
       >
-        {chunkedSubjects[subjectIndex].map((subject, i) => {
+        {currentPage.map((subject, i) => {
           return (
             <Box
               key={`SUBJECTS_${i}`}
