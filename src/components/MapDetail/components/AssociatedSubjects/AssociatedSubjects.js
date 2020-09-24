@@ -4,7 +4,7 @@ import { FormNext } from 'grommet-icons'
 import { arrayOf, func, shape, string } from 'prop-types'
 import styled from 'styled-components'
 
-const StyledButton = styled(Button)`
+export const StyledButton = styled(Button)`
   flex: 0 1 20%;
 `
 
@@ -28,7 +28,7 @@ export default function AssociatedSubjects({
     >
       <Box align='center' direction='row' justify='between'>
         <Text color='kelp'>Associated Zooniverse Subjects ({subjects.length})</Text>
-        {subjects.length > 6 && (
+        {subjects.length > 10 && (
           <Button
             gap='0.2em'
             icon={<FormNext size='small' />}
