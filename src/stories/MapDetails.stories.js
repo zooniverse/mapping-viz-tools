@@ -1,8 +1,9 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import MapDetail from '../components/MapDetail'
 import { Grommet } from 'grommet'
 import theme from 'theme'
+import 'leaflet/dist/leaflet.css';
+import MapDetail from '../components/MapDetail'
 
 storiesOf('MapDetail', module)
   .add('Default', () => (
