@@ -3,20 +3,17 @@ import {
   Box,
   Button,
   CheckBox,
-  Layer,
   Heading,
   Text
 } from 'grommet'
 import styled from 'styled-components'
 import { Close } from 'grommet-icons'
-import { func, number, shape, string } from 'prop-types'
+import { arrayOf, func, number, shape, string } from 'prop-types'
 import { Map, Marker, TileLayer } from 'react-leaflet'
-import MetadataModal from '../Modals/Metadata'
-import SubjectsModal from '../Modals/Subjects'
 import AssociatedSubjects from './components/AssociatedSubjects'
 import Charts from './components/Charts'
 import Timeline from './components/Timeline'
-import data from './mockData'
+import mockData from './mockData'
 
 const StyledHeading = styled(Heading)`
   font-family: Neuton;
@@ -42,10 +39,14 @@ const Uppercase = styled(Text)`
   text-transform: uppercase;
 `
 
-export default function MapDetail({ coordinates, onClose = () => {} }) {
-  const [activeSubject, setActiveSubject] = React.useState(null)
+export default function MapDetail({
+  coordinates,
+  data = mockData,
+  onClose = () => {},
+  setActiveSubject = () => {},
+  setShowSubjectsModal = () => {}
+}) {
   const [showSubjects, setShowSubjects] = React.useState(false)
-  const [showSubjectsModal, setShowSubjectsModal] = React.useState(false)
   
   return (
     <Box
@@ -56,23 +57,6 @@ export default function MapDetail({ coordinates, onClose = () => {} }) {
       pad={{ horizontal: 'large', vertical: 'xsmall' }}
       width="60rem"
     >
-      {activeSubject && (
-        <Layer>
-          <MetadataModal
-            onClose={setActiveSubject}
-            subject={activeSubject}
-          />
-        </Layer>
-      )}
-      {showSubjectsModal && (
-        <Layer>
-          <SubjectsModal
-            onClose={setShowSubjectsModal}
-            onSelectSubject={setActiveSubject}
-            subjects={data}
-          />
-        </Layer>
-      )}
       <Box
         border={{ color: 'kelp', side: 'bottom' }}
         direction='row'
@@ -182,8 +166,7 @@ MapDetail.defaultProps = {
     },
     height: '100%',
     width: '100%'
-  },
-  onClose: () => {}
+  }
 }
 
 MapDetail.propTypes = {
@@ -199,5 +182,10 @@ MapDetail.propTypes = {
     height: string,
     width: string
   }),
-  onClose: func
+  data: arrayOf(shape({
+    subjectMediaLocation: string
+  })),
+  onClose: func,
+  setActiveSubject: func,
+  setShowSubjectsModal: func
 }
