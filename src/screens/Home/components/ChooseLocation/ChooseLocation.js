@@ -13,8 +13,8 @@ const StyledText = styled(Text)`
 
 const OPTIONS = [
   { label: 'Falkland Islands', map: Map},
-  { label: 'Baja, California', map: Map},
-  { label: 'Tasmania, Australia', map: Map}
+  // { label: 'Baja, California', map: Map},
+  // { label: 'Tasmania, Australia', map: Map}
 ]
 
 function ChooseLocation() {
