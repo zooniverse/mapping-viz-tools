@@ -1,6 +1,35 @@
 import React from 'react'
-import { Map, TileLayer } from 'react-leaflet'
+import { Map, withLeaflet } from 'react-leaflet'
+import VectorGridDefault from 'react-leaflet-vectorgrid';
 import 'leaflet/dist/leaflet.css';
+
+const VectorGrid = withLeaflet(VectorGridDefault);
+
+const options = {
+    type: 'protobuf',
+    subdomains: 'abcd',
+    vectorTileLayerStyles: {
+        water: {
+            weight: 0,
+            fillColor: 'white',
+            fillOpacity: 1,
+            fill: true
+        },
+        place: {
+            weight: 0
+        },
+        transportation: {
+            weight: 0
+        },
+        test: {
+            weight: 0,
+            fillColor: 'green',
+            fillOpacity: 1,
+            fill: true
+        }
+    },
+    url: 'https://zoomapper-staging.zooniverse.org/data/falklands/{z}/{x}/{y}.pbf'
+}
 
 function BaseMap(props, ref) {
     return (
@@ -11,12 +40,9 @@ function BaseMap(props, ref) {
             ref={ref}
             scrollWheelZoom={false}
             style={{ width: '100%', height: '100%', position: 'absolute'}}
-            zoom={8}
+            zoom={7}
         >
-            <TileLayer
-                attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
+            <VectorGrid {...options} />
         </Map>
     )
 }
