@@ -9,6 +9,7 @@ import {
 import styled from 'styled-components'
 import { Close } from 'grommet-icons'
 import { func, number, shape, string } from 'prop-types'
+import getLocationDetails from 'helpers/getLocationDetails'
 import AssociatedSubjects from './components/AssociatedSubjects'
 import Charts from './components/Charts'
 import Timeline from './components/Timeline'
@@ -40,6 +41,17 @@ const Uppercase = styled(Text)`
 `
 
 export default function MapDetail({ coordinates, onClose = () => {} }) {
+  const mapRef = React.useRef(null)
+  const [centerLat, setCenterLat] = React.useState(null)
+  const [centerLng, setCenterLng] = React.useState(null)
+
+  React.useEffect(() => {
+    const leaflet = mapRef?.current?.leafletElement
+    const center = leaflet?.getCenter()
+    setCenterLat(getLocationDetails(center.lat, 'lat'))
+    setCenterLng(getLocationDetails(center.lng, 'lng'))
+  }, [mapRef])
+
   return (
     <Box
       background='sand'
@@ -85,7 +97,7 @@ export default function MapDetail({ coordinates, onClose = () => {} }) {
           </HeadingTwo>
           <Box align='center' direction='row' justify='between'>
             <Box direction='row' gap='xsmall'>
-              <Uppercase color='kelp' size='0.75rem'>51&#176;42'S 57&#176;51'W</Uppercase>
+              <Uppercase color='kelp' size='0.75rem'>{centerLat?.degrees}&#176;{centerLat?.minutes}'{centerLat?.direction} {centerLng?.degrees}&#176;{centerLng?.minutes}'{centerLng?.direction}</Uppercase>
               <Uppercase color='kelp' size='0.75rem'>3492 SQ MI / 9044 SQ KM</Uppercase>
             </Box>
             <CheckBox label={<Uppercase color='kelp' size='0.75rem'>Subject Grid</Uppercase>} />
@@ -102,6 +114,7 @@ export default function MapDetail({ coordinates, onClose = () => {} }) {
               bounds={[coordinates.southWest, coordinates.northEast]}
               doubleClickZoom={false}
               dragging={false}
+              ref={mapRef}
               scrollWheelZoom={false}
               style={{ width: coordinates.width, height: coordinates.height }}
               zoomSnap={0}
