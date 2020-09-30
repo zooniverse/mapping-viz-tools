@@ -9,7 +9,7 @@ import {
 import styled from 'styled-components'
 import { Close } from 'grommet-icons'
 import { func, number, shape, string } from 'prop-types'
-import getLocationDetails from 'helpers/getLocationDetails'
+import { getArea, getLocationDetails } from 'helpers/getLocationDetails'
 import AssociatedSubjects from './components/AssociatedSubjects'
 import Charts from './components/Charts'
 import Timeline from './components/Timeline'
@@ -44,13 +44,15 @@ export default function MapDetail({ coordinates, onClose = () => {} }) {
   const mapRef = React.useRef(null)
   const [centerLat, setCenterLat] = React.useState(null)
   const [centerLng, setCenterLng] = React.useState(null)
+  const [area, setArea] = React.useState(null)
 
   React.useEffect(() => {
     const leaflet = mapRef?.current?.leafletElement
     const center = leaflet?.getCenter()
+    setArea(getArea(coordinates))
     setCenterLat(getLocationDetails(center.lat, 'lat'))
     setCenterLng(getLocationDetails(center.lng, 'lng'))
-  }, [mapRef])
+  }, [coordinates, mapRef])
 
   return (
     <Box
@@ -97,8 +99,13 @@ export default function MapDetail({ coordinates, onClose = () => {} }) {
           </HeadingTwo>
           <Box align='center' direction='row' justify='between'>
             <Box direction='row' gap='xsmall'>
-              <Uppercase color='kelp' size='0.75rem'>{centerLat?.degrees}&#176;{centerLat?.minutes}'{centerLat?.direction} {centerLng?.degrees}&#176;{centerLng?.minutes}'{centerLng?.direction}</Uppercase>
-              <Uppercase color='kelp' size='0.75rem'>3492 SQ MI / 9044 SQ KM</Uppercase>
+              <Uppercase
+                color='kelp'
+                size='0.75rem'
+              >
+                {centerLat?.degrees}&#176;{centerLat?.minutes}'{centerLat?.direction} {centerLng?.degrees}&#176;{centerLng?.minutes}'{centerLng?.direction}
+              </Uppercase>
+              <Uppercase color='kelp' size='0.75rem'>{area?.miles} SQ MI / {area?.kms} SQ KM</Uppercase>
             </Box>
             <CheckBox label={<Uppercase color='kelp' size='0.75rem'>Subject Grid</Uppercase>} />
           </Box>
