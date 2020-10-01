@@ -99,7 +99,7 @@ export default function Subjects ({
             const char = i === subjectIndex ? `\u25CF` : `\u25CB`
             return (
               <Button
-                key={`SUBJECTS_${subject.id}`}
+                key={`SUBJECTS_${subj.id}`}
                 a11yTitle={`Go to subject page ${i}`}
                 onClick={() => changeSubjectIndex(i)}
               >

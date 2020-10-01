@@ -1,5 +1,6 @@
 const data = [
   {
+    id: 1,
     subjectId: 15112333,
     lat: -51.8557484758465,
     lon: -58.4818413309715,
@@ -43,6 +44,7 @@ const data = [
     kelpKm2: 0,
     sstGridIndex: 903
   }, {
+    id: 2,
     subjectId: 15112331,
     lat: -51.7674641397222,
     lon: -57.8703460277511,
@@ -85,6 +87,7 @@ const data = [
     kelpKm2: 1.4246,
     sstGridIndex: 905
   }, {
+    id: 3,
     subjectId: 15112327,
     lat: -51.7662394078781,
     lon: -58.0224661260516,
@@ -127,6 +130,7 @@ const data = [
     kelpKm2: 4.3864,
     sstGridIndex: 904
   }, {
+    id: 4,
     subjectId: 15112325,
     lat: -51.7648178748574,
     lon: -58.1745745625986,
@@ -169,6 +173,7 @@ const data = [
     kelpKm2: 12.5265,
     sstGridIndex: 904
   }, {
+    id: 5,
     subjectId: 15112323,
     lat: -51.6749308328108,
     lon: -57.5649002184831,
@@ -211,6 +216,7 @@ const data = [
     kelpKm2: 978,
     sstGridIndex: 978
   }, {
+    id: 6,
     subjectId: 15112321,
     lat: -51.6741025879967,
     lon: -57.7167220172637,
@@ -253,6 +259,7 @@ const data = [
     kelpKm2: 3.8519,
     sstGridIndex: 978
   }, {
+    id: 7,
     subjectId: 15112317,
     lat: -51.6730781438224,
     lon: -57.8685356815718,

@@ -35,7 +35,7 @@ export default function MapPage() {
       )}
 
       {activeSubject && (
-        <Layer>
+        <Layer onEsc={() => setActiveSubject(null)}>
           <MetadataModal
             onClose={setActiveSubject}
             subject={activeSubject}
@@ -44,7 +44,7 @@ export default function MapPage() {
       )}
 
       {showSubjectsModal && (
-        <Layer>
+        <Layer onEsc={() => setShowSubjectsModal(false)}>
           <SubjectsModal
             onClose={setShowSubjectsModal}
             onSelectSubject={setActiveSubject}
