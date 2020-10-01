@@ -28,15 +28,15 @@ const columns = [{
 export default function Metadata({
   onClose = () => {},
   subject = {
-    subjectMetadata: {}
+    metadata: {}
   }
 }) {
   const privateChars = ['#', '//', '!']
-  const filteredData = Object.keys(subject.subjectMetadata).reduce((acc, key) => {
+  const filteredData = Object.keys(subject.metadata).reduce((acc, key) => {
     if (!privateChars.includes(key[0])) {
       acc.push({
         key,
-        value: subject.subjectMetadata[key]
+        value: subject.metadata[key]
       })
     }
     return acc
@@ -68,7 +68,7 @@ export default function Metadata({
         <Image
           alt='Satellite Map of Falklands'
           fit='contain'
-          src={`//${subject.subjectMediaLocation}`}
+          src={`//${subject.media_location}`}
         />
       </Box>
       <Box overflow={{ vertical: 'auto' }}>
@@ -85,7 +85,7 @@ export default function Metadata({
 Metadata.propTypes = {
   onClose: func,
   subject: shape({
-    subjectMediaLocation: string,
-    subjectMetadata: shape()
+    media_location: string,
+    metadata: shape()
   })
 }

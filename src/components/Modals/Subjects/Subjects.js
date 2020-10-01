@@ -74,7 +74,7 @@ export default function Subjects ({
                 <Image
                   alt={subject.alt}
                   fit='contain'
-                  src={`//${subject.subjectMediaLocation}`}
+                  src={`//${subject.media_location}`}
                   width='100%'
                 />
               </Button>
@@ -124,6 +124,6 @@ Subjects.propTypes = {
   onClose: func,
   onSelectSubject: func,
   subjects: arrayOf(shape({
-    subjectMediaLocation: string
+    media_location: string
   }))
 }

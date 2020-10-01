@@ -8,7 +8,7 @@ import {
 } from 'grommet'
 import styled from 'styled-components'
 import { Close } from 'grommet-icons'
-import { arrayOf, func, number, shape, string } from 'prop-types'
+import { func, number, shape, string } from 'prop-types'
 import { Map, Marker, TileLayer } from 'react-leaflet'
 import { getSubjects } from 'helpers/client'
 import AssociatedSubjects from './components/AssociatedSubjects'
@@ -135,7 +135,7 @@ export default function MapDetail({
                   <Marker
                     key={`SUBJECT_MARKER_${subject.id}`}
                     onClick={() => setActiveSubject(subject)}
-                    position={[subject.lat, subject.lon]}
+                    position={[subject.latitude, subject.longitude]}
                   />
                 )
               })}
