@@ -3,7 +3,8 @@ import {
   Box,
   Button,
   Heading,
-  Image
+  Image,
+  Text
 } from 'grommet'
 import { FormNext } from 'grommet-icons'
 import { arrayOf, func, shape, string } from 'prop-types'
