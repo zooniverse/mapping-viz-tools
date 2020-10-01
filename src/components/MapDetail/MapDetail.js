@@ -10,6 +10,7 @@ import styled from 'styled-components'
 import { Close } from 'grommet-icons'
 import { arrayOf, func, number, shape, string } from 'prop-types'
 import { Map, Marker, TileLayer } from 'react-leaflet'
+import { getSubjects } from 'helpers/client'
 import AssociatedSubjects from './components/AssociatedSubjects'
 import Charts from './components/Charts'
 import Timeline from './components/Timeline'
@@ -48,6 +49,14 @@ export default function MapDetail({
 }) {
   const [showSubjects, setShowSubjects] = React.useState(false)
   
+  React.useEffect(() => {
+    async function fetchSubjects() {
+      const response = await getSubjects(coordinates)
+      console.log(response)
+    }
+    fetchSubjects()
+  }, [coordinates])
+
   return (
     <Box
       background='sand'
