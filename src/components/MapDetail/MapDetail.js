@@ -125,7 +125,7 @@ export default function MapDetail({
               {showSubjects && data.map((subject, i) => {
                 return (
                   <Marker
-                    key={`SUBJECT_MARKER_${i}`}
+                    key={`SUBJECT_MARKER_${subject.id}`}
                     onClick={() => setActiveSubject(subject)}
                     position={[subject.lat, subject.lon]}
                   />
