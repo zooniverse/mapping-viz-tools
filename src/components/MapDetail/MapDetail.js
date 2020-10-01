@@ -14,7 +14,6 @@ import { getSubjects } from 'helpers/client'
 import AssociatedSubjects from './components/AssociatedSubjects'
 import Charts from './components/Charts'
 import Timeline from './components/Timeline'
-import mockData from './mockData'
 
 const StyledHeading = styled(Heading)`
   font-family: Neuton;
@@ -42,17 +41,17 @@ const Uppercase = styled(Text)`
 
 export default function MapDetail({
   coordinates,
-  data = mockData,
   onClose = () => {},
   setActiveSubject = () => {},
   setShowSubjectsModal = () => {}
 }) {
   const [showSubjects, setShowSubjects] = React.useState(false)
+  const [subjects, setSubjects] = React.useState([])
   
   React.useEffect(() => {
     async function fetchSubjects() {
-      const response = await getSubjects(coordinates)
-      console.log(response)
+      const subjectsInCoords = await getSubjects(coordinates)
+      setSubjects(subjectsInCoords)
     }
     fetchSubjects()
   }, [coordinates])
@@ -131,7 +130,7 @@ export default function MapDetail({
                 attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               />
-              {showSubjects && data.map((subject, i) => {
+              {showSubjects && subjects.map((subject, i) => {
                 return (
                   <Marker
                     key={`SUBJECT_MARKER_${subject.id}`}
@@ -155,7 +154,7 @@ export default function MapDetail({
           <AssociatedSubjects
             setActiveSubject={setActiveSubject}
             setShowSubjectsModal={setShowSubjectsModal}
-            subjects={data}
+            subjects={subjects}
           />
         </Box>
       </Box>
@@ -191,9 +190,6 @@ MapDetail.propTypes = {
     height: string,
     width: string
   }),
-  data: arrayOf(shape({
-    subjectMediaLocation: string
-  })),
   onClose: func,
   setActiveSubject: func,
   setShowSubjectsModal: func
