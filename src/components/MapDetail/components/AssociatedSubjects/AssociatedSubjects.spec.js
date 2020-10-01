@@ -31,6 +31,7 @@ describe('Components > AssociatedSubjects', function () {
     it('should select an active subject', function () {
       const firstSubject = wrapper.find(StyledButton).first()
       firstSubject.simulate('click')
+      expect(setActiveSubjectSpy).toHaveBeenCalled()
     })
   })
   
