@@ -1,5 +1,10 @@
 import React from 'react'
-import { Box, Button, Image, Text } from 'grommet'
+import {
+  Box,
+  Button,
+  Heading,
+  Image
+} from 'grommet'
 import { FormNext } from 'grommet-icons'
 import { arrayOf, func, shape, string } from 'prop-types'
 import styled from 'styled-components'
@@ -27,7 +32,7 @@ export default function AssociatedSubjects({
       width='medium'
     >
       <Box align='center' direction='row' justify='between'>
-        <Text color='kelp'>Associated Zooniverse Subjects ({subjects.length})</Text>
+        <Heading color='kelp' level='6'>Associated Zooniverse Subjects ({subjects.length})</Heading>
         {subjects.length > 10 && (
           <Button
             gap='0.2em'
@@ -46,7 +51,8 @@ export default function AssociatedSubjects({
         {firstTenSubjects.map((subject, i) => {
           return (
             <StyledButton
-              key={`ASSOCIATED_SUBJECT_${i}`}
+              key={`ASSOCIATED_SUBJECT_${subject.id}`}
+              a11yTitle={`Subject ${subject.id}`}
               margin={{ bottom: '0.5rem' }}
               onClick={() => setActiveSubject(subject)}
               plain
@@ -56,6 +62,7 @@ export default function AssociatedSubjects({
                 width='2.75em'
               >
                 <Image
+                  alt={`Associated Subject ${i}`}
                   fit='contain'
                   src={`//${subject.subjectMediaLocation}`}
                 />
