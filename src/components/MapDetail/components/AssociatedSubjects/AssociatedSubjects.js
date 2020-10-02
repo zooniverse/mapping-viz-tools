@@ -63,7 +63,7 @@ export default function AssociatedSubjects({
                 width='2.75em'
               >
                 <Image
-                  alt={`Associated Subject ${i}`}
+                  alt={`Associated Subject ${subject.id}`}
                   fit='contain'
                   src={`//${subject.media_location}`}
                 />
