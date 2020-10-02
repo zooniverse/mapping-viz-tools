@@ -11,6 +11,8 @@ import { Close } from 'grommet-icons'
 import { func, number, shape, string } from 'prop-types'
 import { Map, Marker, TileLayer } from 'react-leaflet'
 import { getSubjects } from 'helpers/client'
+import STATUS from 'helpers/asyncStatus'
+import Loading from './components/Loading'
 import AssociatedSubjects from './components/AssociatedSubjects'
 import Charts from './components/Charts'
 import Timeline from './components/Timeline'
@@ -47,117 +49,130 @@ export default function MapDetail({
 }) {
   const [showSubjects, setShowSubjects] = React.useState(false)
   const [subjects, setSubjects] = React.useState([])
+  const [asyncStatus, setAsyncStatus] = React.useState(STATUS.LOADING)
   
   React.useEffect(() => {
     async function fetchSubjects() {
       const subjectsInCoords = await getSubjects(coordinates)
       setSubjects(subjectsInCoords)
+      setAsyncStatus(STATUS.READY)
     }
     fetchSubjects()
   }, [coordinates])
+
+  const Content = () => {
+    return (
+      <Box>
+        <Box
+          border={{ color: 'kelp', side: 'bottom' }}
+          direction='row'
+          justify='between'
+          pad={{ vertical: 'small' }}
+        >
+          <StyledHeading
+            color='kelp'
+            level='4'
+            margin='none'
+          >
+            Map Detail
+          </StyledHeading>
+          <Button
+            alignSelf='end'
+            color='kelp'
+            gap='xsmall'
+            icon={<Close color='black' size='small' />}
+            label={<Uppercase size='xsmall'>Close</Uppercase>}
+            onClick={onClose}
+            plain
+            reverse
+          />
+        </Box>
+
+        <Box direction='row' gap='medium'>
+          <Box basis='60%' gap='xsmall'>
+            <HeadingTwo
+              color='kelp'
+              level='2'
+              margin='none'
+            >
+              Falkland Islands
+            </HeadingTwo>
+            <Box align='center' direction='row' justify='between'>
+              <Box direction='row' gap='xsmall'>
+                <Uppercase color='kelp' size='0.75rem'>51&#176;42'S 57&#176;51'W</Uppercase>
+                <Uppercase color='kelp' size='0.75rem'>3492 SQ MI / 9044 SQ KM</Uppercase>
+              </Box>
+              <CheckBox
+                checked={showSubjects}
+                label={<Uppercase color='kelp' size='0.75rem'>Subjects</Uppercase>}
+                onChange={() => setShowSubjects(!showSubjects)}
+              />
+            </Box>
+            <Box
+              align='center'
+              background='gray'
+              border={{ color: 'kelp' }}
+              flex
+              justify='center'
+              style={{ position: 'relative' }}
+            >
+              <StyledMap 
+                bounds={[coordinates.southWest, coordinates.northEast]}
+                doubleClickZoom={false}
+                dragging={false}
+                scrollWheelZoom={false}
+                style={{ width: coordinates.width, height: coordinates.height }}
+                zoomSnap={0}
+              >
+                <TileLayer
+                  attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                {showSubjects && subjects.map((subject, i) => {
+                  return (
+                    <Marker
+                      key={`SUBJECT_MARKER_${subject.id}`}
+                      onClick={() => setActiveSubject(subject)}
+                      position={[subject.latitude, subject.longitude]}
+                    />
+                  )
+                })}
+              </StyledMap>
+            </Box>
+            <Timeline />
+          </Box>
+
+          <Box basis='40%' gap='xsmall'>
+            <Text color='kelp'>Additional data</Text>
+            <StyledText>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+            </StyledText>
+            <Charts />
+            <AssociatedSubjects
+              setActiveSubject={setActiveSubject}
+              setShowSubjectsModal={setShowSubjectsModal}
+              subjects={subjects}
+            />
+          </Box>
+        </Box>
+      </Box>
+    )
+  }
 
   return (
     <Box
       background='sand'
       border={{ color: 'kelp' }}
       gap='medium'
+      height={{ min: '35rem' }}
       overflow='auto'
       pad={{ horizontal: 'large', vertical: 'xsmall' }}
-      width="60rem"
+      width='60rem'
     >
-      <Box
-        border={{ color: 'kelp', side: 'bottom' }}
-        direction='row'
-        justify='between'
-        pad={{ vertical: 'small' }}
-      >
-        <StyledHeading
-          color='kelp'
-          level='4'
-          margin='none'
-        >
-          Map Detail
-        </StyledHeading>
-        <Button
-          alignSelf='end'
-          color='kelp'
-          gap='xsmall'
-          icon={<Close color='black' size='small' />}
-          label={<Uppercase size='xsmall'>Close</Uppercase>}
-          onClick={onClose}
-          plain
-          reverse
-        />
-      </Box>
-
-      <Box direction='row' gap='medium'>
-        <Box basis='60%' gap='xsmall'>
-          <HeadingTwo
-            color='kelp'
-            level='2'
-            margin='none'
-          >
-            Falkland Islands
-          </HeadingTwo>
-          <Box align='center' direction='row' justify='between'>
-            <Box direction='row' gap='xsmall'>
-              <Uppercase color='kelp' size='0.75rem'>51&#176;42'S 57&#176;51'W</Uppercase>
-              <Uppercase color='kelp' size='0.75rem'>3492 SQ MI / 9044 SQ KM</Uppercase>
-            </Box>
-            <CheckBox
-              checked={showSubjects}
-              label={<Uppercase color='kelp' size='0.75rem'>Subjects</Uppercase>}
-              onChange={() => setShowSubjects(!showSubjects)}
-            />
-          </Box>
-          <Box
-            align='center'
-            background='gray'
-            border={{ color: 'kelp' }}
-            flex
-            justify='center'
-            style={{ position: 'relative' }}
-          >
-            <StyledMap 
-              bounds={[coordinates.southWest, coordinates.northEast]}
-              doubleClickZoom={false}
-              dragging={false}
-              scrollWheelZoom={false}
-              style={{ width: coordinates.width, height: coordinates.height }}
-              zoomSnap={0}
-            >
-              <TileLayer
-                attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              />
-              {showSubjects && subjects.map((subject, i) => {
-                return (
-                  <Marker
-                    key={`SUBJECT_MARKER_${subject.id}`}
-                    onClick={() => setActiveSubject(subject)}
-                    position={[subject.latitude, subject.longitude]}
-                  />
-                )
-              })}
-            </StyledMap>
-          </Box>
-          <Timeline />
-        </Box>
-
-        <Box basis='40%' gap='xsmall'>
-          <Text color='kelp'>Additional data</Text>
-          <StyledText>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-          </StyledText>
-          <Charts />
-          <AssociatedSubjects
-            setActiveSubject={setActiveSubject}
-            setShowSubjectsModal={setShowSubjectsModal}
-            subjects={subjects}
-          />
-        </Box>
-      </Box>
+      {asyncStatus === STATUS.LOADING ? (
+        <Loading />
+      ) : <Content />}
     </Box>
   )
 }
