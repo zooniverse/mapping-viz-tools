@@ -10,7 +10,6 @@ import styled from 'styled-components'
 import { Close } from 'grommet-icons'
 import { func, number, shape, string } from 'prop-types'
 import { Map, Marker, TileLayer } from 'react-leaflet'
-import { getSubjects } from 'helpers/client'
 import STATUS from 'helpers/asyncStatus'
 import Loading from './components/Loading'
 import AssociatedSubjects from './components/AssociatedSubjects'
@@ -42,24 +41,15 @@ const Uppercase = styled(Text)`
 `
 
 export default function MapDetail({
+  asyncStatus,
   coordinates,
   onClose = () => {},
   setActiveSubject = () => {},
-  setShowSubjectsModal = () => {}
+  setShowSubjectsModal = () => {},
+  subjects
 }) {
   const [showSubjects, setShowSubjects] = React.useState(false)
-  const [subjects, setSubjects] = React.useState([])
-  const [asyncStatus, setAsyncStatus] = React.useState(STATUS.LOADING)
   
-  React.useEffect(() => {
-    async function fetchSubjects() {
-      const subjectsInCoords = await getSubjects(coordinates)
-      setSubjects(subjectsInCoords)
-      setAsyncStatus(STATUS.READY)
-    }
-    fetchSubjects()
-  }, [coordinates])
-
   const Content = () => {
     return (
       <Box>
