@@ -1,6 +1,5 @@
 import React from 'react'
 import { Map, TileLayer } from 'react-leaflet'
-import 'leaflet/dist/leaflet.css';
 
 function BaseMap(props, ref) {
     return (

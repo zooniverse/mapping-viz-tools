@@ -8,12 +8,12 @@ import {
 } from 'grommet'
 import styled from 'styled-components'
 import { Close } from 'grommet-icons'
-import { func, number, shape, string } from 'prop-types'
+import { arrayOf, func, number, shape, string } from 'prop-types'
+import { Map, Marker, TileLayer } from 'react-leaflet'
 import AssociatedSubjects from './components/AssociatedSubjects'
 import Charts from './components/Charts'
 import Timeline from './components/Timeline'
-import { Map, TileLayer } from 'react-leaflet'
-import 'leaflet/dist/leaflet.css';
+import mockData from './mockData'
 
 const StyledHeading = styled(Heading)`
   font-family: Neuton;
@@ -39,7 +39,15 @@ const Uppercase = styled(Text)`
   text-transform: uppercase;
 `
 
-export default function MapDetail({ coordinates, onClose = () => {} }) {
+export default function MapDetail({
+  coordinates,
+  data = mockData,
+  onClose = () => {},
+  setActiveSubject = () => {},
+  setShowSubjectsModal = () => {}
+}) {
+  const [showSubjects, setShowSubjects] = React.useState(false)
+  
   return (
     <Box
       background='sand'
@@ -88,7 +96,11 @@ export default function MapDetail({ coordinates, onClose = () => {} }) {
               <Uppercase color='kelp' size='0.75rem'>51&#176;42'S 57&#176;51'W</Uppercase>
               <Uppercase color='kelp' size='0.75rem'>3492 SQ MI / 9044 SQ KM</Uppercase>
             </Box>
-            <CheckBox label={<Uppercase color='kelp' size='0.75rem'>Subject Grid</Uppercase>} />
+            <CheckBox
+              checked={showSubjects}
+              label={<Uppercase color='kelp' size='0.75rem'>Subjects</Uppercase>}
+              onChange={() => setShowSubjects(!showSubjects)}
+            />
           </Box>
           <Box
             align='center'
@@ -110,6 +122,15 @@ export default function MapDetail({ coordinates, onClose = () => {} }) {
                 attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               />
+              {showSubjects && data.map((subject, i) => {
+                return (
+                  <Marker
+                    key={`SUBJECT_MARKER_${subject.id}`}
+                    onClick={() => setActiveSubject(subject)}
+                    position={[subject.lat, subject.lon]}
+                  />
+                )
+              })}
             </StyledMap>
           </Box>
           <Timeline />
@@ -122,7 +143,11 @@ export default function MapDetail({ coordinates, onClose = () => {} }) {
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
           </StyledText>
           <Charts />
-          <AssociatedSubjects />
+          <AssociatedSubjects
+            setActiveSubject={setActiveSubject}
+            setShowSubjectsModal={setShowSubjectsModal}
+            subjects={data}
+          />
         </Box>
       </Box>
     </Box>
@@ -141,8 +166,7 @@ MapDetail.defaultProps = {
     },
     height: '100%',
     width: '100%'
-  },
-  onClose: () => {}
+  }
 }
 
 MapDetail.propTypes = {
@@ -158,5 +182,10 @@ MapDetail.propTypes = {
     height: string,
     width: string
   }),
-  onClose: func
+  data: arrayOf(shape({
+    subjectMediaLocation: string
+  })),
+  onClose: func,
+  setActiveSubject: func,
+  setShowSubjectsModal: func
 }
