@@ -1,7 +1,9 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { mount, shallow } from 'enzyme'
+import { act } from 'react-dom/test-utils'
 import { CheckBox } from 'grommet'
 import { Marker } from 'react-leaflet'
+import STATUS from 'helpers/asyncStatus'
 import MapDetail from './MapDetail'
 import mockData from './mockData'
 
@@ -14,14 +16,18 @@ describe('Components > MapDetail', function () {
     expect(wrapper).toBeDefined()
   })
 
-  beforeEach(function() {
-    wrapper = shallow(
-      <MapDetail data={mockData} setActiveSubject={setActiveSubjectSpy} />
+  beforeEach(function () {
+    wrapper = mount(
+      <MapDetail
+        asyncStatus={STATUS.READY}
+        subjects={mockData}
+        setActiveSubject={setActiveSubjectSpy}
+      />
     )
   })
 
   afterEach(() => jest.clearAllMocks());
-  
+
   it('should render without crashing', function () {
     expect(wrapper).toBeDefined()
   })
@@ -31,14 +37,16 @@ describe('Components > MapDetail', function () {
       let markers = wrapper.find(Marker)
       expect(markers.length).toBe(0)
       let checkBox = wrapper.find(CheckBox).first()
-      checkBox.simulate('change')
+      act(() => checkBox.props().onChange())
+      wrapper.update()
       markers = wrapper.find(Marker)
       expect(markers.length).toBe(7)
     })
 
     it('should set an active subject', function () {
       let checkBox = wrapper.find(CheckBox).first()
-      checkBox.simulate('change')
+      act(() => checkBox.props().onChange())
+      wrapper.update()
       let firstMarker = wrapper.find(Marker).first()
       firstMarker.props().onClick()
       expect(setActiveSubjectSpy).toHaveBeenCalledWith(mockData[0])

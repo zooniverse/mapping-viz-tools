@@ -43,13 +43,13 @@ const Uppercase = styled(Text)`
 export default function MapDetail({
   asyncStatus,
   coordinates,
-  onClose = () => {},
-  setActiveSubject = () => {},
-  setShowSubjectsModal = () => {},
+  onClose = () => { },
+  setActiveSubject = () => { },
+  setShowSubjectsModal = () => { },
   subjects
 }) {
   const [showSubjects, setShowSubjects] = React.useState(false)
-  
+
   const Content = () => {
     return (
       <Box>
@@ -106,7 +106,7 @@ export default function MapDetail({
               justify='center'
               style={{ position: 'relative' }}
             >
-              <StyledMap 
+              <StyledMap
                 bounds={[coordinates.southWest, coordinates.northEast]}
                 doubleClickZoom={false}
                 dragging={false}
