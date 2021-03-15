@@ -5,6 +5,9 @@ import BaseMap from 'components/BaseMap'
 import MapDetail from 'components/MapDetail'
 import styled from 'styled-components'
 import DrawingOverlay from 'components/DrawingOverlay'
+import MetadataModal from '../../components/Modals/Metadata'
+import SubjectsModal from '../../components/Modals/Subjects'
+import mockData from '../../components/MapDetail/mockData'
 
 const Relative = styled.div`
     position: relative;
@@ -14,6 +17,8 @@ const Relative = styled.div`
 export default function MapPage() {
   const [canDraw, changeDrawing] = React.useState(false)
   const [miniMapCoords, setCoords] = React.useState(null)
+  const [activeSubject, setActiveSubject] = React.useState(null)
+  const [showSubjectsModal, setShowSubjectsModal] = React.useState(false)
   const mapRef = React.useRef(null)
 
   return (
@@ -23,6 +28,27 @@ export default function MapPage() {
           <MapDetail
             coordinates={miniMapCoords}
             onClose={() => setCoords(null)}
+            setActiveSubject={setActiveSubject}
+            setShowSubjectsModal={setShowSubjectsModal}
+          />
+        </Layer>
+      )}
+
+      {activeSubject && (
+        <Layer onEsc={() => setActiveSubject(null)}>
+          <MetadataModal
+            onClose={setActiveSubject}
+            subject={activeSubject}
+          />
+        </Layer>
+      )}
+
+      {showSubjectsModal && (
+        <Layer onEsc={() => setShowSubjectsModal(false)}>
+          <SubjectsModal
+            onClose={setShowSubjectsModal}
+            onSelectSubject={setActiveSubject}
+            subjects={mockData}
           />
         </Layer>
       )}

@@ -11,7 +11,7 @@ import RectangleIcon from 'images/rectangle_icon.svg'
 import Map from 'images/map.png'
 import styled, { css } from 'styled-components'
 import { bool, func } from 'prop-types'
-import LocationDrop from '../LocationDrop'
+// import LocationDrop from '../LocationDrop'
 
 const Uppercase = styled(Text)`
   text-transform: uppercase;
@@ -48,7 +48,7 @@ export default function SidePanel({ changeDrawing = () => {}, isDrawing = false 
         <StyledText color='kelp' size='xlarge'>
           Falkland Islands
         </StyledText>
-        <LocationDrop />
+        {/* <LocationDrop /> */}
       </Box>
 
       <Box
