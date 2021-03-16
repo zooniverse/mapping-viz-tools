@@ -58,7 +58,7 @@ export default function DrawingOverlay({
 		setIsDrawing(false)
 		changeDrawing(false)
 
-		if (mapRef && mapRef.current) {
+		if (mapRef && mapRef.current && rectangle) {
 			setCoords(getRectBounds(mapRef, rectangle))
 		}
 		setRectangle(null)
