@@ -50,12 +50,6 @@ describe('Components > MapDetail', () => {
     })
   })
 
-describe('MapDetail > useEffect', () => {
-  it('should display location subheader based on coordinates props', () => {
-    
-  })
-})
-
   describe('onClose button', () => {
     it('should close the modal', () => {
       const closeBtn = wrapper.find(Button).first()
