@@ -43,5 +43,13 @@ describe('Components > MapDetail', function () {
       firstMarker.props().onClick()
       expect(setActiveSubjectSpy).toHaveBeenCalledWith(mockData[0])
     })
+
+    it('subheader should display selected coordinates', function () {
+      
+    })
+
+    it('subheader should display map area measurement', function () {
+      
+    })
   })
 })
