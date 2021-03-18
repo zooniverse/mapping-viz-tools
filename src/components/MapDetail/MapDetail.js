@@ -42,7 +42,6 @@ export default function MapDetail({
   setActiveSubject = () => {},
   setShowSubjectsModal = () => {},
   subjects,
-  data = mockData,
 }) {
   const mapRef = React.useRef(null)
   const [centerLat, setCenterLat] = React.useState(null)
@@ -54,9 +53,12 @@ export default function MapDetail({
   React.useEffect(() => {
     const leaflet = mapRef?.current?.leafletElement
     const center = leaflet?.getCenter()
-    setArea(getArea(coordinates))
-    setCenterLat(getLocationDetails(center.lat, 'lat'))
-    setCenterLng(getLocationDetails(center.lng, 'lng'))
+
+    if (center) {
+      setArea(getArea(coordinates))
+      setCenterLat(getLocationDetails(center.lat, 'lat'))
+      setCenterLng(getLocationDetails(center.lng, 'lng'))
+    }
   }, [coordinates, mapRef])
 
   const Content = () => {
