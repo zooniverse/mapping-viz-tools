@@ -50,6 +50,7 @@ export default function Metadata({
       height='32rem'
       pad={{ horizontal: 'medium', vertical: 'small' }}
       width='27rem'
+      background='sand'
     >
       <Box direction='row' justify='between'>
         <Text color='kelp'>Subject Metadata</Text>

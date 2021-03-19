@@ -10,6 +10,8 @@ import Loading from './components/Loading'
 import AssociatedSubjects from './components/AssociatedSubjects'
 import Charts from './components/Charts'
 import Timeline from './components/Timeline'
+import MetadataModal from '../../components/Modals/Metadata'
+import SubjectsModal from '../../components/Modals/Subjects'
 
 const StyledHeading = styled(Heading)`
   font-family: Neuton;
@@ -35,20 +37,34 @@ const Uppercase = styled(Text)`
   text-transform: uppercase;
 `
 
+// rendering multiple Grommet Layer components causes infinite loop of body overflow styling
+const CustomLayer = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1001;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
+
 export default function MapDetail({
   asyncStatus,
   coordinates,
   onClose = () => {},
-  setActiveSubject = () => {},
-  setShowSubjectsModal = () => {},
   subjects,
 }) {
   const mapRef = React.useRef(null)
   const [centerLat, setCenterLat] = React.useState(null)
   const [centerLng, setCenterLng] = React.useState(null)
   const [area, setArea] = React.useState(null)
-
   const [showSubjects, setShowSubjects] = React.useState(false)
+
+  const [activeSubject, setActiveSubject] = React.useState(null)
+  const [showSubjectsModal, setShowSubjectsModal] = React.useState(false)
 
   React.useEffect(() => {
     const leaflet = mapRef?.current?.leafletElement
@@ -168,6 +184,22 @@ export default function MapDetail({
             />
           </Box>
         </Box>
+
+        {activeSubject && (
+          <CustomLayer>
+            <MetadataModal onClose={setActiveSubject} subject={activeSubject} />
+          </CustomLayer>
+        )}
+
+        {showSubjectsModal && (
+          <CustomLayer>
+            <SubjectsModal
+              onClose={setShowSubjectsModal}
+              onSelectSubject={setActiveSubject}
+              subjects={subjects}
+            />
+          </CustomLayer>
+        )}
       </Box>
     )
   }
