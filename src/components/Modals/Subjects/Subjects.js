@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Button, Image, Text } from 'grommet'
+import { Box, Button, Grid, Image, Text } from 'grommet'
 import { Close } from 'grommet-icons'
 import { arrayOf, func, shape, string } from 'prop-types'
 import { PlainButton } from '@zooniverse/react-components'
@@ -7,23 +7,32 @@ import styled from 'styled-components'
 
 const Neuton = styled(Text)`
   font-family: Neuton;
+  margin-bottom: 20px;
 `
 
 const StyledText = styled(Text)`
   vertical-align: middle;
 `
 
+const SubjectButton = styled(Button)`
+  display: flex;
+  width: calc((100% - 40px) / 3);
+  margin-bottom: 20px;
+  &:not(:nth-child(3n)) {
+    margin-right: 20px;
+  }
+`
+
 const chunk = (arr, size) => {
-  return Array.from(
-    { length: Math.ceil(arr.length / size) },
-    (v, i) => arr.slice(i * size, i * size + size)
+  return Array.from({ length: Math.ceil(arr.length / size) }, (v, i) =>
+    arr.slice(i * size, i * size + size)
   )
 }
 
-export default function Subjects ({
+export default function Subjects({
   onClose = () => {},
   onSelectSubject = () => {},
-  subjects = []
+  subjects = [],
 }) {
   const [subjectIndex, changeSubjectIndex] = React.useState(0)
   const chunkedSubjects = chunk(subjects, 9)
@@ -34,8 +43,6 @@ export default function Subjects ({
     <Box
       border
       elevation='small'
-      gap='xsmall'
-      height='25em'
       pad='small'
       width='medium'
       background='sand'
@@ -50,36 +57,24 @@ export default function Subjects ({
         />
       </Box>
       <Neuton>Click a subject to view more information</Neuton>
-      <Box
-        direction='row'
-        justify='between'
-        width='medium'
-        wrap
-      >
-        {currentPage.map((subject, i) => {
+      <Box wrap direction='row'>
+        {currentPage.map(subject => {
           return (
-            <Box
+            <SubjectButton
               key={`SUBJECTS_${subject.id}`}
-              basis='30%'
-              margin={{ bottom: 'xsmall' }}
-              height='5.5em'
+              a11yTitle={`Select subject ${subject.id}`}
+              onClick={() => {
+                onClose()
+                onSelectSubject(subject)
+              }}
+              plain
             >
-              <Button
-                a11yTitle={`Select subject ${subject.id}`}
-                onClick={() => {
-                  onClose()
-                  onSelectSubject(subject)
-                }}
-                plain
-              >
-                <Image
-                  alt={subject.alt}
-                  fit='contain'
-                  src={`//${subject.media_location}`}
-                  width='100%'
-                />
-              </Button>
-            </Box>
+              <Image
+                alt={subject.alt}
+                src={`//${subject.media_location}`}
+                width='100%'
+              />
+            </SubjectButton>
           )
         })}
       </Box>
@@ -88,6 +83,7 @@ export default function Subjects ({
           direction='row'
           gap='xxsmall'
           margin={{ horizontal: 'auto', top: 'auto' }}
+          overflow='scroll'
         >
           <Button
             a11yTitle='Go to previous page of subjects'
@@ -124,7 +120,9 @@ export default function Subjects ({
 Subjects.propTypes = {
   onClose: func,
   onSelectSubject: func,
-  subjects: arrayOf(shape({
-    media_location: string
-  }))
+  subjects: arrayOf(
+    shape({
+      media_location: string,
+    })
+  ),
 }
