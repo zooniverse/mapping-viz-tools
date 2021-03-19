@@ -62,20 +62,18 @@ export default function MapDetail({
   const [centerLng, setCenterLng] = React.useState(null)
   const [area, setArea] = React.useState(null)
   const [showSubjects, setShowSubjects] = React.useState(false)
-
   const [activeSubject, setActiveSubject] = React.useState(null)
   const [showSubjectsModal, setShowSubjectsModal] = React.useState(false)
 
   React.useEffect(() => {
     const leaflet = mapRef?.current?.leafletElement
     const center = leaflet?.getCenter()
-
     if (center) {
       setArea(getArea(coordinates))
       setCenterLat(getLocationDetails(center.lat, 'lat'))
       setCenterLng(getLocationDetails(center.lng, 'lng'))
     }
-  }, [coordinates, mapRef])
+  }, [coordinates, mapRef, asyncStatus])
 
   const Content = () => {
     return (
