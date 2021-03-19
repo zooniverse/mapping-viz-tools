@@ -11,8 +11,22 @@ import MetadataModal from '../../components/Modals/Metadata'
 import SubjectsModal from '../../components/Modals/Subjects'
 
 const Relative = styled.div`
-    position: relative;
-    width: 100%;
+  position: relative;
+  width: 100%;
+`
+
+// rendering multiple Grommet Layer components causes infinite loop of body overflow styling
+const CustomLayer = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1001;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `
 
 export default function MapPage() {
@@ -39,6 +53,18 @@ export default function MapPage() {
 
   return (
     <Box direction='row' height={{ min: '100%' }}>
+      <SidePanel changeDrawing={changeDrawing} isDrawing={canDraw} />
+
+      <Relative>
+        <BaseMap ref={mapRef} />
+        <DrawingOverlay
+          canDraw={canDraw}
+          changeDrawing={changeDrawing}
+          mapRef={mapRef}
+          setCoords={setCoords}
+        />
+      </Relative>
+
       {miniMapCoords && (
         <Layer>
           <MapDetail
@@ -53,38 +79,20 @@ export default function MapPage() {
       )}
 
       {activeSubject && (
-        <Layer onEsc={() => setActiveSubject(null)}>
-          <MetadataModal
-            onClose={setActiveSubject}
-            subject={activeSubject}
-          />
-        </Layer>
+        <CustomLayer>
+          <MetadataModal onClose={setActiveSubject} subject={activeSubject} />
+        </CustomLayer>
       )}
 
       {showSubjectsModal && (
-        <Layer onEsc={() => setShowSubjectsModal(false)}>
+        <CustomLayer>
           <SubjectsModal
             onClose={setShowSubjectsModal}
             onSelectSubject={setActiveSubject}
             subjects={subjects}
           />
-        </Layer>
+        </CustomLayer>
       )}
-
-      <SidePanel
-        changeDrawing={changeDrawing}
-        isDrawing={canDraw}
-      />
-
-      <Relative>
-        <BaseMap ref={mapRef} />
-        <DrawingOverlay
-          canDraw={canDraw}
-          changeDrawing={changeDrawing}
-          mapRef={mapRef}
-          setCoords={setCoords}
-        />
-      </Relative>
     </Box>
   )
 }

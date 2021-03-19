@@ -38,6 +38,7 @@ export default function Subjects ({
       height='25em'
       pad='small'
       width='medium'
+      background='sand'
     >
       <Box direction='row' justify='between'>
         <Text color='kelp'>Associated subjects ({subjects.length})</Text>
