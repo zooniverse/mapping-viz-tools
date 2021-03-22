@@ -14,7 +14,7 @@ const StyledText = styled(Text)`
   vertical-align: middle;
 `
 
-const SubjectButton = styled(Button)`
+export const SubjectButton = styled(Button)`
   display: flex;
   width: calc((100% - 40px) / 3);
   margin-bottom: 20px;

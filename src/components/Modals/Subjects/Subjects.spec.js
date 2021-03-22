@@ -2,12 +2,12 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import { Button, Image } from 'grommet'
 import { PlainButton } from '@zooniverse/react-components'
-import Subjects from './Subjects'
+import Subjects, { SubjectButton } from './Subjects'
 
 const onCloseSpy = jest.fn()
 const onSelectSubjectSpy = jest.fn()
 
-const mockSubjects = new Array(19)
+const mockSubjects = new Array(50)
 mockSubjects.fill({ alt: 'Falkland Islands Map', link: '#', src: '' })
 
 describe('Component > Subjects', () => {
@@ -42,21 +42,21 @@ describe('Component > Subjects', () => {
     })
 
     it('should go to the first page', () => {
-      let leftArrow = wrapper.find(Button).at(9)
+      let leftArrow = wrapper.find(Button).first()
       leftArrow.simulate('click')
       let images = wrapper.find(Image)
       expect(images.length).toBe(9)
-      leftArrow = wrapper.find(Button).at(9)
+      leftArrow = wrapper.find(Button).first()
       expect(leftArrow.props().disabled).toBeTruthy()
     })
 
     it('should go to the nth page', () => {
-      let nthBtn = wrapper.find(Button).at(11)
+      let nthBtn = wrapper.find(Button).at(3)
       nthBtn.simulate('click')
       let images = wrapper.find(Image)
       expect(images.length).toBe(9)
 
-      const leftButton = wrapper.find(Button).at(9)
+      const leftButton = wrapper.find(Button).first()
       const rightButton = wrapper.find(Button).last()
       expect(leftButton.props().disabled).toBeFalsy()
       expect(rightButton.props().disabled).toBeFalsy()
@@ -73,7 +73,7 @@ describe('Component > Subjects', () => {
 
   describe('subject buttons', function () {
     it('should select the subject', function () {
-      const subjectBtn = wrapper.find(Button).first()
+      const subjectBtn = wrapper.find(SubjectButton).first()
       subjectBtn.simulate('click')
       expect(onSelectSubjectSpy).toHaveBeenCalled()
     })

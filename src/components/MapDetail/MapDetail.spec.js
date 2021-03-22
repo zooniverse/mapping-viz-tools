@@ -49,16 +49,18 @@ describe('Components > MapDetail', () => {
       let checkBox = wrapper.find(CheckBox).first()
       act(() => checkBox.props().onChange())
       wrapper.update()
+      let markers = wrapper.find(Marker)
+      expect(markers.length).toBe(7)
       let firstMarker = wrapper.find(Marker).first()
-      firstMarker.props().onClick()
-      expect(setActiveSubjectSpy).toHaveBeenCalledWith(mockData[0])
-      // use RTL to test if activeSubject state is mockData[0]
+      act(() => firstMarker.props().onClick())
+
+      // test if activeSubject state is mockData[0]
       // test of the modal opens?
     })
   })
 
   describe('See More Subjects button', () => {
-    // use RTL to test if showSubjectModal state is true
+    // test if showSubjectModal state is true
   })
 
   describe('onClose button', () => {
