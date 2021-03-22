@@ -72,6 +72,28 @@ describe('Components > DrawingOverlay', function () {
         let rectSecondInstance = wrapper.find('rect')
         expect(rectSecondInstance.length).toBe(0)
       })
+
+      it('should not set coordinates if pointer event does not draw a rectangle', function() {
+        const setCoordsSpy = jest.fn()
+        let clientRect = { left: 0, top: 0 }
+        let svgRef = {
+          current: {
+            getBoundingClientRect: () => clientRect
+          }
+        }
+        jest.spyOn(React, 'useRef').mockImplementation(() => svgRef)
+        let mapRef = { current: {} }
+        wrapper = shallow(
+          <DrawingOverlay
+            canDraw
+            mapRef={mapRef}
+            setCoords={setCoordsSpy}
+          />)
+        let click = { clientX: 100, clientY: 100 }
+        wrapper.simulate('pointerdown', click)
+        wrapper.simulate('pointerup')
+        expect(setCoordsSpy).toHaveBeenCalledTimes(0)
+      })
     })
   })
 })
