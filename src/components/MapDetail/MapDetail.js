@@ -32,7 +32,7 @@ const HeadingTwo = styled(StyledHeading)`
   font-weight: 300;
 `
 
-const Uppercase = styled(Text)`
+export const Uppercase = styled(Text)`
   letter-spacing: 1.23px;
   text-transform: uppercase;
 `
