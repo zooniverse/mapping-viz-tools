@@ -7,8 +7,4 @@ describe('Component > MapPage', () => {
     const wrapper = shallow(<MapPage />)
     expect(wrapper).toBeDefined()
   })
-
-  it('should call getSubjects when selected coordinates change', () => {
-    
-  })
 })

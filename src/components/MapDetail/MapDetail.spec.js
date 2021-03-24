@@ -1,5 +1,5 @@
 import React from 'react'
-import { mount, shallow, render } from 'enzyme'
+import { mount, shallow } from 'enzyme'
 import { act } from 'react-dom/test-utils'
 import { Button, CheckBox } from 'grommet'
 import { Marker } from 'react-leaflet'
@@ -7,6 +7,7 @@ import STATUS from 'helpers/asyncStatus'
 import MapDetail, { Uppercase } from './MapDetail'
 import mockData from './mockData'
 import Loading from './components/Loading'
+import MetadataModal from '../../components/Modals/Metadata'
 
 describe('Components > MapDetail', () => {
   let wrapper
@@ -73,7 +74,7 @@ describe('Components > MapDetail', () => {
       expect(markers.length).toBe(7)
     })
 
-    it('should set an active subject', () => {
+    it('should set an active subject and open modal', () => {
       let checkBox = wrapper.find(CheckBox).first()
       act(() => checkBox.props().onChange())
       wrapper.update()
@@ -81,14 +82,10 @@ describe('Components > MapDetail', () => {
       expect(markers.length).toBe(7)
       let firstMarker = wrapper.find(Marker).first()
       act(() => firstMarker.props().onClick())
-
-      // test if activeSubject state is mockData[0]
-      // test of the modal opens?
+      wrapper.update()
+      const metadataModal = wrapper.find(MetadataModal)
+      expect(metadataModal.props().subject).toEqual(mockData[0])
     })
-  })
-
-  describe('See More Subjects button', () => {
-    // test if showSubjectModal state is true
   })
 
   describe('onClose button', () => {

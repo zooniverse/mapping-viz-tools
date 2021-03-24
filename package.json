@@ -16,6 +16,7 @@
     "jest-styled-components": "^7.0.2",
     "leaflet": "^1.6.0",
     "lodash": "^4.17.15",
+    "nock": "^13.0.11",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-leaflet": "^2.7.0",
