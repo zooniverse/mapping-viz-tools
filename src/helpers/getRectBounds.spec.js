@@ -24,19 +24,6 @@ describe('Helper > getRectBounds', function () {
       expect(result).toEqual(expectation)
     })
   })
-
-  describe('without valid input', function () {
-    it('should return default objects', function () {
-      const result = getRectBounds()
-      const expectation = {
-        height: '0%',
-        width: '0%',
-        northEast: {},
-        southWest: {}
-      }
-      expect(result).toEqual(expectation)
-    })
-  })
 })
 
 describe('Helper > getAspectSize', function () {
