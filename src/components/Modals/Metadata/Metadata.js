@@ -9,34 +9,46 @@ import ConditionalLink from './components/ConditionalLink'
 const StyledDataTable = styled(DataTable)`
   width: 100%;
 
-  thead { display: none; }
-  th { text-align: right; }
+  thead {
+    display: none;
+  }
+  th {
+    text-align: right;
+  }
 `
 
 const Uppercase = styled(Text)`
   text-transform: uppercase;
 `
 
-const columns = [{
-  property: 'key',
-  render: datum => <Uppercase color='kelp' weight='bold'>{datum.key}</Uppercase>
-}, {
-  property: 'value',
-  render: datum => <ConditionalLink color='kelp' text={datum.value} />
-}]
+const columns = [
+  {
+    property: 'key',
+    render: datum => (
+      <Uppercase color='kelp' weight='bold'>
+        {datum.key}
+      </Uppercase>
+    ),
+  },
+  {
+    property: 'value',
+    render: datum => <ConditionalLink color='kelp' text={datum.value} />,
+  },
+]
 
 export default function Metadata({
   onClose = () => {},
   subject = {
-    metadata: {}
-  }
+    metadata: {},
+  },
 }) {
-  const privateChars = ['#', '//', '!']
+  const privateChars = ['#', '//']
   const filteredData = Object.keys(subject.metadata).reduce((acc, key) => {
     if (!privateChars.includes(key[0])) {
+      const displayKey = (str) => str[0] === '!' ? str.substr(1) : str
       acc.push({
-        key,
-        value: subject.metadata[key]
+        key: displayKey(key),
+        value: subject.metadata[key],
       })
     }
     return acc
@@ -87,6 +99,6 @@ Metadata.propTypes = {
   onClose: func,
   subject: shape({
     media_location: string,
-    metadata: shape()
-  })
+    metadata: shape(),
+  }),
 }
