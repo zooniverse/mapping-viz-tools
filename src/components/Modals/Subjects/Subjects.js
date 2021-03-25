@@ -4,6 +4,7 @@ import { Close } from 'grommet-icons'
 import { arrayOf, func, shape, string } from 'prop-types'
 import { PlainButton } from '@zooniverse/react-components'
 import styled from 'styled-components'
+import { chunk } from 'lodash'
 
 const Neuton = styled(Text)`
   font-family: Neuton;
@@ -22,12 +23,6 @@ export const SubjectButton = styled(Button)`
     margin-right: 20px;
   }
 `
-
-const chunk = (arr, size) => {
-  return Array.from({ length: Math.ceil(arr.length / size) }, (v, i) =>
-    arr.slice(i * size, i * size + size)
-  )
-}
 
 export default function Subjects({
   onClose = () => {},
