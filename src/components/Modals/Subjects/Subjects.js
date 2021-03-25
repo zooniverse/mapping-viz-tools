@@ -87,11 +87,11 @@ export default function Subjects({
             onClick={() => changeSubjectIndex(subjectIndex - 1)}
             plain
           />
-          {chunkedSubjects.map((subj, i) => {
+          {chunkedSubjects.map((page, i) => {
             const char = i === subjectIndex ? `\u25CF` : `\u25CB`
             return (
               <Button
-                key={`SUBJECTS_PAGE_${i}`}
+                key={`SUBJECTS_PAGE_${page[0].id}`}
                 a11yTitle={`Go to subject page ${i}`}
                 onClick={() => changeSubjectIndex(i)}
               >
