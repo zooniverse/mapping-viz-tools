@@ -20,6 +20,9 @@ const baseConfig = {
   development: {
     dbEndpoint: 'https://mapping-viz-functions-staging.azurewebsites.net/api'
   },
+  test: {
+    dbEndpoint: 'https://mapping-viz-functions-staging.azurewebsites.net/api'
+  },
   production: {
     dbEndpoint: 'https://mapping-viz-functions.azurewebsites.net/api'
   },

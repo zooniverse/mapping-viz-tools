@@ -1,8 +1,7 @@
 import nock from 'nock'
 import mockData from 'components/MapDetail/mockData'
 import { getSubjects } from './client'
-
-const dbEndpoint = 'https://mapping-viz-functions-staging.azurewebsites.net/api'
+import { config } from '../config'
 
 describe('fetching subjects data', () => {
   const coordinates = {
@@ -14,16 +13,29 @@ describe('fetching subjects data', () => {
       lat: -52,
       lng: -60.7,
     },
-    height: '100%',
-    width: '100%',
   }
 
-  const scope = nock(`${dbEndpoint}`).get(`/subjects`).reply(200, {
-    data: mockData,
+  const minLat = coordinates.southWest.lat
+  const maxLat = coordinates.northEast.lat
+  const minLon = coordinates.southWest.lng
+  const maxLon = coordinates.northEast.lng
+
+  beforeAll(() => {
+    const scope = nock(config.dbEndpoint)
+      .persist()
+      .get(`/subjects`)
+      .query({ minLat, minLon, maxLat, maxLon })
+      .reply(200, mockData, { 'Access-Control-Allow-Origin': '*' })
+  })
+
+  afterAll(() => {
+    nock.cleanAll()
   })
 
   it('should return a subjects response', async () => {
-    // const response = await getSubjects(coordinates)
-    // expect(response.data[0]).toEqual(mockData[0])
+    const response = await getSubjects(coordinates)
+    expect(response[0]).toEqual(mockData[0])
   })
 })
+
+// add tests for various error responses from mapping-viz-functions
