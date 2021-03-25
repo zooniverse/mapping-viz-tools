@@ -95,4 +95,12 @@ describe('Components > MapDetail', () => {
       expect(onCloseSpy).toHaveBeenCalled()
     })
   })
+
+  describe('onClose button', () => {
+    it('should close the modal', () => {
+      const closeBtn = wrapper.find(Button).first()
+      closeBtn.simulate('click')
+      expect(onCloseSpy).toHaveBeenCalled()
+    })
+  })
 })
