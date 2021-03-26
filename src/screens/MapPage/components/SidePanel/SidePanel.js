@@ -81,9 +81,6 @@ export default function SidePanel({ changeDrawing = () => {}, isDrawing = false 
           Toggle additional data layers to see how environmental factors affect
           kelp forests.
         </Text>
-        <CheckBox label={<Uppercase color='kelp' size='xsmall'>Wind Speed</Uppercase>} />
-        <CheckBox label={<Uppercase color='kelp' size='xsmall'>Temperature Data</Uppercase>} />
-        <CheckBox label={<Uppercase color='kelp' size='xsmall'>Wind Data</Uppercase>} />
         <CheckBox label={<Uppercase color='kelp' size='xsmall'>Satellite Imagery</Uppercase>} />
       </Box>
 
