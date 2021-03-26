@@ -33,12 +33,12 @@ describe('Helper > getLocationDetails', () => {
   }
 
   const expectedLatLocation = {
-    degrees: '51',
+    degrees: '-51',
     direction: 'S',
     minutes: '80',
   }
   const expectedLngLocation = {
-    degrees: '59',
+    degrees: '-59',
     direction: 'W',
     minutes: '42',
   }
