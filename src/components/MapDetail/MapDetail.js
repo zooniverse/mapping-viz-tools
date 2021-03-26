@@ -77,25 +77,19 @@ export default function MapDetail({
 
   const Content = () => {
     return (
-      <Box
-        background='sand'
-        border={{ color: 'kelp' }}
-        gap='medium'
-        overflow='auto'
-        pad={{ horizontal: 'large', vertical: 'xsmall' }}
-        width='60rem'
-      >
+      <Box>
         <Box
           border={{ color: 'kelp', side: 'bottom' }}
           direction='row'
           justify='between'
-          pad={{ vertical: 'small' }}
+          alignContent='center'
+          pad={{ bottom: 'small' }}
+          margin={{ bottom: 'small' }}
         >
-          <StyledHeading color='kelp' level='4' margin='none'>
+          <StyledHeading color='kelp' level='4' margin='0'>
             Map Detail
           </StyledHeading>
           <Button
-            alignSelf='end'
             color='kelp'
             gap='xsmall'
             icon={<Close color='black' size='small' />}
@@ -209,7 +203,7 @@ export default function MapDetail({
       gap='medium'
       height={{ min: '35rem' }}
       overflow='auto'
-      pad={{ horizontal: 'large', vertical: 'xsmall' }}
+      pad={{ horizontal: 'large', vertical: 'small' }}
       width='60rem'
     >
       {asyncStatus === STATUS.LOADING ? <Loading /> : <Content />}
