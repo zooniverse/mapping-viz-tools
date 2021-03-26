@@ -49,7 +49,7 @@ describe('Components > MapDetail', () => {
   describe('map area details', () => {
     // based on coordinates defaultProps
     it('should display map center coordinates', () => {
-      const expectedDisplay = `51°70'S 60°10'W`
+      const expectedDisplay = `-51°70'S -60°10'W`
       const centerCoords = wrapper.find(Uppercase).at(1)
       const inner = centerCoords.find('span')
       expect(inner.text()).toEqual(expectedDisplay)
