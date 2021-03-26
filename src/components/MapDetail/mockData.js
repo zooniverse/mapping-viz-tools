@@ -2,10 +2,10 @@ const data = [
   {
     id: 1,
     subjectId: 15112333,
-    lat: -51.8557484758465,
-    lon: -58.4818413309715,
+    latitude: -51.8557484758465,
+    longitude: -58.4818413309715,
     acquiredDatetime: '2006-11-08T13:12:53.1840880Z',
-    subjectMetadata: {
+    metadata: {
         "#row": "12",
         "!scene": "LT052200962006110801T1-SC20171011154123",
         "#width": "350",
@@ -39,17 +39,17 @@ const data = [
         "!earth_sun_distance":
         "0.990724"
       },
-    subjectMediaLocation: 'panoptes-uploads.zooniverse.org/production/subject_location/5f9f5fa7-273d-4532-acc7-eba78780b286.png',
+    media_location: 'panoptes-uploads.zooniverse.org/production/subject_location/5f9f5fa7-273d-4532-acc7-eba78780b286.png',
     subjectSet: 16823,
     kelpKm2: 0,
     sstGridIndex: 903
   }, {
     id: 2,
     subjectId: 15112331,
-    lat: -51.7674641397222,
-    lon: -57.8703460277511,
+    latitude: -51.7674641397222,
+    longitude: -57.8703460277511,
     acquiredDatetime: '2006-11-08T13:12:53.1840880Z',
-    subjectMetadata: {
+    metadata: {
         "#row": "11",
         "!scene": "LT052200962006110801T1-SC20171011154123",
         "#width": "350",
@@ -82,17 +82,17 @@ const data = [
         "#scene_corner_UL_y": "-5614800",
         "!earth_sun_distance": "0.990724"
       },
-    subjectMediaLocation: 'panoptes-uploads.zooniverse.org/production/subject_location/07dfcb3e-eb88-4dc2-9027-92124d8f5a0e.png',
+    media_location: 'panoptes-uploads.zooniverse.org/production/subject_location/07dfcb3e-eb88-4dc2-9027-92124d8f5a0e.png',
     subjectSet: 16823,
     kelpKm2: 1.4246,
     sstGridIndex: 905
   }, {
     id: 3,
     subjectId: 15112327,
-    lat: -51.7662394078781,
-    lon: -58.0224661260516,
+    latitude: -51.7662394078781,
+    longitude: -58.0224661260516,
     acquiredDatetime: '2006-11-08T13:12:53.1840880Z',
-    subjectMetadata: {
+    metadata: {
         "#row": "11",
         "!scene": "LT052200962006110801T1-SC20171011154123",
         "#width": "350",
@@ -125,17 +125,17 @@ const data = [
         "#scene_corner_UL_y": "-5614800",
         "!earth_sun_distance": "0.990724"
       },
-    subjectMediaLocation: 'panoptes-uploads.zooniverse.org/production/subject_location/d446a077-aa66-431a-a1b9-c912033dbd1b.png',
+    media_location: 'panoptes-uploads.zooniverse.org/production/subject_location/d446a077-aa66-431a-a1b9-c912033dbd1b.png',
     subjectSet: 16823,
     kelpKm2: 4.3864,
     sstGridIndex: 904
   }, {
     id: 4,
     subjectId: 15112325,
-    lat: -51.7648178748574,
-    lon: -58.1745745625986,
+    latitude: -51.7648178748574,
+    longitude: -58.1745745625986,
     acquiredDatetime: '2006-11-08T13:12:53.1840880Z',
-    subjectMetadata: {
+    metadata: {
         "#row": "11",
         "!scene": "LT052200962006110801T1-SC20171011154123",
         "#width": "350",
@@ -168,17 +168,17 @@ const data = [
         "#scene_corner_UL_y": "-5614800",
         "!earth_sun_distance": "0.990724"
       },
-    subjectMediaLocation: 'panoptes-uploads.zooniverse.org/production/subject_location/285aa49e-80d3-44be-8cb2-b37320303318.png',
+    media_location: 'panoptes-uploads.zooniverse.org/production/subject_location/285aa49e-80d3-44be-8cb2-b37320303318.png',
     subjectSet: 16823,
     kelpKm2: 12.5265,
     sstGridIndex: 904
   }, {
     id: 5,
     subjectId: 15112323,
-    lat: -51.6749308328108,
-    lon: -57.5649002184831,
+    latitude: -51.6749308328108,
+    longitude: -57.5649002184831,
     acquiredDatetime: '2006-11-08T13:12:53.1840880Z',
-    subjectMetadata: {
+    metadata: {
         "#row": "10",
         "!scene": "LT052200962006110801T1-SC20171011154123",
         "#width": "350",
@@ -211,17 +211,17 @@ const data = [
         "#scene_corner_UL_y": "-5614800",
         "!earth_sun_distance": "0.990724"
       },
-    subjectMediaLocation: 'panoptes-uploads.zooniverse.org/production/subject_location/fdd9a35a-0a96-4535-a000-ce3fff680c7f.png',
+    media_location: 'panoptes-uploads.zooniverse.org/production/subject_location/fdd9a35a-0a96-4535-a000-ce3fff680c7f.png',
     subjectSet: 0,
     kelpKm2: 978,
     sstGridIndex: 978
   }, {
     id: 6,
     subjectId: 15112321,
-    lat: -51.6741025879967,
-    lon: -57.7167220172637,
+    latitude: -51.6741025879967,
+    longitude: -57.7167220172637,
     acquiredDatetime: '2006-11-08T13:12:53.1840880Z',
-    subjectMetadata: {
+    metadata: {
         "#row": "10",
         "!scene": "LT052200962006110801T1-SC20171011154123",
         "#width": "350",
@@ -254,17 +254,17 @@ const data = [
         "#scene_corner_UL_y": "-5614800",
         "!earth_sun_distance": "0.990724"
       },
-    subjectMediaLocation: 'panoptes-uploads.zooniverse.org/production/subject_location/c344ac55-8956-4807-b008-be4d3aee1725.png',
+    media_location: 'panoptes-uploads.zooniverse.org/production/subject_location/c344ac55-8956-4807-b008-be4d3aee1725.png',
     subjectSet: 16823,
     kelpKm2: 3.8519,
     sstGridIndex: 978
   }, {
     id: 7,
     subjectId: 15112317,
-    lat: -51.6730781438224,
-    lon: -57.8685356815718,
+    latitude: -51.6730781438224,
+    longitude: -57.8685356815718,
     acquiredDatetime: '2006-11-08T13:12:53.1840880Z',
-    subjectMetadata: {
+    metadata: {
         "#row": "10",
         "!scene": "LT052200962006110801T1-SC20171011154123",
         "#width": "350",
@@ -297,7 +297,7 @@ const data = [
         "#scene_corner_UL_y": "-5614800",
         "!earth_sun_distance": "0.990724"
       },
-    subjectMediaLocation: 'panoptes-uploads.zooniverse.org/production/subject_location/e2b8e662-e68b-4179-b375-52a0af1a94a7.png',
+    media_location: 'panoptes-uploads.zooniverse.org/production/subject_location/e2b8e662-e68b-4179-b375-52a0af1a94a7.png',
     subjectSet: 16823,
     kelpKm2: 3.1602,
     sstGridIndex: 977
