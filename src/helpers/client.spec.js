@@ -51,6 +51,7 @@ describe('missing coordinates when fetching subject data', () => {
   }
 
   let response
+  let thrownError
   beforeAll(async () => {
     const scope = nock(config.dbEndpoint)
       .persist()
@@ -61,19 +62,21 @@ describe('missing coordinates when fetching subject data', () => {
         maxLat: coordinates.northEast.lat,
         maxLon: coordinates.northEast.lng,
       })
-      .reply(422, [], { 'Access-Control-Allow-Origin': '*' })
-    response = await getSubjects(coordinates)
+      .replyWithError(
+        'Missing one of parameters: minLat, maxLat, minLon, maxLon'
+      )
+    try {
+      response = await getSubjects(coordinates)
+    } catch (error) {
+      thrownError = error
+    }
   })
 
   afterAll(() => {
     nock.cleanAll()
   })
 
-  it('should return a 422 code', async () => {
-    expect(response.statusCode).toEqual(422)
-  })
-
-  it('should return a 422 code', async () => {
-    expect(response.title).toEqual('Missing one of parameters: minLat, maxLat, minLon, maxLon')
+  it('should return an error and no subjects', () => {
+    expect(response).toBeUndefined()
   })
 })
