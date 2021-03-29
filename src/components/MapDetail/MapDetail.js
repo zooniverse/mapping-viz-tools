@@ -57,8 +57,6 @@ export default function MapDetail({
   onClose = () => {},
   subjects,
 }) {
-  console.log('Map Detail rerender')
-
   const mapRef = React.useRef(null)
   const [centerLat, setCenterLat] = React.useState(null)
   const [centerLng, setCenterLng] = React.useState(null)
