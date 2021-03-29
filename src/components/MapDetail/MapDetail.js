@@ -57,6 +57,8 @@ export default function MapDetail({
   onClose = () => {},
   subjects,
 }) {
+  console.log('Map Detail rerender')
+
   const mapRef = React.useRef(null)
   const [centerLat, setCenterLat] = React.useState(null)
   const [centerLng, setCenterLng] = React.useState(null)
@@ -64,7 +66,6 @@ export default function MapDetail({
   const [showSubjects, setShowSubjects] = React.useState(false)
   const [activeSubject, setActiveSubject] = React.useState(null)
   const [showSubjectsModal, setShowSubjectsModal] = React.useState(false)
-  const [year, setYear] = React.useState(0)
 
   React.useEffect(() => {
     const leaflet = mapRef?.current?.leafletElement
@@ -160,7 +161,7 @@ export default function MapDetail({
                   })}
               </StyledMap>
             </Box>
-            <Timeline year={year} setYear={setYear} />
+            <Timeline />
           </Box>
 
           <Box basis='40%' gap='xsmall'>

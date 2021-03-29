@@ -26,7 +26,6 @@ const Slider = styled.input`
   width: calc(100% - 4px);
   height: 100%;
   background: transparent;
-  transition: all 100ms linear;
 
   &::-webkit-slider-thumb {
     appearance: none;
@@ -34,22 +33,26 @@ const Slider = styled.input`
     height: 20px;
     width: 4px;
     cursor: pointer;
-    transition: all 200ms linear;
   }
 `
 
-export default function Timeline({ year, setYear }) {
+export default function Timeline() {
   const inputSlider = React.useRef(null)
+  const [sliderValue, setValue] = React.useState(0)
   
   const handleYear = e => {
     e.preventDefault()
     
-    const numOptions = 5 // number of circle 'tick marks'
+    const numTicks = 5
     const rangeValue = e.target.value
     const max = e.target.max
 
     // snap the marker to the nearest tick mark
-    const step = max / (numOptions - 1)
+    const step = max / (numTicks - 1)
+    const snapIndex = Math.round(rangeValue / step)
+
+    setValue(snapIndex * step)
+    // will fetch new range of subjects here too
   }
 
   return (
@@ -124,8 +127,10 @@ export default function Timeline({ year, setYear }) {
             min={0}
             max={100}
             step={1}
-            onChange={e => handleYear(e)}
             ref={inputSlider}
+            onMouseUp={e => handleYear(e)}
+            onChange={e => setValue(e.target.value)}
+            value={sliderValue}
           />
         </Relative>
       </Box>
