@@ -64,6 +64,7 @@ export default function MapDetail({
   const [showSubjects, setShowSubjects] = React.useState(false)
   const [activeSubject, setActiveSubject] = React.useState(null)
   const [showSubjectsModal, setShowSubjectsModal] = React.useState(false)
+  const [year, setYear] = React.useState(0)
 
   React.useEffect(() => {
     const leaflet = mapRef?.current?.leafletElement
@@ -159,7 +160,7 @@ export default function MapDetail({
                   })}
               </StyledMap>
             </Box>
-            <Timeline />
+            <Timeline year={year} setYear={setYear} />
           </Box>
 
           <Box basis='40%' gap='xsmall'>
