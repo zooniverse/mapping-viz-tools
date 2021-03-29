@@ -13,9 +13,22 @@ const Relative = styled.div`
   width: 100%;
 `
 
+const defaultCoords = {
+  northEast: {
+    lat: -51.4,
+    lng: -59.5,
+  },
+  southWest: {
+    lat: -52,
+    lng: -60.7,
+  },
+  height: '100%',
+  width: '100%',
+}
+
 export default function MapPage() {
   const [canDraw, changeDrawing] = React.useState(false)
-  const [miniMapCoords, setCoords] = React.useState(null)
+  const [miniMapCoords, setCoords] = React.useState(defaultCoords)
   const [subjects, setSubjects] = React.useState([])
   const [asyncStatus, setAsyncStatus] = React.useState(STATUS.LOADING)
   const mapRef = React.useRef(null)
