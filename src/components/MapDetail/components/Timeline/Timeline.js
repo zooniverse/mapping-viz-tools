@@ -17,7 +17,7 @@ const Year = styled(Text)`
   transform: translateX(-50%);
 `
 
-const Slider = styled.input`
+export const Slider = styled.input`
   appearance: none;
   position: absolute;
   left: 2px;
@@ -29,23 +29,21 @@ const Slider = styled.input`
 
   &::-webkit-slider-thumb {
     appearance: none;
-    background: black;
+    background: #113E3B;
     height: 20px;
     width: 4px;
     cursor: pointer;
   }
 `
 
-export default function Timeline() {
+const Timeline = () => {
   const inputSlider = React.useRef(null)
   const [sliderValue, setValue] = React.useState(0)
   
   const handleYear = e => {
-    e.preventDefault()
-    
     const numTicks = 5
     const rangeValue = e.target.value
-    const max = e.target.max
+    const max = inputSlider.current.max
 
     // snap the marker to the nearest tick mark
     const step = max / (numTicks - 1)
@@ -131,9 +129,12 @@ export default function Timeline() {
             onMouseUp={e => handleYear(e)}
             onChange={e => setValue(e.target.value)}
             value={sliderValue}
+            name="timeline-slider"
           />
         </Relative>
       </Box>
     </Box>
   )
 }
+
+export default Timeline
