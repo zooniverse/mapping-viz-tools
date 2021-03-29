@@ -201,7 +201,6 @@ export default function MapDetail({
       background='sand'
       border={{ color: 'kelp' }}
       gap='medium'
-      height={{ min: '35rem' }}
       overflow='auto'
       pad={{ horizontal: 'large', vertical: 'small' }}
       width='60rem'
