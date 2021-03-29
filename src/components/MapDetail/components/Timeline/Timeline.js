@@ -1,12 +1,8 @@
 import React from 'react'
-import { Box, Text, Button } from 'grommet'
+import { Box, Text } from 'grommet'
 import styled from 'styled-components'
 
 const Relative = styled(Box)`
-  position: relative;
-`
-
-const YearButton = styled(Button)`
   position: relative;
 `
 
@@ -38,16 +34,22 @@ const Slider = styled.input`
     height: 20px;
     width: 4px;
     cursor: pointer;
+    transition: all 200ms linear;
   }
 `
 
-// a range html value is arbitrary so could listen for certain value ranges and snap the element to desired position
-
 export default function Timeline({ year, setYear }) {
-  const numOptions = 5
+  const inputSlider = React.useRef(null)
+  
+  const handleYear = e => {
+    e.preventDefault()
+    
+    const numOptions = 5 // number of circle 'tick marks'
+    const rangeValue = e.target.value
+    const max = e.target.max
 
-  const handleYear = index => {
-    if (year !== index && index >= 0 && index < numOptions) setYear(index)
+    // snap the marker to the nearest tick mark
+    const step = max / (numOptions - 1)
   }
 
   return (
@@ -62,7 +64,7 @@ export default function Timeline({ year, setYear }) {
           justify='between'
           margin={{ bottom: 'small' }}
         >
-          <YearButton onClick={() => handleYear(0)}>
+          <Relative>
             <Circle
               background='kelp'
               height='8px'
@@ -72,8 +74,8 @@ export default function Timeline({ year, setYear }) {
             <Year color='kelp' size='12px'>
               1980
             </Year>
-          </YearButton>
-          <YearButton onClick={() => handleYear(1)}>
+          </Relative>
+          <Relative>
             <Circle
               background='kelp'
               height='8px'
@@ -83,8 +85,8 @@ export default function Timeline({ year, setYear }) {
             <Year color='kelp' size='12px'>
               1990
             </Year>
-          </YearButton>
-          <YearButton onClick={() => handleYear(2)}>
+          </Relative>
+          <Relative>
             <Circle
               background='kelp'
               height='8px'
@@ -94,8 +96,8 @@ export default function Timeline({ year, setYear }) {
             <Year color='kelp' size='12px'>
               2000
             </Year>
-          </YearButton>
-          <YearButton onClick={() => handleYear(3)}>
+          </Relative>
+          <Relative>
             <Circle
               background='kelp'
               height='8px'
@@ -105,8 +107,8 @@ export default function Timeline({ year, setYear }) {
             <Year color='kelp' size='12px'>
               2010
             </Year>
-          </YearButton>
-          <YearButton onClick={() => handleYear(4)}>
+          </Relative>
+          <Relative>
             <Circle
               background='kelp'
               height='8px'
@@ -116,12 +118,14 @@ export default function Timeline({ year, setYear }) {
             <Year color='kelp' size='12px'>
               2020
             </Year>
-          </YearButton>
+          </Relative>
           <Slider
             type='range'
             min={0}
             max={100}
-            // value={100}
+            step={1}
+            onChange={e => handleYear(e)}
+            ref={inputSlider}
           />
         </Relative>
       </Box>
