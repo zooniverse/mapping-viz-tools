@@ -2,44 +2,148 @@ import React from 'react'
 import { Box, Text } from 'grommet'
 import styled from 'styled-components'
 
-const StyledSVG = styled.svg`
-  display: block;
+const Relative = styled(Box)`
+  position: relative;
 `
 
-export default function Timeline() {
+const Circle = styled(Box)`
+  border-radius: 50%;
+`
+
+const Year = styled(Text)`
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+`
+
+export const Slider = styled.input`
+  -webkit-appearance: none;
+  appearance: none;
+  position: absolute;
+  left: 2px;
+  top: 0;
+  margin: 0;
+  width: calc(100% - 4px);
+  height: 100%;
+  background: transparent;
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    background: #113E3B;
+    height: 20px;
+    width: 4px;
+    cursor: pointer;
+  }
+
+  &::-moz-range-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    border: none;
+    background: #113E3B;
+    height: 20px;
+    width: 4px;
+    cursor: pointer;
+  }
+`
+
+const Timeline = () => {
+  const numTicks = 5
+  const inputSlider = React.useRef(null)
+  const [sliderValue, setValue] = React.useState(0)
+  
+  const handleYear = e => {
+    const rangeValue = e.target.value
+    const max = inputSlider.current.max
+    const step = max / (numTicks - 1)
+    const snapIndex = Math.round(rangeValue / step)
+    setValue(snapIndex * step)
+    // will fetch new range of subjects here too
+  }
+
   return (
     <Box direction='column'>
-      <Text color='kelp'>Time</Text>
-      <StyledSVG
-        height='100%'
-        viewBox='0 0 200 8'
-        width='100%'
-      >
-        <g>
-          <line
-            x1='0' x2='200'
-            y1='2' y2='2'
-            stroke='#b1bdba'
-            strokeWidth='2'
+      <Text color='kelp' margin={{ bottom: 'xsmall' }}>
+        Time
+      </Text>
+      <Box>
+        <Relative
+          background='timeline'
+          direction='row'
+          justify='between'
+          margin={{ bottom: 'small' }}
+        >
+          <Relative>
+            <Circle
+              background='kelp'
+              height='8px'
+              width='8px'
+              margin={{ vertical: '2px' }}
+            />
+            <Year color='kelp' size='12px'>
+              1980
+            </Year>
+          </Relative>
+          <Relative>
+            <Circle
+              background='kelp'
+              height='8px'
+              width='8px'
+              margin={{ vertical: '2px' }}
+            />
+            <Year color='kelp' size='12px'>
+              1990
+            </Year>
+          </Relative>
+          <Relative>
+            <Circle
+              background='kelp'
+              height='8px'
+              width='8px'
+              margin={{ vertical: '2px' }}
+            />
+            <Year color='kelp' size='12px'>
+              2000
+            </Year>
+          </Relative>
+          <Relative>
+            <Circle
+              background='kelp'
+              height='8px'
+              width='8px'
+              margin={{ vertical: '2px' }}
+            />
+            <Year color='kelp' size='12px'>
+              2010
+            </Year>
+          </Relative>
+          <Relative>
+            <Circle
+              background='kelp'
+              height='8px'
+              width='8px'
+              margin={{ vertical: '2px' }}
+            />
+            <Year color='kelp' size='12px'>
+              2020
+            </Year>
+          </Relative>
+          <Slider
+            type='range'
+            min={0}
+            max={100}
+            step={1}
+            ref={inputSlider}
+            onMouseUp={e => handleYear(e)}
+            onChange={e => setValue(e.target.value)}
+            value={sliderValue}
+            name="timeline-slider"
           />
-          <circle cx='0' cy='2' fill='#113E3B' r='1' />
-          <circle cx='50' cy='2' fill='#113E3B' r='1' />
-          <circle cx='100' cy='2' fill='#113E3B' r='1' />
-          <circle cx='150' cy='2' fill='#113E3B' r='1' />
-          <circle cx='200' cy='2' fill='#113E3B' r='1' />
-
-          <line
-            x1='150' x2='150'
-            y1='0' y2='4'
-            stroke='black'
-            strokeWidth='1'
-          />
-
-          <text fill='#113E3B' fontSize='4' y='8'>1980</text>
-          <text fill='#113E3B' fontSize='4' textAnchor='middle' x='150' y='8'>2010</text>
-          <text fill='#113E3B' fontSize='4' textAnchor='end' x='200' y='8'>2020</text>
-        </g>
-      </StyledSVG>
+        </Relative>
+      </Box>
     </Box>
   )
 }
+
+export default Timeline

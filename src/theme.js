@@ -12,6 +12,7 @@ const theme = {
       kelp: '#113E3B',
       indiglo: '#EEFEC0',
       sand: '#F5F4F1',
+      timeline: '#b1bdba',
       text: {
         dark: '#222222',
         light: '#222222'
