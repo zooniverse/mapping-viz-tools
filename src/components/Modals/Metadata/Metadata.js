@@ -9,34 +9,46 @@ import ConditionalLink from './components/ConditionalLink'
 const StyledDataTable = styled(DataTable)`
   width: 100%;
 
-  thead { display: none; }
-  th { text-align: right; }
+  thead {
+    display: none;
+  }
+  th {
+    text-align: right;
+  }
 `
 
 const Uppercase = styled(Text)`
   text-transform: uppercase;
 `
 
-const columns = [{
-  property: 'key',
-  render: datum => <Uppercase color='kelp' weight='bold'>{datum.key}</Uppercase>
-}, {
-  property: 'value',
-  render: datum => <ConditionalLink color='kelp' text={datum.value} />
-}]
+const columns = [
+  {
+    property: 'key',
+    render: datum => (
+      <Uppercase color='kelp' weight='bold'>
+        {datum.key}
+      </Uppercase>
+    ),
+  },
+  {
+    property: 'value',
+    render: datum => <ConditionalLink color='kelp' text={datum.value} />,
+  },
+]
 
 export default function Metadata({
   onClose = () => {},
   subject = {
-    subjectMetadata: {}
-  }
+    metadata: {},
+  },
 }) {
-  const privateChars = ['#', '//', '!']
-  const filteredData = Object.keys(subject.subjectMetadata).reduce((acc, key) => {
+  const privateChars = ['#', '//']
+  const filteredData = Object.keys(subject.metadata).reduce((acc, key) => {
     if (!privateChars.includes(key[0])) {
+      const displayKey = (str) => str[0] === '!' ? str.substr(1) : str
       acc.push({
-        key,
-        value: subject.subjectMetadata[key]
+        key: displayKey(key),
+        value: subject.metadata[key],
       })
     }
     return acc
@@ -50,6 +62,7 @@ export default function Metadata({
       height='32rem'
       pad={{ horizontal: 'medium', vertical: 'small' }}
       width='27rem'
+      background='sand'
     >
       <Box direction='row' justify='between'>
         <Text color='kelp'>Subject Metadata</Text>
@@ -68,7 +81,7 @@ export default function Metadata({
         <Image
           alt='Satellite Map of Falklands'
           fit='contain'
-          src={`//${subject.subjectMediaLocation}`}
+          src={`//${subject.media_location}`}
         />
       </Box>
       <Box overflow={{ vertical: 'auto' }}>
@@ -85,7 +98,7 @@ export default function Metadata({
 Metadata.propTypes = {
   onClose: func,
   subject: shape({
-    subjectMediaLocation: string,
-    subjectMetadata: shape()
-  })
+    media_location: string,
+    metadata: shape(),
+  }),
 }

@@ -5,10 +5,13 @@ import { Close } from 'grommet-icons'
 import { getArea, getLocationDetails } from 'helpers/getLocationDetails'
 import { arrayOf, func, number, shape, string } from 'prop-types'
 import { Map, Marker, TileLayer } from 'react-leaflet'
+import STATUS from 'helpers/asyncStatus'
+import Loading from './components/Loading'
 import AssociatedSubjects from './components/AssociatedSubjects'
 import Charts from './components/Charts'
 import Timeline from './components/Timeline'
-import mockData from './mockData'
+import MetadataModal from '../../components/Modals/Metadata'
+import SubjectsModal from '../../components/Modals/Subjects'
 
 const StyledHeading = styled(Heading)`
   font-family: Neuton;
@@ -29,139 +32,181 @@ const HeadingTwo = styled(StyledHeading)`
   font-weight: 300;
 `
 
-const Uppercase = styled(Text)`
+export const Uppercase = styled(Text)`
   letter-spacing: 1.23px;
   text-transform: uppercase;
 `
 
+// rendering multiple Grommet Layer components causes infinite loop of body overflow styling
+const CustomLayer = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1001;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
+
 export default function MapDetail({
+  asyncStatus,
   coordinates,
-  data = mockData,
   onClose = () => {},
-  setActiveSubject = () => {},
-  setShowSubjectsModal = () => {},
+  subjects,
 }) {
   const mapRef = React.useRef(null)
   const [centerLat, setCenterLat] = React.useState(null)
   const [centerLng, setCenterLng] = React.useState(null)
   const [area, setArea] = React.useState(null)
-
   const [showSubjects, setShowSubjects] = React.useState(false)
+  const [activeSubject, setActiveSubject] = React.useState(null)
+  const [showSubjectsModal, setShowSubjectsModal] = React.useState(false)
 
   React.useEffect(() => {
     const leaflet = mapRef?.current?.leafletElement
     const center = leaflet?.getCenter()
-    setArea(getArea(coordinates))
-    setCenterLat(getLocationDetails(center.lat, 'lat'))
-    setCenterLng(getLocationDetails(center.lng, 'lng'))
-  }, [coordinates, mapRef])
+    if (center) {
+      setArea(getArea(coordinates))
+      setCenterLat(getLocationDetails(center.lat, 'lat'))
+      setCenterLng(getLocationDetails(center.lng, 'lng'))
+    }
+  }, [coordinates, mapRef, asyncStatus])
+
+  const Content = () => {
+    return (
+      <Box>
+        <Box
+          border={{ color: 'kelp', side: 'bottom' }}
+          direction='row'
+          justify='between'
+          alignContent='center'
+          pad={{ bottom: 'small' }}
+          margin={{ bottom: 'small' }}
+        >
+          <StyledHeading color='kelp' level='4' margin='0'>
+            Map Detail
+          </StyledHeading>
+          <Button
+            color='kelp'
+            gap='xsmall'
+            icon={<Close color='black' size='small' />}
+            label={<Uppercase size='xsmall'>Close</Uppercase>}
+            onClick={onClose}
+            plain
+            reverse
+          />
+        </Box>
+
+        <Box direction='row' gap='medium'>
+          <Box basis='60%' gap='xsmall'>
+            <HeadingTwo color='kelp' level='2' margin='none'>
+              Falkland Islands
+            </HeadingTwo>
+            <Box align='center' direction='row' justify='between'>
+              <Box direction='row' gap='xsmall'>
+                <Uppercase color='kelp' size='0.75rem'>
+                  {centerLat?.degrees}&#176;{centerLat?.minutes}'
+                  {centerLat?.direction} {centerLng?.degrees}&#176;
+                  {centerLng?.minutes}'{centerLng?.direction}
+                </Uppercase>
+                <Uppercase color='kelp' size='0.75rem'>
+                  {area?.miles} SQ MI / {area?.kms} SQ KM
+                </Uppercase>
+              </Box>
+              <CheckBox
+                checked={showSubjects}
+                label={
+                  <Uppercase color='kelp' size='0.75rem'>
+                    Subjects
+                  </Uppercase>
+                }
+                onChange={() => setShowSubjects(!showSubjects)}
+              />
+            </Box>
+            <Box
+              align='center'
+              background='gray'
+              border={{ color: 'kelp' }}
+              flex
+              justify='center'
+              style={{ position: 'relative' }}
+            >
+              <StyledMap
+                bounds={[coordinates.southWest, coordinates.northEast]}
+                doubleClickZoom={false}
+                dragging={false}
+                ref={mapRef}
+                scrollWheelZoom={false}
+                style={{ width: coordinates.width, height: coordinates.height }}
+                zoomSnap={0}
+              >
+                <TileLayer
+                  attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                  url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+                />
+                {showSubjects &&
+                  subjects.map((subject, i) => {
+                    return (
+                      <Marker
+                        key={`SUBJECT_MARKER_${subject.id}`}
+                        onClick={() => setActiveSubject(subject)}
+                        position={[subject.latitude, subject.longitude]}
+                      />
+                    )
+                  })}
+              </StyledMap>
+            </Box>
+            <Timeline />
+          </Box>
+
+          <Box basis='40%' gap='xsmall'>
+            <Text color='kelp'>Additional data</Text>
+            <StyledText>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+            </StyledText>
+            <Charts />
+            <AssociatedSubjects
+              setActiveSubject={setActiveSubject}
+              setShowSubjectsModal={setShowSubjectsModal}
+              subjects={subjects}
+            />
+          </Box>
+        </Box>
+
+        {activeSubject && (
+          <CustomLayer>
+            <MetadataModal onClose={setActiveSubject} subject={activeSubject} />
+          </CustomLayer>
+        )}
+
+        {showSubjectsModal && (
+          <CustomLayer>
+            <SubjectsModal
+              onClose={setShowSubjectsModal}
+              onSelectSubject={setActiveSubject}
+              subjects={subjects}
+            />
+          </CustomLayer>
+        )}
+      </Box>
+    )
+  }
 
   return (
     <Box
       background='sand'
       border={{ color: 'kelp' }}
       gap='medium'
+      height={{ min: '35rem' }}
       overflow='auto'
-      pad={{ horizontal: 'large', vertical: 'xsmall' }}
+      pad={{ horizontal: 'large', vertical: 'small' }}
       width='60rem'
     >
-      <Box
-        border={{ color: 'kelp', side: 'bottom' }}
-        direction='row'
-        justify='between'
-        pad={{ vertical: 'small' }}
-      >
-        <StyledHeading color='kelp' level='4' margin='none'>
-          Map Detail
-        </StyledHeading>
-        <Button
-          alignSelf='end'
-          color='kelp'
-          gap='xsmall'
-          icon={<Close color='black' size='small' />}
-          label={<Uppercase size='xsmall'>Close</Uppercase>}
-          onClick={onClose}
-          plain
-          reverse
-        />
-      </Box>
-
-      <Box direction='row' gap='medium'>
-        <Box basis='60%' gap='xsmall'>
-          <HeadingTwo color='kelp' level='2' margin='none'>
-            Falkland Islands
-          </HeadingTwo>
-          <Box align='center' direction='row' justify='between'>
-            <Box direction='row' gap='xsmall'>
-              <Uppercase color='kelp' size='0.75rem'>
-                {centerLat?.degrees}&#176;{centerLat?.minutes}'
-                {centerLat?.direction} {centerLng?.degrees}&#176;
-                {centerLng?.minutes}'{centerLng?.direction}
-              </Uppercase>
-              <Uppercase color='kelp' size='0.75rem'>
-                {area?.miles} SQ MI / {area?.kms} SQ KM
-              </Uppercase>
-            </Box>
-            <CheckBox
-              checked={showSubjects}
-              label={
-                <Uppercase color='kelp' size='0.75rem'>
-                  Subjects
-                </Uppercase>
-              }
-              onChange={() => setShowSubjects(!showSubjects)}
-            />
-          </Box>
-          <Box
-            align='center'
-            background='gray'
-            border={{ color: 'kelp' }}
-            flex
-            justify='center'
-            style={{ position: 'relative' }}
-          >
-            <StyledMap
-              bounds={[coordinates.southWest, coordinates.northEast]}
-              doubleClickZoom={false}
-              dragging={false}
-              ref={mapRef}
-              scrollWheelZoom={false}
-              style={{ width: coordinates.width, height: coordinates.height }}
-              zoomSnap={0}
-            >
-              <TileLayer
-                attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-              />
-              {showSubjects &&
-                data.map((subject, i) => {
-                  return (
-                    <Marker
-                      key={`SUBJECT_MARKER_${subject.id}`}
-                      onClick={() => setActiveSubject(subject)}
-                      position={[subject.lat, subject.lon]}
-                    />
-                  )
-                })}
-            </StyledMap>
-          </Box>
-          <Timeline />
-        </Box>
-
-        <Box basis='40%' gap='xsmall'>
-          <Text color='kelp'>Additional data</Text>
-          <StyledText>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-          </StyledText>
-          <Charts />
-          <AssociatedSubjects
-            setActiveSubject={setActiveSubject}
-            setShowSubjectsModal={setShowSubjectsModal}
-            subjects={data}
-          />
-        </Box>
-      </Box>
+      {asyncStatus === STATUS.LOADING ? <Loading /> : <Content />}
     </Box>
   )
 }

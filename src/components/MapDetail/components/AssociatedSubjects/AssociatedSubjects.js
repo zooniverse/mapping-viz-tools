@@ -63,9 +63,9 @@ export default function AssociatedSubjects({
                 width='2.75em'
               >
                 <Image
-                  alt={`Associated Subject ${i}`}
+                  alt={`Associated Subject ${subject.id}`}
                   fit='contain'
-                  src={`//${subject.subjectMediaLocation}`}
+                  src={`//${subject.media_location}`}
                 />
               </Box>
             </StyledButton>
@@ -80,6 +80,6 @@ AssociatedSubjects.propTypes = {
   setActiveSubject: func,
   setShowSubjectsModal: func,
   subjects: arrayOf(shape({
-    subjectMediaLocation: string
+    media_location: string
   }))
 }
