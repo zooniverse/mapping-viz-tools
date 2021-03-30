@@ -18,6 +18,7 @@ const Year = styled(Text)`
 `
 
 export const Slider = styled.input`
+  -webkit-appearance: none;
   appearance: none;
   position: absolute;
   left: 2px;
@@ -28,7 +29,18 @@ export const Slider = styled.input`
   background: transparent;
 
   &::-webkit-slider-thumb {
+    -webkit-appearance: none;
     appearance: none;
+    background: #113E3B;
+    height: 20px;
+    width: 4px;
+    cursor: pointer;
+  }
+
+  &::-moz-range-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    border: none;
     background: #113E3B;
     height: 20px;
     width: 4px;
@@ -37,18 +49,15 @@ export const Slider = styled.input`
 `
 
 const Timeline = () => {
+  const numTicks = 5
   const inputSlider = React.useRef(null)
   const [sliderValue, setValue] = React.useState(0)
   
   const handleYear = e => {
-    const numTicks = 5
     const rangeValue = e.target.value
     const max = inputSlider.current.max
-
-    // snap the marker to the nearest tick mark
     const step = max / (numTicks - 1)
     const snapIndex = Math.round(rangeValue / step)
-
     setValue(snapIndex * step)
     // will fetch new range of subjects here too
   }
