@@ -76,7 +76,7 @@ export default function MapDetail({
   }, [coordinates, mapRef, asyncStatus])
 
   React.useEffect(() => {
-    subjects.forEach(subject => console.log(parseInt(subject.date.substring(0, 4))))
+    // subjects.forEach(subject => console.log(parseInt(subject.date.substring(0, 4))))
   }, [subjects])
 
   const Content = () => {
