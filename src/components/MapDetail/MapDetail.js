@@ -178,7 +178,7 @@ export default function MapDetail({
               Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
             </StyledText>
-            <Charts subjects={subjects} year={year} />
+            <Charts subjects={subjects} year={year} years={years} />
             <AssociatedSubjects
               setActiveSubject={setActiveSubject}
               setShowSubjectsModal={setShowSubjectsModal}

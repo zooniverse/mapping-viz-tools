@@ -4,7 +4,7 @@ import Plot from '../Plot'
 import mockChartData from '../Charts/mockChartData'
 import getAverages from 'helpers/getAverages'
 
-const Charts = ({ year, subjects }) => {
+const Charts = ({ subjects, year, years, }) => {
   const kelpData = subjects.reduce((accumulator, currentSubject) => {
     accumulator.push({
       x: parseInt(currentSubject.date.substring(0, 4)),
@@ -13,8 +13,6 @@ const Charts = ({ year, subjects }) => {
 
     return accumulator
   }, [])
-
-  // console.log(getAverages(kelpData))
 
   const tempData = subjects.reduce((accumulator, currentSubject) => {
     accumulator.push({
@@ -25,10 +23,12 @@ const Charts = ({ year, subjects }) => {
     return accumulator
   }, [])
 
+  const kelpAverages = getAverages(kelpData, years)
+
   return (
     <Grid gap='xsmall'>
-      <Plot data={kelpData} title='Kelp Over Time' year={year} yAxis='Kelp (km sq)' />
-      <Plot data={mockChartData} title='Temperature' year={year} yAxis='Temp (F)' />
+      <Plot data={kelpAverages} title='Kelp Over Time' year={year} yAxis='Avg Kelp (km sq)' />
+      <Plot data={mockChartData} title='Temperature' year={year} yAxis='Avg Temp (F)' />
     </Grid>
   )
 }
