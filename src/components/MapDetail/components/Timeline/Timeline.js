@@ -48,11 +48,10 @@ export const Slider = styled.input`
   }
 `
 
-const Timeline = ({ years, setYear }) => {
+const Timeline = ({ years = [], setYear }) => {
   const inputSlider = React.useRef(null)
 
   const onChange = e => {
-    e.preventDefault()
     if (e.target.value) setYear(e.target.value)
   }
 
