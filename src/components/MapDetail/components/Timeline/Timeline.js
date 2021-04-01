@@ -31,7 +31,7 @@ export const Slider = styled.input`
   &::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    background: #113E3B;
+    background: #113e3b;
     height: 20px;
     width: 4px;
     cursor: pointer;
@@ -41,26 +41,24 @@ export const Slider = styled.input`
     -webkit-appearance: none;
     appearance: none;
     border: none;
-    background: #113E3B;
+    background: #113e3b;
     height: 20px;
     width: 4px;
     cursor: pointer;
   }
 `
 
-const Timeline = () => {
-  const numTicks = 5
-  const inputSlider = React.useRef(null)
-  const [sliderValue, setValue] = React.useState(0)
-  
-  const handleYear = e => {
-    const rangeValue = e.target.value
-    const max = inputSlider.current.max
-    const step = max / (numTicks - 1)
-    const snapIndex = Math.round(rangeValue / step)
-    setValue(snapIndex * step)
-    // will fetch new range of subjects here too
+const yearsArray = (start, end) => {
+  let newArray = []
+  for (let year = start; year < end; year++) {
+    newArray.push(year)
   }
+  return newArray
+}
+
+const Timeline = () => {
+  const inputSlider = React.useRef(null)
+  const years = yearsArray(1985, 2018)
 
   return (
     <Box direction='column'>
@@ -74,71 +72,29 @@ const Timeline = () => {
           justify='between'
           margin={{ bottom: 'small' }}
         >
-          <Relative>
-            <Circle
-              background='kelp'
-              height='8px'
-              width='8px'
-              margin={{ vertical: '2px' }}
-            />
-            <Year color='kelp' size='12px'>
-              1980
-            </Year>
-          </Relative>
-          <Relative>
-            <Circle
-              background='kelp'
-              height='8px'
-              width='8px'
-              margin={{ vertical: '2px' }}
-            />
-            <Year color='kelp' size='12px'>
-              1990
-            </Year>
-          </Relative>
-          <Relative>
-            <Circle
-              background='kelp'
-              height='8px'
-              width='8px'
-              margin={{ vertical: '2px' }}
-            />
-            <Year color='kelp' size='12px'>
-              2000
-            </Year>
-          </Relative>
-          <Relative>
-            <Circle
-              background='kelp'
-              height='8px'
-              width='8px'
-              margin={{ vertical: '2px' }}
-            />
-            <Year color='kelp' size='12px'>
-              2010
-            </Year>
-          </Relative>
-          <Relative>
-            <Circle
-              background='kelp'
-              height='8px'
-              width='8px'
-              margin={{ vertical: '2px' }}
-            />
-            <Year color='kelp' size='12px'>
-              2020
-            </Year>
-          </Relative>
+          {years.length &&
+            years.map(year => (
+              <Relative key={year}>
+                <Circle
+                  background='kelp'
+                  height='8px'
+                  width='8px'
+                  margin={{ vertical: '2px' }}
+                />
+                {year % 5 === 0 ? (
+                  <Year color='kelp' size='12px'>
+                    {year}
+                  </Year>
+                ) : null}
+              </Relative>
+            ))}
           <Slider
             type='range'
-            min={0}
-            max={100}
+            min={years[0]}
+            max={years[years.length-1]}
             step={1}
             ref={inputSlider}
-            onMouseUp={e => handleYear(e)}
-            onChange={e => setValue(e.target.value)}
-            value={sliderValue}
-            name="timeline-slider"
+            name='timeline-slider'
           />
         </Relative>
       </Box>
