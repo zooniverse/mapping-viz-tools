@@ -65,6 +65,10 @@ export default function MapDetail({
   const [activeSubject, setActiveSubject] = React.useState(null)
   const [showSubjectsModal, setShowSubjectsModal] = React.useState(false)
 
+  const setYear = (year) => {
+    console.log(year)
+  }
+
   React.useEffect(() => {
     const leaflet = mapRef?.current?.leafletElement
     const center = leaflet?.getCenter()
@@ -78,6 +82,16 @@ export default function MapDetail({
   React.useEffect(() => {
     // subjects.forEach(subject => console.log(parseInt(subject.date.substring(0, 4))))
   }, [subjects])
+
+
+const yearsArray = (start, end) => {
+  let newArray = []
+  for (let year = start; year <= end; year++) {
+    newArray.push(year)
+  }
+  return newArray
+}
+const years = yearsArray(1985, 2018)
 
   const Content = () => {
     return (
@@ -163,7 +177,7 @@ export default function MapDetail({
                   })}
               </StyledMap>
             </Box>
-            <Timeline />
+            <Timeline years={years} setYear={setYear}/>
           </Box>
 
           <Box basis='40%' gap='xsmall'>

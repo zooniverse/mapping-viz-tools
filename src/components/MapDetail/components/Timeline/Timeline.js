@@ -48,17 +48,13 @@ export const Slider = styled.input`
   }
 `
 
-const yearsArray = (start, end) => {
-  let newArray = []
-  for (let year = start; year < end; year++) {
-    newArray.push(year)
-  }
-  return newArray
-}
-
-const Timeline = () => {
+const Timeline = ({ years, setYear }) => {
   const inputSlider = React.useRef(null)
-  const years = yearsArray(1985, 2018)
+
+  const onChange = e => {
+    e.preventDefault()
+    if (e.target.value) setYear(e.target.value)
+  }
 
   return (
     <Box direction='column'>
@@ -88,14 +84,17 @@ const Timeline = () => {
                 ) : null}
               </Relative>
             ))}
-          <Slider
-            type='range'
-            min={years[0]}
-            max={years[years.length-1]}
-            step={1}
-            ref={inputSlider}
-            name='timeline-slider'
-          />
+          {years.length && (
+            <Slider
+              type='range'
+              min={years[0]}
+              max={years[years.length - 1]}
+              step={1}
+              ref={inputSlider}
+              onChange={e => onChange(e)}
+              name='timeline-slider'
+            />
+          )}
         </Relative>
       </Box>
     </Box>
