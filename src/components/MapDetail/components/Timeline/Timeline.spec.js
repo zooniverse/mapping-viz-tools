@@ -15,7 +15,9 @@ describe('Components > Timeline', () => {
   })
 
   it('should call setYear with user input', () => {
-    wrapper = mount(<Timeline setYear={setYearSpy} years={mockYears} />)
+    wrapper = mount(
+      <Timeline setYear={setYearSpy} years={mockYears} year={1985} />
+    )
     const input = wrapper.find(Slider)
     const max = input.props().max
     const event = { target: { name: 'timeline-slider', value: max } }

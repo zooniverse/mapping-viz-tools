@@ -27,6 +27,7 @@ export const Slider = styled.input`
   width: calc(100% - 4px);
   height: 100%;
   background: transparent;
+  cursor: pointer;
 
   &::-webkit-slider-thumb {
     -webkit-appearance: none;
@@ -48,7 +49,7 @@ export const Slider = styled.input`
   }
 `
 
-const Timeline = ({ years = [], setYear }) => {
+const Timeline = ({ years = [], setYear, year }) => {
   const inputSlider = React.useRef(null)
 
   const onChange = e => {
@@ -92,6 +93,7 @@ const Timeline = ({ years = [], setYear }) => {
               ref={inputSlider}
               onChange={e => onChange(e)}
               name='timeline-slider'
+              value={year}
             />
           )}
         </Relative>

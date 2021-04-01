@@ -64,7 +64,17 @@ export default function MapDetail({
   const [showSubjects, setShowSubjects] = React.useState(false)
   const [activeSubject, setActiveSubject] = React.useState(null)
   const [showSubjectsModal, setShowSubjectsModal] = React.useState(false)
-  const [year, setYear] = React.useState(null)
+  const [year, setYear] = React.useState(1985)
+
+  // adjust x-axis range for both Charts and Timeline
+  const yearsArray = (start, end) => {
+    let newArray = []
+    for (let year = start; year <= end; year++) {
+      newArray.push(year)
+    }
+    return newArray
+  }
+  const years = yearsArray(1985, 2018)
 
   React.useEffect(() => {
     const leaflet = mapRef?.current?.leafletElement
@@ -77,15 +87,6 @@ export default function MapDetail({
   }, [coordinates, mapRef, asyncStatus])
 
   const Content = () => {
-    const yearsArray = (start, end) => {
-      let newArray = []
-      for (let year = start; year <= end; year++) {
-        newArray.push(year)
-      }
-      return newArray
-    }
-
-    const years = yearsArray(1985, 2018)
     return (
       <Box>
         <Box
@@ -169,7 +170,7 @@ export default function MapDetail({
                   })}
               </StyledMap>
             </Box>
-            <Timeline years={years} setYear={setYear} />
+            <Timeline year={year} years={years} setYear={setYear} />
           </Box>
 
           <Box basis='40%' gap='xsmall'>
