@@ -75,6 +75,11 @@ export default function MapDetail({
     }
   }, [coordinates, mapRef, asyncStatus])
 
+  React.useEffect(() => {
+    console.log(subjects[0])
+    subjects.forEach(subject => console.log(parseInt(subject.date.substring(0, 4))))
+  }, [subjects])
+
   const Content = () => {
     return (
       <Box>
