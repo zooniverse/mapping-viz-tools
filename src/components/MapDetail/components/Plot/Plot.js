@@ -6,7 +6,7 @@ import styled from 'styled-components'
 
 // This should probably be changed to data Points because Line implies we know what happens between dates
 
-const Uppercase = styled(Text)`
+export const Uppercase = styled(Text)`
   text-transform: uppercase;
 `
 
