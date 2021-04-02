@@ -33,7 +33,7 @@ describe('Helper > getAverages', () => {
     { x: 2008, y: 1.9937 },
   ]
 
-  it('should return an empty string without data', () => {
+  it('should return an empty array without data', () => {
     const result = getAverages()
     expect(result).toStrictEqual([])
   })

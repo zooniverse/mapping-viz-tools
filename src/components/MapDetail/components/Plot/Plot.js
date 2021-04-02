@@ -3,6 +3,7 @@ import { Box, Text } from 'grommet'
 import { ResponsiveLine } from '@nivo/line'
 import { string } from 'prop-types'
 import styled from 'styled-components'
+import getLeastSquares from 'helpers/getLeastSquares'
 
 // This should probably be changed to data Points because Line implies we know what happens between dates
 
@@ -31,6 +32,21 @@ const theme = {
 }
 
 const Plot = ({ data, title = '', year, yAxis }) => {
+  let leastSquares = []
+
+  if (data) {
+    let xValues = []
+    let yValues = []
+    data.forEach(subject => {
+      if (subject.y) {
+        xValues.push(subject.x)
+        yValues.push(subject.y)
+      }
+    });
+
+    leastSquares = getLeastSquares(xValues, yValues)
+  }
+
   // TO DO: adjust these hardcoded dimensions
   return (
     <Box>
@@ -64,8 +80,12 @@ const Plot = ({ data, title = '', year, yAxis }) => {
           }}
           data={[
             {
-              id: 'Temperature',
+              id: title,
               data: data,
+            },
+            {
+              id: 'Linear Regression',
+              data: leastSquares,
             },
           ]}
           theme={theme}
