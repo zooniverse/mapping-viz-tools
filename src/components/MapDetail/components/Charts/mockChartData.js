@@ -35,4 +35,4 @@ const mockChartData = [
   { x: 2018, y: 79 },
 ]
 
-export default mockChartData
+export { mockChartData }

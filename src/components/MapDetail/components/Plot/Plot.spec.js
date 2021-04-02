@@ -1,7 +1,7 @@
 import React from 'react'
 import Plot, { Uppercase } from './Plot'
 import { mount, shallow } from 'enzyme'
-import mockChartData from '../Charts/mockChartData'
+import { mockChartData } from '../Charts/mockChartData'
 import { ResponsiveLine } from '@nivo/line'
 
 describe('Component > Plot', () => {
@@ -10,6 +10,17 @@ describe('Component > Plot', () => {
   it('should render without crashing', () => {
     wrapper = shallow(<Plot />)
     expect(wrapper).toBeDefined()
+  })
+
+  describe('Plot without data', () => {
+    it('should not render a nivo/line if no subject data', () => {
+      wrapper = mount(
+        <Plot data={null} title='Kelp' year={1895} yAxis='Avg Kelp km sq' />
+      )
+      const noData = wrapper.find('#plot-no-data')
+      expect(noData).toBeDefined()
+      wrapper.unmount()
+    })
   })
 
   describe('Plot with props', () => {

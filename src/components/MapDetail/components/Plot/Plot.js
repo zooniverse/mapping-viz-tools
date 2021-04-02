@@ -62,7 +62,7 @@ const Plot = ({ data, title = '', year, yAxis }) => {
   return (
     <Box>
       <Box background='white' border={{ color: 'kelp' }} height='5em'>
-        {leastSquares[0].length ? (
+        {data ? (
           <ResponsiveLine
             {...commonProperties}
             axisLeft={{
@@ -99,7 +99,7 @@ const Plot = ({ data, title = '', year, yAxis }) => {
             theme={theme}
           />
         ) : (
-          <Box align='center' justify='center' height='100%'>
+          <Box align='center' justify='center' height='100%' id='plot-no-data'>
             <Text>
               No Subject Data
             </Text>
