@@ -23,12 +23,12 @@ const defaultCoords = {
     lng: -57.941539138555534
   },
   width: "100%",
-  height: '100%'
+  height: "100%"
 }
 
 export default function MapPage() {
   const [canDraw, changeDrawing] = React.useState(false)
-  const [miniMapCoords, setCoords] = React.useState(defaultCoords)
+  const [miniMapCoords, setCoords] = React.useState(null)
   const [subjects, setSubjects] = React.useState([])
   const [asyncStatus, setAsyncStatus] = React.useState(STATUS.LOADING)
   const mapRef = React.useRef(null)
