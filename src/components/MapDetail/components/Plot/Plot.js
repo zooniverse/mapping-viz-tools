@@ -1,6 +1,7 @@
 import React from 'react'
 import { Box, Text } from 'grommet'
 import { ResponsiveScatterPlot } from '@nivo/scatterplot'
+import { line } from 'd3-shape'
 import { string } from 'prop-types'
 import styled from 'styled-components'
 import getLeastSquares from 'helpers/getLeastSquares'
@@ -36,10 +37,8 @@ const Plot = ({ data, title = '', year, yAxis, years }) => {
     let xValues = []
     let yValues = []
     data.forEach(subject => {
-      if (subject.y) {
-        xValues.push(subject.x)
-        yValues.push(subject.y)
-      }
+      xValues.push(subject.x)
+      yValues.push(subject.y)
     })
 
     leastSquares = getLeastSquares(xValues, yValues)
@@ -50,11 +49,24 @@ const Plot = ({ data, title = '', year, yAxis, years }) => {
       id: title,
       data: data,
     },
-    // {
-    //   id: 'Linear Regression',
-    //   data: leastSquares,
-    // },
   ]
+
+  const LineLayer = ({ xScale, yScale }) => {
+    const lineGenerator = line()
+      .x(d => xScale(d.x))
+      .y(d => yScale(d.y))
+
+    return (
+      <path
+        d={lineGenerator([
+          leastSquares[0],
+          leastSquares[leastSquares.length - 1],
+        ])}
+        strokeWidth={2}
+        stroke='black'
+      />
+    )
+  }
 
   // TO DO: adjust these hardcoded dimensions
   return (
@@ -106,12 +118,11 @@ const Plot = ({ data, title = '', year, yAxis, years }) => {
             theme={theme}
             nodeSize={6}
             colors='black'
+            layers={['grid', 'axes', 'nodes', LineLayer]}
           />
         ) : (
           <Box align='center' justify='center' height='100%' id='plot-no-data'>
-            <Text>
-              No Subject Data
-            </Text>
+            <Text>No Subject Data</Text>
           </Box>
         )}
       </Box>

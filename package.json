@@ -8,6 +8,7 @@
     "@nivo/scatterplot": "^0.67.0",
     "@zooniverse/grommet-theme": "^2.2.0",
     "@zooniverse/react-components": "^1.0.2",
+    "d3-shape": "^2.1.0",
     "dompurify": "^2.0.12",
     "grommet": "^2.13.0",
     "leaflet": "^1.6.0",
