@@ -68,8 +68,8 @@ const Plot = ({ data, title = '', year, yAxis, years }) => {
             animate={false}
             xScale={{
               type: 'linear',
-              min: 'auto',
-              max: 'auto',
+              min: years[0],
+              max: years[years.length - 1],
             }}
             axisBottom={{
               orient: 'bottom',

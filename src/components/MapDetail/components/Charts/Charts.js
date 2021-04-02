@@ -3,6 +3,7 @@ import { Grid } from 'grommet'
 import Plot from '../Plot'
 import { mockChartData } from '../Charts/mockChartData'
 import getAverages from 'helpers/getAverages'
+import mockData from '../../mockData'
 
 const Charts = ({ subjects = [], year, years = [] }) => {
   const [kelpAverages, setKelpAverages] = React.useState(null)
@@ -17,11 +18,11 @@ const Charts = ({ subjects = [], year, years = [] }) => {
 
         return accumulator
       }, [])
-      setKelpAverages(getAverages(kelpData, years))
+      setKelpAverages(getAverages(kelpData))
 
       // TO DO: add similar data handling for subject.temperature_grid_index,
     }
-  }, [subjects, years])
+  }, [subjects])
 
   return (
     <Grid gap='xsmall'>

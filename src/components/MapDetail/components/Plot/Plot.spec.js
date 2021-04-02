@@ -2,7 +2,9 @@ import React from 'react'
 import Plot, { Uppercase } from './Plot'
 import { mount, shallow } from 'enzyme'
 import { mockChartData } from '../Charts/mockChartData'
-import { ResponsiveLine } from '@nivo/line'
+import { ResponsiveScatterPlot } from '@nivo/scatterplot'
+
+const mockYears = [1985, 1990, 1995, 2000, 2005]
 
 describe('Component > Plot', () => {
   let wrapper
@@ -13,9 +15,15 @@ describe('Component > Plot', () => {
   })
 
   describe('Plot without data', () => {
-    it('should not render a nivo/line if no subject data', () => {
+    it('should not render a scatterplot if no subject data', () => {
       wrapper = mount(
-        <Plot data={null} title='Kelp' year={1895} yAxis='Avg Kelp km sq' />
+        <Plot
+          data={null}
+          title='Kelp'
+          year={1895}
+          yAxis='Avg Kelp km sq'
+          years={mockYears}
+        />
       )
       const noData = wrapper.find('#plot-no-data')
       expect(noData).toBeDefined()
@@ -31,6 +39,7 @@ describe('Component > Plot', () => {
           title='Temperature'
           year={1895}
           yAxis='Avg Temp (F)'
+          years={mockYears}
         />
       )
     })
@@ -42,12 +51,12 @@ describe('Component > Plot', () => {
     })
 
     it('should render y-axis label prop', () => {
-      const plotContainer = wrapper.find(ResponsiveLine)
+      const plotContainer = wrapper.find(ResponsiveScatterPlot)
       expect(plotContainer.props().axisLeft.legend).toEqual('Avg Temp (F)')
     })
 
-    it('render data using nivo/line package', () => {
-      const plotContainer = wrapper.find(ResponsiveLine)
+    it('render data using nivo/scatterplot package', () => {
+      const plotContainer = wrapper.find(ResponsiveScatterPlot)
       expect(plotContainer.props().data[0].data).toEqual(mockChartData)
     })
   })
