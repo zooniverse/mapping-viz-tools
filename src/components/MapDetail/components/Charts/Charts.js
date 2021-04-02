@@ -30,12 +30,14 @@ const Charts = ({ subjects = [], year, years = [] }) => {
         title='Kelp Over Time'
         year={year}
         yAxis='Avg Kelp (km sq)'
+        years={years}
       />
       <Plot
         data={mockChartData}
         title='Temperature'
         year={year}
         yAxis='Avg Temp (F)'
+        years={years}
       />
     </Grid>
   )

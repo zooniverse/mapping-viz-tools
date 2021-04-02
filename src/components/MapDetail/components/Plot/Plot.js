@@ -1,11 +1,9 @@
 import React from 'react'
 import { Box, Text } from 'grommet'
-import { ResponsiveLine } from '@nivo/line'
+import { ResponsiveScatterPlot } from '@nivo/scatterplot'
 import { string } from 'prop-types'
 import styled from 'styled-components'
 import getLeastSquares from 'helpers/getLeastSquares'
-
-// This should probably be changed to data Points because Line implies we know what happens between dates
 
 export const Uppercase = styled(Text)`
   text-transform: uppercase;
@@ -31,7 +29,7 @@ const theme = {
   },
 }
 
-const Plot = ({ data, title = '', year, yAxis }) => {
+const Plot = ({ data, title = '', year, yAxis, years }) => {
   let leastSquares = []
 
   if (data) {
@@ -52,10 +50,10 @@ const Plot = ({ data, title = '', year, yAxis }) => {
       id: title,
       data: data,
     },
-    {
-      id: 'Linear Regression',
-      data: leastSquares,
-    },
+    // {
+    //   id: 'Linear Regression',
+    //   data: leastSquares,
+    // },
   ]
 
   // TO DO: adjust these hardcoded dimensions
@@ -63,21 +61,15 @@ const Plot = ({ data, title = '', year, yAxis }) => {
     <Box>
       <Box background='white' border={{ color: 'kelp' }} height='5em'>
         {data ? (
-          <ResponsiveLine
+          <ResponsiveScatterPlot
             {...commonProperties}
-            axisLeft={{
-              orient: 'left',
-              legend: yAxis,
-              legendOffset: -20,
-              legendPosition: 'middle',
-              tickSize: 0,
-              tickValues: 4,
-            }}
-            yScale={{
+            isInteractive={false}
+            useMesh={false}
+            animate={false}
+            xScale={{
               type: 'linear',
               min: 'auto',
               max: 'auto',
-              stacked: false,
             }}
             axisBottom={{
               orient: 'bottom',
@@ -95,8 +87,25 @@ const Plot = ({ data, title = '', year, yAxis }) => {
                 '2015',
               ],
             }}
+            gridXValues={years}
+            yScale={{
+              type: 'linear',
+              min: 'auto',
+              max: 'auto',
+              stacked: false,
+            }}
+            axisLeft={{
+              orient: 'left',
+              legend: yAxis,
+              legendOffset: -20,
+              legendPosition: 'middle',
+              tickSize: 0,
+              tickValues: 4,
+            }}
             data={plotData}
             theme={theme}
+            nodeSize={6}
+            colors='black'
           />
         ) : (
           <Box align='center' justify='center' height='100%' id='plot-no-data'>
