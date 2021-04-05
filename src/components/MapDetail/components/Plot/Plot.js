@@ -5,6 +5,7 @@ import { line } from 'd3-shape'
 import { string } from 'prop-types'
 import styled from 'styled-components'
 import getLeastSquares from 'helpers/getLeastSquares'
+import { min, max } from 'lodash'
 
 export const Uppercase = styled(Text)`
   text-transform: uppercase;
@@ -31,27 +32,26 @@ const theme = {
 }
 
 const Plot = ({ data, title = '', year, yAxis, years }) => {
-  let leastSquares = []
+  const [minY, setMinY] = React.useState(null)
+  const [maxY, setMaxY] = React.useState(null)
+  const [leastSquares, setLeastSquares] = React.useState([])
 
-  if (data) {
+  React.useEffect(() => {
     let xValues = []
     let yValues = []
-    data.forEach(subject => {
-      xValues.push(subject.x)
-      yValues.push(subject.y)
-    })
+    if (data) {
+      data.forEach(subject => {
+        xValues.push(subject.x)
+        yValues.push(subject.y)
+      })
 
-    leastSquares = getLeastSquares(xValues, yValues)
-  }
+      setLeastSquares(getLeastSquares(xValues, yValues))
+      setMinY(min(yValues))
+      setMaxY(max(yValues))
+    }
+  }, [data, year])
 
-  const plotData = [
-    {
-      id: title,
-      data: data,
-    },
-  ]
-
-  const LineLayer = ({ xScale, yScale }) => {
+  const RegressionLayer = ({ xScale, yScale }) => {
     const lineGenerator = line()
       .x(d => xScale(d.x))
       .y(d => yScale(d.y))
@@ -68,7 +68,23 @@ const Plot = ({ data, title = '', year, yAxis, years }) => {
     )
   }
 
-  // TO DO: adjust these hardcoded dimensions
+  const CurrentYear = ({ xScale, yScale }) => {
+    const lineGenerator = line()
+      .x(d => xScale(d.x))
+      .y(d => yScale(d.y))
+
+    return (
+      <path
+        d={lineGenerator([
+          { x: year, y: minY },
+          { x: year, y: maxY },
+        ])}
+        strokeWidth={3}
+        stroke='black'
+      />
+    )
+  }
+
   return (
     <Box>
       <Box background='white' border={{ color: 'kelp' }} height='5em'>
@@ -114,11 +130,16 @@ const Plot = ({ data, title = '', year, yAxis, years }) => {
               tickSize: 0,
               tickValues: 4,
             }}
-            data={plotData}
+            data={[
+              {
+                id: title,
+                data: data,
+              },
+            ]}
             theme={theme}
             nodeSize={6}
             colors='black'
-            layers={['grid', 'axes', 'nodes', LineLayer]}
+            layers={['grid', 'axes', 'nodes', RegressionLayer, CurrentYear]}
           />
         ) : (
           <Box align='center' justify='center' height='100%' id='plot-no-data'>
