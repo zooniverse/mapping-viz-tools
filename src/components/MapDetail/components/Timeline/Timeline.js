@@ -1,6 +1,7 @@
 import React from 'react'
 import { Box, Text } from 'grommet'
 import styled from 'styled-components'
+import { number, arrayOf, func } from 'prop-types'
 
 const Relative = styled(Box)`
   position: relative;
@@ -103,3 +104,9 @@ const Timeline = ({ years = [], setYear, year }) => {
 }
 
 export default Timeline
+
+Timeline.propTypes = {
+  setYear: func,
+  year: number,
+  years: arrayOf(number)
+}

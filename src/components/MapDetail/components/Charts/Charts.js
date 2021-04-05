@@ -3,7 +3,7 @@ import { Grid } from 'grommet'
 import Plot from '../Plot'
 import { mockChartData } from '../Charts/mockChartData'
 import getAverages from 'helpers/getAverages'
-import mockData from '../../mockData'
+import { number, arrayOf, shape, string } from 'prop-types'
 
 const Charts = ({ subjects = [], year, years = [] }) => {
   const [kelpAverages, setKelpAverages] = React.useState(null)
@@ -45,3 +45,12 @@ const Charts = ({ subjects = [], year, years = [] }) => {
 }
 
 export default Charts
+
+Charts.propTypes = {
+  subjects: arrayOf(shape({
+    date: string,
+    kelp_km2: string
+  })),
+  year: number,
+  years: arrayOf(number)
+}

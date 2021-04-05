@@ -2,7 +2,7 @@ import React from 'react'
 import { Box, Text } from 'grommet'
 import { ResponsiveScatterPlot } from '@nivo/scatterplot'
 import { line } from 'd3-shape'
-import { string } from 'prop-types'
+import { arrayOf, number, shape, string } from 'prop-types'
 import styled from 'styled-components'
 import getLeastSquares from 'helpers/getLeastSquares'
 import { min, max } from 'lodash'
@@ -158,5 +158,12 @@ const Plot = ({ data, title = '', year, yAxis, years }) => {
 export default Plot
 
 Plot.propTypes = {
+  data: arrayOf(shape({
+    x: number,
+    y: number
+  })),
   title: string,
+  yAxis: string,
+  year: number,
+  years: arrayOf(number)
 }
