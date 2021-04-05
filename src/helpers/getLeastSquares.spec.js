@@ -68,7 +68,6 @@ describe('Helper > getLeastSquares', () => {
 
   it('should calculate data points for a least squares regression line', () => {
     const result = getLeastSquares(mockXValues, mockYValues)
-    console.log(result)
     expect(result).toStrictEqual(expectedLeastSquares)
   })
 })
