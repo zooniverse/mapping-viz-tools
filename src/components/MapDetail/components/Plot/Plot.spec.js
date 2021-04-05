@@ -59,5 +59,15 @@ describe('Component > Plot', () => {
       const plotContainer = wrapper.find(ResponsiveScatterPlot)
       expect(plotContainer.props().data[0].data).toEqual(mockChartData)
     })
+
+    it('should render a regression svg line layer', () => {
+      const line = wrapper.find('#regression-line')
+      expect(line).toBeDefined()
+    })
+
+    it('should render a current-year svg line layer', () => {
+      const line = wrapper.find('#current-year-line')
+      expect(line).toBeDefined()
+    })
   })
 })

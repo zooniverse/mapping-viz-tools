@@ -14,9 +14,9 @@ export const Uppercase = styled(Text)`
 const commonProperties = {
   margin: {
     top: 5,
-    right: 12,
-    bottom: 24,
-    left: 25,
+    right: 5,
+    bottom: 26,
+    left: 26,
   },
 }
 
@@ -49,7 +49,7 @@ const Plot = ({ data, title = '', year, yAxis, years }) => {
       setMinY(min(yValues))
       setMaxY(max(yValues))
     }
-  }, [data, year])
+  }, [data])
 
   const RegressionLayer = ({ xScale, yScale }) => {
     const lineGenerator = line()
@@ -58,11 +58,12 @@ const Plot = ({ data, title = '', year, yAxis, years }) => {
 
     return (
       <path
+        id='regression-line'
         d={lineGenerator([
           leastSquares[0],
           leastSquares[leastSquares.length - 1],
         ])}
-        strokeWidth={2}
+        strokeWidth={1}
         stroke='black'
       />
     )
@@ -75,19 +76,21 @@ const Plot = ({ data, title = '', year, yAxis, years }) => {
 
     return (
       <path
+        id='current-year-line'
         d={lineGenerator([
           { x: year, y: minY },
           { x: year, y: maxY },
         ])}
-        strokeWidth={3}
-        stroke='black'
+        strokeWidth={4}
+        stroke='#113E3B'
+        opacity={0.4}
       />
     )
   }
 
   return (
     <Box>
-      <Box background='white' border={{ color: 'kelp' }} height='5em'>
+      <Box background='white' border={{ color: 'kelp' }} height='5.5em'>
         {data ? (
           <ResponsiveScatterPlot
             {...commonProperties}
@@ -137,7 +140,7 @@ const Plot = ({ data, title = '', year, yAxis, years }) => {
               },
             ]}
             theme={theme}
-            nodeSize={6}
+            nodeSize={4}
             colors='black'
             layers={['grid', 'axes', 'nodes', RegressionLayer, CurrentYear]}
           />
