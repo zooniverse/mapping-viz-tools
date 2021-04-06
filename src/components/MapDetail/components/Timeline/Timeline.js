@@ -54,7 +54,7 @@ const Timeline = ({ years = [], setYear, year }) => {
   const inputSlider = React.useRef(null)
 
   const onChange = e => {
-    if (e.target.value) setYear(e.target.value)
+    if (e.target.value) setYear(parseInt(e.target.value))
   }
 
   return (

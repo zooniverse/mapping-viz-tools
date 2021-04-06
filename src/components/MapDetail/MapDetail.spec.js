@@ -64,22 +64,20 @@ describe('Components > MapDetail', () => {
   })
 
   describe('subject markers', () => {
-    it('should toggle subject visibility', () => {
+    it('should toggle subject visibility for current selected year', () => {
       let markers = wrapper.find(Marker)
       expect(markers.length).toBe(0)
       let checkBox = wrapper.find(CheckBox).first()
       act(() => checkBox.props().onChange())
       wrapper.update()
       markers = wrapper.find(Marker)
-      expect(markers.length).toBe(7)
+      expect(markers.length).toBe(3)
     })
 
     it('should set an active subject and open modal', () => {
       let checkBox = wrapper.find(CheckBox).first()
       act(() => checkBox.props().onChange())
       wrapper.update()
-      let markers = wrapper.find(Marker)
-      expect(markers.length).toBe(7)
       let firstMarker = wrapper.find(Marker).first()
       act(() => firstMarker.props().onClick())
       wrapper.update()

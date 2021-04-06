@@ -7,12 +7,11 @@ import mockData from '../../mockData'
 const mockYears = [1985, 1990, 1995, 2000, 2005]
 
 const expectedAvgData = [
-  { x: 1999, y: 4.3864 },
+  { x: 1990, y: 2.5155333333333334 },
   { x: 2001, y: 978 },
-  { x: 2005, y: 3.1602 },
   { x: 2013, y: 12.5265 },
   { x: 2014, y: 1.4246 },
-  { x: 2016, y: 1.92595 },
+  { x: 2016, y: 3.8519 }
 ]
 
 describe('Components > Charts', () => {

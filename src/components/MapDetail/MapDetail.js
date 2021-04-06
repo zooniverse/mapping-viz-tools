@@ -64,7 +64,7 @@ export default function MapDetail({
   const [showSubjects, setShowSubjects] = React.useState(false)
   const [activeSubject, setActiveSubject] = React.useState(null)
   const [showSubjectsModal, setShowSubjectsModal] = React.useState(false)
-  const [year, setYear] = React.useState(1985)
+  const [year, setYear] = React.useState(1990)
 
   // adjust x-axis range for both Charts and Timeline
   const yearsArray = (start, end) => {
@@ -159,15 +159,15 @@ export default function MapDetail({
                   url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
                 />
                 {showSubjects &&
-                  subjects.map((subject, i) => {
-                    return (
+                  subjects.map((subject, i) => 
+                    parseInt(subject.date.substring(0, 4)) === year ? (
                       <Marker
-                        key={`SUBJECT_MARKER_${subject.id}`}
-                        onClick={() => setActiveSubject(subject)}
-                        position={[subject.latitude, subject.longitude]}
+                      key={`SUBJECT_MARKER_${subject.id}`}
+                      onClick={() => setActiveSubject(subject)}
+                      position={[subject.latitude, subject.longitude]}
                       />
-                    )
-                  })}
+                      ) : null
+                  )}
               </StyledMap>
             </Box>
             <Timeline year={year} years={years} setYear={setYear} />
