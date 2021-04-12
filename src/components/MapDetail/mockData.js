@@ -42,7 +42,7 @@ const data = [
       },
     media_location: 'panoptes-uploads.zooniverse.org/production/subject_location/5f9f5fa7-273d-4532-acc7-eba78780b286.png',
     subjectSet: 16823,
-    kelp_km2: 0,
+    kelp_km2: "0",
     sstGridIndex: 903
   }, {
     id: 2,
@@ -86,7 +86,7 @@ const data = [
       },
     media_location: 'panoptes-uploads.zooniverse.org/production/subject_location/07dfcb3e-eb88-4dc2-9027-92124d8f5a0e.png',
     subjectSet: 16823,
-    kelp_km2: 1.4246,
+    kelp_km2: "1.4246",
     sstGridIndex: 905
   }, {
     id: 3,
@@ -130,7 +130,7 @@ const data = [
       },
     media_location: 'panoptes-uploads.zooniverse.org/production/subject_location/d446a077-aa66-431a-a1b9-c912033dbd1b.png',
     subjectSet: 16823,
-    kelp_km2: 4.3864,
+    kelp_km2: "4.3864",
     sstGridIndex: 904
   }, {
     id: 4,
@@ -174,7 +174,7 @@ const data = [
       },
     media_location: 'panoptes-uploads.zooniverse.org/production/subject_location/285aa49e-80d3-44be-8cb2-b37320303318.png',
     subjectSet: 16823,
-    kelp_km2: 12.5265,
+    kelp_km2: "12.5265",
     sstGridIndex: 904
   }, {
     id: 5,
@@ -218,7 +218,7 @@ const data = [
       },
     media_location: 'panoptes-uploads.zooniverse.org/production/subject_location/fdd9a35a-0a96-4535-a000-ce3fff680c7f.png',
     subjectSet: 0,
-    kelp_km2: 978,
+    kelp_km2: "978",
     sstGridIndex: 978
   }, {
     id: 6,
@@ -262,7 +262,7 @@ const data = [
       },
     media_location: 'panoptes-uploads.zooniverse.org/production/subject_location/c344ac55-8956-4807-b008-be4d3aee1725.png',
     subjectSet: 16823,
-    kelp_km2: 3.8519,
+    kelp_km2: "3.8519",
     sstGridIndex: 978
   }, {
     id: 7,
@@ -306,7 +306,7 @@ const data = [
       },
     media_location: 'panoptes-uploads.zooniverse.org/production/subject_location/e2b8e662-e68b-4179-b375-52a0af1a94a7.png',
     subjectSet: 16823,
-    kelp_km2: 3.1602,
+    kelp_km2: "3.1602",
     sstGridIndex: 977
   }
 ]
