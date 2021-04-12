@@ -1,13 +1,19 @@
-export default function getAverages(data = []) {
-	let pos = 0
-	let total = 0
+import { mean } from 'lodash'
 
-	return data.map(datum => {
-		total += datum.y
-		pos += 1
-		return {
-			x: datum.x,
-			y: Math.round((total / pos) * 100) / 100 
-		}
-	})
+export default function getAverage(data = []) {
+  let yearMap = {}
+
+  data.forEach(subject => {
+    if (!yearMap[subject.x]) yearMap[subject.x] = [parseFloat(subject.y)]
+    else yearMap[subject.x].push(parseFloat(subject.y))
+  })
+
+  const yearKeys = Object.keys(yearMap)
+  const averages = yearKeys.reduce((acc, current) => {
+		const average = mean(yearMap[current])
+    acc.push({ x: parseInt(current), y: average })
+    return acc
+  }, [])
+
+  return averages
 }

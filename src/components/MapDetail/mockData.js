@@ -1,6 +1,7 @@
 const data = [
   {
     id: 1,
+    date: '1990-09-23T00:00:00.000Z',
     subjectId: 15112333,
     latitude: -51.8557484758465,
     longitude: -58.4818413309715,
@@ -41,10 +42,11 @@ const data = [
       },
     media_location: 'panoptes-uploads.zooniverse.org/production/subject_location/5f9f5fa7-273d-4532-acc7-eba78780b286.png',
     subjectSet: 16823,
-    kelpKm2: 0,
+    kelp_km2: "0",
     sstGridIndex: 903
   }, {
     id: 2,
+    date: '2014-12-07T00:00:00.000Z',
     subjectId: 15112331,
     latitude: -51.7674641397222,
     longitude: -57.8703460277511,
@@ -84,10 +86,11 @@ const data = [
       },
     media_location: 'panoptes-uploads.zooniverse.org/production/subject_location/07dfcb3e-eb88-4dc2-9027-92124d8f5a0e.png',
     subjectSet: 16823,
-    kelpKm2: 1.4246,
+    kelp_km2: "1.4246",
     sstGridIndex: 905
   }, {
     id: 3,
+    date: '1990-01-21T00:00:00.000Z',
     subjectId: 15112327,
     latitude: -51.7662394078781,
     longitude: -58.0224661260516,
@@ -127,10 +130,11 @@ const data = [
       },
     media_location: 'panoptes-uploads.zooniverse.org/production/subject_location/d446a077-aa66-431a-a1b9-c912033dbd1b.png',
     subjectSet: 16823,
-    kelpKm2: 4.3864,
+    kelp_km2: "4.3864",
     sstGridIndex: 904
   }, {
     id: 4,
+    date: '2013-11-27T00:00:00.000Z',
     subjectId: 15112325,
     latitude: -51.7648178748574,
     longitude: -58.1745745625986,
@@ -170,10 +174,11 @@ const data = [
       },
     media_location: 'panoptes-uploads.zooniverse.org/production/subject_location/285aa49e-80d3-44be-8cb2-b37320303318.png',
     subjectSet: 16823,
-    kelpKm2: 12.5265,
+    kelp_km2: "12.5265",
     sstGridIndex: 904
   }, {
     id: 5,
+    date: '2001-01-17T00:00:00.000Z',
     subjectId: 15112323,
     latitude: -51.6749308328108,
     longitude: -57.5649002184831,
@@ -213,10 +218,11 @@ const data = [
       },
     media_location: 'panoptes-uploads.zooniverse.org/production/subject_location/fdd9a35a-0a96-4535-a000-ce3fff680c7f.png',
     subjectSet: 0,
-    kelpKm2: 978,
+    kelp_km2: "978",
     sstGridIndex: 978
   }, {
     id: 6,
+    date: '2016-09-16T00:00:00.000Z',
     subjectId: 15112321,
     latitude: -51.6741025879967,
     longitude: -57.7167220172637,
@@ -256,10 +262,11 @@ const data = [
       },
     media_location: 'panoptes-uploads.zooniverse.org/production/subject_location/c344ac55-8956-4807-b008-be4d3aee1725.png',
     subjectSet: 16823,
-    kelpKm2: 3.8519,
+    kelp_km2: "3.8519",
     sstGridIndex: 978
   }, {
     id: 7,
+    date: '1990-09-25T00:00:00.000Z',
     subjectId: 15112317,
     latitude: -51.6730781438224,
     longitude: -57.8685356815718,
@@ -299,7 +306,7 @@ const data = [
       },
     media_location: 'panoptes-uploads.zooniverse.org/production/subject_location/e2b8e662-e68b-4179-b375-52a0af1a94a7.png',
     subjectSet: 16823,
-    kelpKm2: 3.1602,
+    kelp_km2: "3.1602",
     sstGridIndex: 977
   }
 ]

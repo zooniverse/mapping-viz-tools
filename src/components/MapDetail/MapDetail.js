@@ -64,6 +64,17 @@ export default function MapDetail({
   const [showSubjects, setShowSubjects] = React.useState(false)
   const [activeSubject, setActiveSubject] = React.useState(null)
   const [showSubjectsModal, setShowSubjectsModal] = React.useState(false)
+  const [year, setYear] = React.useState(1990)
+
+  // adjust x-axis range for both Charts and Timeline
+  const yearsArray = (start, end) => {
+    let newArray = []
+    for (let year = start; year <= end; year++) {
+      newArray.push(year)
+    }
+    return newArray
+  }
+  const years = yearsArray(1985, 2018)
 
   React.useEffect(() => {
     const leaflet = mapRef?.current?.leafletElement
@@ -148,18 +159,18 @@ export default function MapDetail({
                   url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
                 />
                 {showSubjects &&
-                  subjects.map((subject, i) => {
-                    return (
+                  subjects.map((subject, i) => 
+                    parseInt(subject.date.substring(0, 4)) === year ? (
                       <Marker
-                        key={`SUBJECT_MARKER_${subject.id}`}
-                        onClick={() => setActiveSubject(subject)}
-                        position={[subject.latitude, subject.longitude]}
+                      key={`SUBJECT_MARKER_${subject.id}`}
+                      onClick={() => setActiveSubject(subject)}
+                      position={[subject.latitude, subject.longitude]}
                       />
-                    )
-                  })}
+                      ) : null
+                  )}
               </StyledMap>
             </Box>
-            <Timeline />
+            <Timeline year={year} years={years} setYear={setYear} />
           </Box>
 
           <Box basis='40%' gap='xsmall'>
@@ -168,7 +179,7 @@ export default function MapDetail({
               Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
             </StyledText>
-            <Charts />
+            <Charts subjects={subjects} year={year} years={years} />
             <AssociatedSubjects
               setActiveSubject={setActiveSubject}
               setShowSubjectsModal={setShowSubjectsModal}

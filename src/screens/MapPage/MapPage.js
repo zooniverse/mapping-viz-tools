@@ -13,6 +13,20 @@ const Relative = styled.div`
   width: 100%;
 `
 
+// use to keep MapDetail open while editing
+const defaultCoords = {
+  northEast: {
+    lat: -51.34401520040366,
+    lng: -57.813190743327155
+  },
+  southWest: {
+    lat: -51.45852322420228,
+    lng: -57.941539138555534
+  },
+  width: "100%",
+  height: "100%"
+}
+
 export default function MapPage() {
   const [canDraw, changeDrawing] = React.useState(false)
   const [miniMapCoords, setCoords] = React.useState(null)

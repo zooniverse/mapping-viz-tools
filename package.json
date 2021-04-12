@@ -5,8 +5,10 @@
   "dependencies": {
     "@nivo/core": "^0.67.0",
     "@nivo/line": "^0.67.0",
+    "@nivo/scatterplot": "^0.67.0",
     "@zooniverse/grommet-theme": "^2.2.0",
     "@zooniverse/react-components": "^1.0.2",
+    "d3-shape": "^2.1.0",
     "dompurify": "^2.0.12",
     "grommet": "^2.13.0",
     "leaflet": "^1.6.0",
@@ -21,7 +23,7 @@
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --coverage --watchAll=false",
+    "test": "react-scripts test --coverage --watchAll=false --maxWorkers=50%",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public"

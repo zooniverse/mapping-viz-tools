@@ -1,28 +1,28 @@
 import React from 'react'
-import { shallow, mount } from 'enzyme'
-import Timeline from './Timeline'
-import { Slider } from './Timeline'
-import { act } from '@testing-library/react'
+import { mount, shallow } from 'enzyme'
+import Timeline, { Slider } from './Timeline'
+import { act } from 'react-dom/test-utils'
+
+const mockYears = [1985, 1990, 1995, 2000, 2005]
 
 describe('Components > Timeline', () => {
   let wrapper
+  const setYearSpy = jest.fn()
 
   it('should render without crashing', () => {
     wrapper = shallow(<Timeline />)
     expect(wrapper).toBeDefined()
   })
 
-  it('should snap to the tick marks', () => {
-    wrapper = mount(<Timeline />)
-    let input = wrapper.find(Slider)
-    const event = { target: { name: 'timeline-slider', value: 99 } }
+  it('should call setYear with user input', () => {
+    wrapper = mount(
+      <Timeline setYear={setYearSpy} years={mockYears} year={1985} />
+    )
+    const input = wrapper.find(Slider)
+    const max = input.props().max
+    const event = { target: { name: 'timeline-slider', value: max } }
     act(() => input.props().onChange(event))
     wrapper.update()
-    input = wrapper.find(Slider)
-    expect(input.props().value).toEqual(99)
-    act(() => input.props().onMouseUp(event))
-    wrapper.update()
-    input = wrapper.find(Slider)
-    expect(input.props().value).toEqual(100)
+    expect(setYearSpy).toHaveBeenCalledWith(max)
   })
 })

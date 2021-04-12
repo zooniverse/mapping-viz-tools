@@ -1,25 +1,56 @@
 import React from 'react'
 import { Grid } from 'grommet'
 import Plot from '../Plot'
+import { mockChartData } from '../Charts/mockChartData'
+import getAverages from 'helpers/getAverages'
+import { number, arrayOf, shape, string } from 'prop-types'
 
-export default function Charts() {
+const Charts = ({ subjects = [], year, years = [] }) => {
+  const [kelpAverages, setKelpAverages] = React.useState(null)
+
+  React.useEffect(() => {
+    if (subjects.length) {
+      const kelpData = subjects.reduce((accumulator, currentSubject) => {
+        accumulator.push({
+          x: parseInt(currentSubject.date.substring(0, 4)),
+          y: currentSubject.kelp_km2,
+        })
+
+        return accumulator
+      }, [])
+      setKelpAverages(getAverages(kelpData))
+
+      // TO DO: add similar data handling for subject.temperature_grid_index,
+    }
+  }, [subjects])
+
   return (
-    <Grid
-      areas={[
-        { name: 'Graph1', start: [0, 0], end: [0, 0] },
-        { name: 'Graph2', start: [0, 1], end: [0, 1] },
-        { name: 'Graph3', start: [1, 0], end: [1, 0] },
-        { name: 'Graph4', start: [1, 1], end: [1, 1] },
-      ]}
-      columns={['1/2', '1/2']}
-      gap='xxsmall'
-      margin={{ bottom: 'xxsmall' }}
-      rows={['auto', 'auto']}
-    >
-      <Plot gridArea="Graph1" title='Kelp Over Time' />
-      <Plot gridArea="Graph2" title='Wind Patterns' />
-      <Plot gridArea="Graph3" title='Temperature' />
-      <Plot gridArea="Graph4" title='Wave Patterns' />
+    <Grid gap='xsmall'>
+      <Plot
+        data={kelpAverages}
+        title='Kelp Over Time'
+        year={year}
+        yAxis='Avg Kelp (km sq)'
+        years={years}
+      />
+      <Plot
+        data={mockChartData}
+        title='Temperature'
+        year={year}
+        yAxis='Avg Temp (F)'
+        years={years}
+      />
     </Grid>
   )
+}
+
+export default Charts
+
+Charts.propTypes = {
+  subjects: arrayOf(shape({
+    date: string,
+    kelp_km2: string
+  })),
+  year: number,
+  years: arrayOf(number)
 }

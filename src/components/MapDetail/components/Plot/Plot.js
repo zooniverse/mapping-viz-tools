@@ -1,94 +1,169 @@
 import React from 'react'
 import { Box, Text } from 'grommet'
-import { ResponsiveLine } from '@nivo/line'
-import { string } from 'prop-types'
-import getAverages from 'helpers/getAverages'
+import { ResponsiveScatterPlot } from '@nivo/scatterplot'
+import { line } from 'd3-shape'
+import { arrayOf, number, shape, string } from 'prop-types'
 import styled from 'styled-components'
+import getLeastSquares from 'helpers/getLeastSquares'
+import { min, max } from 'lodash'
 
-const Uppercase = styled(Text)`
-	text-transform: uppercase;
+export const Uppercase = styled(Text)`
+  text-transform: uppercase;
 `
 
 const commonProperties = {
-	margin: {
-		top: 5,
-		right: 12,
-		bottom: 24,
-		left: 25
-	}
+  margin: {
+    top: 5,
+    right: 5,
+    bottom: 26,
+    left: 26,
+  },
 }
-
-const mockData = [
-	{ x: '1980', y: 70 },
-	{ x: '1985', y: 75 },
-	{ x: '1990', y: 72 },
-	{ x: '1995', y: 74 },
-	{ x: '2000', y: 79 },
-	{ x: '2005', y: 83 },
-	{ x: '2010', y: 77 },
-	{ x: '2015', y: 79 },
-	{ x: '2020', y: 84 },
-]
 
 const theme = {
-	fontSize: 8,
-	axis: {
-		legend: {
-			text: {
-				fontSize: 8
-			}
-		}
-	}
-};
-
-export default function Plot({ title = '' }) {
-	const averages = getAverages(mockData)
-
-	return (
-		<Box>
-			<Box
-				background='white'
-				border={{ color: 'kelp' }}
-				height='5em'
-				width={{ max: '10em' }}
-			>
-				<ResponsiveLine
-					{...commonProperties}
-					axisLeft={{
-						orient: 'left',
-						legend: 'temp',
-						legendOffset: -20,
-						legendPosition: 'middle',
-						tickSize: 0,
-						tickValues: 4
-					}}
-					yScale={{ type: 'linear', min: 'auto', max: 'auto', stacked: false }}
-					axisBottom={{
-						orient: 'bottom',
-						legend: 'time',
-						legendOffset: 18,
-						legendPosition: 'middle',
-						tickSize: 0,
-						tickValues: ['1980', '2000', '2020']
-					}}
-					data={[
-						{
-							id: 'Average',
-							data: averages
-						},
-						{
-							id: 'Temperature',
-							data: mockData,
-						},
-					]}
-					theme={theme}
-				/>
-			</Box>
-			<Uppercase color='kelp'>{title}</Uppercase>
-		</Box>
-	)
+  fontSize: 8,
+  axis: {
+    legend: {
+      text: {
+        fontSize: 8,
+      },
+    },
+  },
 }
 
+const Plot = ({ data, title = '', year, yAxis, years }) => {
+  const [minY, setMinY] = React.useState(null)
+  const [maxY, setMaxY] = React.useState(null)
+  const [leastSquares, setLeastSquares] = React.useState([])
+
+  React.useEffect(() => {
+    let xValues = []
+    let yValues = []
+    if (data) {
+      data.forEach(subject => {
+        xValues.push(subject.x)
+        yValues.push(subject.y)
+      })
+
+      setLeastSquares(getLeastSquares(xValues, yValues))
+      setMinY(min(yValues))
+      setMaxY(max(yValues))
+    }
+  }, [data])
+
+  const RegressionLayer = ({ xScale, yScale }) => {
+    const lineGenerator = line()
+      .x(d => xScale(d.x))
+      .y(d => yScale(d.y))
+
+    return (
+      <path
+        id='regression-line'
+        d={lineGenerator([
+          leastSquares[0],
+          leastSquares[leastSquares.length - 1],
+        ])}
+        strokeWidth={1}
+        stroke='black'
+      />
+    )
+  }
+
+  const CurrentYear = ({ xScale, yScale }) => {
+    const lineGenerator = line()
+      .x(d => xScale(d.x))
+      .y(d => yScale(d.y))
+
+    return (
+      <path
+        id='current-year-line'
+        d={lineGenerator([
+          { x: year, y: minY },
+          { x: year, y: maxY },
+        ])}
+        strokeWidth={4}
+        stroke='#113E3B'
+        opacity={0.4}
+      />
+    )
+  }
+
+  return (
+    <Box>
+      <Box background='white' border={{ color: 'kelp' }} height='5.5em'>
+        {data ? (
+          <ResponsiveScatterPlot
+            {...commonProperties}
+            isInteractive={false}
+            useMesh={false}
+            animate={false}
+            xScale={{
+              type: 'linear',
+              min: years[0],
+              max: years[years.length - 1],
+            }}
+            axisBottom={{
+              orient: 'bottom',
+              legend: 'Time',
+              legendOffset: 20,
+              legendPosition: 'middle',
+              tickSize: 0,
+              tickValues: [
+                '1985',
+                '1990',
+                '1995',
+                '2000',
+                '2005',
+                '2010',
+                '2015',
+              ],
+            }}
+            gridXValues={years}
+            yScale={{
+              type: 'linear',
+              min: 'auto',
+              max: 'auto',
+              stacked: false,
+            }}
+            axisLeft={{
+              orient: 'left',
+              legend: yAxis,
+              legendOffset: -20,
+              legendPosition: 'middle',
+              tickSize: 0,
+              tickValues: 4,
+            }}
+            data={[
+              {
+                id: title,
+                data: data,
+              },
+            ]}
+            theme={theme}
+            nodeSize={4}
+            colors='black'
+            layers={['grid', 'axes', 'nodes', RegressionLayer, CurrentYear]}
+          />
+        ) : (
+          <Box align='center' justify='center' height='100%' id='plot-no-data'>
+            <Text>No Subject Data</Text>
+          </Box>
+        )}
+      </Box>
+      <Uppercase color='kelp'>{title}</Uppercase>
+    </Box>
+  )
+}
+
+export default Plot
+
 Plot.propTypes = {
-	title: string
+  data: arrayOf(shape({
+    x: number,
+    y: number
+  })),
+  title: string,
+  yAxis: string,
+  year: number,
+  years: arrayOf(number)
 }
