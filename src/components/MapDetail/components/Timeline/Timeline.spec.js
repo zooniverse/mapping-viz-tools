@@ -23,6 +23,6 @@ describe('Components > Timeline', () => {
     const event = { target: { name: 'timeline-slider', value: max } }
     act(() => input.props().onChange(event))
     wrapper.update()
-    expect(setYearSpy).toHaveBeenCalled()
+    expect(setYearSpy).toHaveBeenCalledWith(max)
   })
 })
