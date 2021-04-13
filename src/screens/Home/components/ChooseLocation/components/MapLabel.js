@@ -35,7 +35,7 @@ const Relative = styled(Box)`
       left: 0;
       width: 100%;
       height: 1px;
-      background: #113e3b;
+      background: #113E3B;
     }
   }
 `

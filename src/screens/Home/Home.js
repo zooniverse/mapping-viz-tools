@@ -12,6 +12,20 @@ const StyledText = styled(Text)`
   font-family: Neuton;
 `
 
+const Relative = styled(Box)`
+  position: relative;
+`
+
+const AccentLine = styled(Box)`
+  position: absolute;
+  left: 0;
+  bottom: -50px;
+  height: 20vw;
+  min-height: 200px;
+  width: 1px;
+  background: #113e3b;
+`
+
 const Home = ({ screenSize }) => {
   const mobile = screenSize === 'small'
 
@@ -38,22 +52,26 @@ const Home = ({ screenSize }) => {
         </Box>
 
         <Box direction={mobile ? 'column' : 'row'}>
-          <Box basis='2/3' flex='grow' pad={mobile ? null : { right: 'medium' }}>
+          <Box
+            basis='2/3'
+            flex='grow'
+            pad={mobile ? null : { right: 'medium' }}
+          >
             <ChooseLocation />
           </Box>
-          <Box
+          <Relative
             basis='1/3'
-            border={mobile ? null : 'left'}
             flex='grow'
             gap='small'
             pad={mobile ? null : { left: 'medium' }}
           >
+            {!mobile && <AccentLine />}
             <StyledText size='1rem'>
               This project is a collaboration between Zooniverse-Adler
               Planetarium and the Floating Forests team.
             </StyledText>
             <Anchor href='#' label='Learn more' size='small' />
-          </Box>
+          </Relative>
         </Box>
       </Box>
     </Box>
