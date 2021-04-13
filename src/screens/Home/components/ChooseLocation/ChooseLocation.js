@@ -1,7 +1,10 @@
 import React from 'react'
 import { Box, Text } from 'grommet'
 import styled from 'styled-components'
-import { withThemeContext } from '@zooniverse/react-components'
+import {
+  withThemeContext,
+  withResponsiveContext,
+} from '@zooniverse/react-components'
 import Map from 'images/hover-map.png'
 import ResponsiveImage from 'components/ResponsiveImage'
 import MapLabel from './components/MapLabel'
@@ -12,24 +15,20 @@ const StyledText = styled(Text)`
 `
 
 const OPTIONS = [
-  { label: 'Falkland Islands', map: Map},
+  { label: 'Falkland Islands', map: Map },
   // { label: 'Baja, California', map: Map},
   // { label: 'Tasmania, Australia', map: Map}
 ]
 
-function ChooseLocation() {
+const ChooseLocation = ({ screenSize }) => {
+  const mobile = screenSize === 'small'
+
   const [activeLocation, setActiveLocation] = React.useState(null)
 
   return (
-    <Box
-      direction='row'
-      wrap
-    >
-      <Box flex='grow'>
-        <StyledText
-          margin='xxsmall'
-          size='1.25rem'
-        >
+    <Box direction='row'>
+      <Box>
+        <StyledText size='1.25rem' margin={{ bottom: 'small' }}>
           Choose a location to begin
         </StyledText>
         {OPTIONS.map((location, i) => {
@@ -39,21 +38,24 @@ function ChooseLocation() {
               location={location}
               onActivate={setActiveLocation}
             />
-        )})}
+          )
+        })}
       </Box>
-      <Box align='center' flex='grow' pad='xxsmall'>
-        {activeLocation && (
-          <ResponsiveImage
-            a11yTitle={`Map of ${activeLocation.label}`}
-            border
-            height='8em'
-            src={activeLocation.map}
-          />
-        )}
-      </Box>
+      {!mobile && (
+        <Box align='center' flex='grow' pad='xxsmall'>
+          {activeLocation && (
+            <ResponsiveImage
+              a11yTitle={`Map of ${activeLocation.label}`}
+              border
+              height='8em'
+              src={activeLocation.map}
+            />
+          )}
+        </Box>
+      )}
     </Box>
   )
 }
 
-export default withThemeContext(ChooseLocation, theme)
+export default withResponsiveContext(withThemeContext(ChooseLocation, theme))
 export { ChooseLocation }
