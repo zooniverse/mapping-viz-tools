@@ -1,43 +1,72 @@
 import React from 'react'
-import { Anchor, Box } from 'grommet'
+import { Anchor, Box, Image } from 'grommet'
 import styled from 'styled-components'
 import { func, shape, string } from 'prop-types'
 import { withResponsiveContext } from '@zooniverse/react-components'
 
 export const StyledAnchor = styled(Anchor)`
   white-space: nowrap;
-  
-`
+  position: relative;
+  text-decoration: none;
 
-// refactor this as absolute positioned
-export const StyledHr = styled.hr`
-  border-top: 1px solid black;
-  margin: auto;
-  width: 100%;
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: #113e3b;
+  }
+
+  &:hover {
+    text-decoration: none;
+  }
 `
 
 const Relative = styled(Box)`
   position: relative;
+  
+  &:hover {
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: #113e3b;
+    }
+  }
 `
 
-const MapLabel = ({ location, onActivate, screenSize }) => {
+const Thumbnail = styled(Box)`
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+`
+
+const StyledImage = styled(Image)`
+  border: 1px solid #113E3B;
+`
+
+const MapLabel = ({ location, screenSize }) => {
   const mobile = screenSize === 'small'
 
   const [isHovered, onHover] = React.useState(false)
   const activate = () => {
     if (mobile) return
     onHover(true)
-    onActivate(location)
   }
 
   const deactivate = () => {
     if (mobile) return
     onHover(false)
-    onActivate(null)
   }
 
   return (
-    <Relative direction='row'>
+    <Relative direction='row' margin={{ bottom: 'xsmall' }}>
       <StyledAnchor
         href='/map'
         label={location.label}
@@ -45,9 +74,15 @@ const MapLabel = ({ location, onActivate, screenSize }) => {
         onFocus={activate}
         onMouseEnter={activate}
         onMouseLeave={deactivate}
-        margin={{ bottom: 'small' }}
       />
-      {isHovered && <StyledHr />}
+      {isHovered && !mobile && (
+        <Thumbnail>
+          <StyledImage
+            a11yTitle={`Map of ${location.label}`}
+            src={location.map}
+          />
+        </Thumbnail>
+      )}
     </Relative>
   )
 }

@@ -1,12 +1,8 @@
 import React from 'react'
 import { Box, Text } from 'grommet'
 import styled from 'styled-components'
-import {
-  withThemeContext,
-  withResponsiveContext,
-} from '@zooniverse/react-components'
+import { withThemeContext } from '@zooniverse/react-components'
 import Map from 'images/hover-map.png'
-import ResponsiveImage from 'components/ResponsiveImage'
 import MapLabel from './components/MapLabel'
 import theme from './theme'
 
@@ -20,14 +16,10 @@ const OPTIONS = [
   // { label: 'Tasmania, Australia', map: Map}
 ]
 
-const ChooseLocation = ({ screenSize }) => {
-  const mobile = screenSize === 'small'
-
-  const [activeLocation, setActiveLocation] = React.useState(null)
-
+const ChooseLocation = () => {
   return (
     <Box direction='row'>
-      <Box>
+      <Box margin={{ bottom: 'small' }}>
         <StyledText size='1.25rem' margin={{ bottom: 'small' }}>
           Choose a location to begin
         </StyledText>
@@ -36,26 +28,13 @@ const ChooseLocation = ({ screenSize }) => {
             <MapLabel
               key={location.label}
               location={location}
-              onActivate={setActiveLocation}
             />
           )
         })}
       </Box>
-      {!mobile && (
-        <Box align='center' flex='grow' pad='xxsmall'>
-          {activeLocation && (
-            <ResponsiveImage
-              a11yTitle={`Map of ${activeLocation.label}`}
-              border
-              height='8em'
-              src={activeLocation.map}
-            />
-          )}
-        </Box>
-      )}
     </Box>
   )
 }
 
-export default withResponsiveContext(withThemeContext(ChooseLocation, theme))
+export default withThemeContext(ChooseLocation, theme)
 export { ChooseLocation }

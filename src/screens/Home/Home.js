@@ -23,24 +23,22 @@ const Home = ({ screenSize }) => {
         border={{
           color: 'kelp',
           side: 'right',
-          size: mobile ? 'small' : 'large',
+          size: mobile ? 'medium' : 'large',
         }}
       />
 
-      <Box gap='medium' justify={mobile ? '' : 'between'}>
-        <Box
-          margin={{ horizontal: 'medium', top: 'large' }}
-          width={{ max: '40rem' }}
-        >
+      <Box
+        gap='medium'
+        justify={mobile ? '' : 'between'}
+        margin={mobile ? 'medium' : 'large'}
+      >
+        <Box width={{ max: '40rem' }}>
           <ZooniverseLogotype />
           <MappingVizLogo id='MappingVizualizationsLogo' />
         </Box>
 
-        <Box
-          direction={mobile ? 'column' : 'row'}
-          margin={{ horizontal: 'medium' }}
-        >
-          <Box basis='2/3' flex='grow' margin={{ right: 'xsmall' }}>
+        <Box direction={mobile ? 'column' : 'row'}>
+          <Box basis='2/3' flex='grow' pad={mobile ? null : { right: 'medium' }}>
             <ChooseLocation />
           </Box>
           <Box
@@ -48,7 +46,7 @@ const Home = ({ screenSize }) => {
             border={mobile ? null : 'left'}
             flex='grow'
             gap='small'
-            pad={mobile ? '' : 'medium'}
+            pad={mobile ? null : { left: 'medium' }}
           >
             <StyledText size='1rem'>
               This project is a collaboration between Zooniverse-Adler
