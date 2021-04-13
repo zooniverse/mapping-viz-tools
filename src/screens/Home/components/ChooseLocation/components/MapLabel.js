@@ -47,7 +47,7 @@ const Thumbnail = styled(Box)`
   transform: translateY(-50%);
 `
 
-const StyledImage = styled(Image)`
+export const StyledImage = styled(Image)`
   border: 1px solid #113E3B;
 `
 

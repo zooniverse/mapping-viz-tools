@@ -1,44 +1,33 @@
-import React from 'react';
-import { shallow } from 'enzyme'
-import MapLabel, { StyledAnchor, StyledHr } from './MapLabel';
+import React from 'react'
+import { mount } from 'enzyme'
+import MapLabel, { StyledAnchor, StyledImage } from './MapLabel'
 
 let wrapper
 
 describe('Component > MapLabel', function () {
-  const onActivateSpy = jest.fn()
   const location = {
     label: 'Baja, California',
-    map: 'image.png'
+    map: 'image.png',
   }
 
   beforeEach(function () {
-    wrapper = shallow(
-      <MapLabel
-        location={location}
-        onActivate={onActivateSpy}
-      />);
+    wrapper = mount(<MapLabel location={location} />)
   })
-
-  afterEach(() => jest.clearAllMocks());
 
   it('should render without crashing', () => {
     expect(wrapper).toBeDefined()
-  });
+  })
 
   describe('Events > MapLabel', function () {
     describe('onMouseEnter', function () {
-      it('should trigger onHover and onActivate', function () {
+      it('should show image thumbnail onHover', function () {
         wrapper.find(StyledAnchor).first().simulate('mouseenter')
-        expect(onActivateSpy).toHaveBeenCalledWith(location)
-        expect(wrapper.find(StyledHr).length).toBe(1)
+        expect(wrapper.find(StyledImage).length).toBe(1)
       })
-    })
 
-    describe('onMouseLeave', function () {
-      it('should trigger onHover and onActivate', function () {
+      it('should not show image thumbnail onLeave', function () {
         wrapper.find(StyledAnchor).first().simulate('mouseleave')
-        expect(onActivateSpy).toHaveBeenCalledWith(null)
-        expect(wrapper.find(StyledHr).length).toBe(0)
+        expect(wrapper.find(StyledImage).length).toBe(0)
       })
     })
   })
