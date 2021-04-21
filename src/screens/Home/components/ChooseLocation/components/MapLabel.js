@@ -16,7 +16,10 @@ export const StyledAnchor = styled(Anchor)`
     left: 0;
     width: 100%;
     height: 1px;
-    ${props => css`background: ${props.theme.global.colors.brand}`}
+    ${props =>
+      css`
+        background: ${props.theme.global.colors.brand};
+      `}
   }
 
   &:hover {
@@ -26,18 +29,26 @@ export const StyledAnchor = styled(Anchor)`
 
 const Relative = styled(Box)`
   position: relative;
-  
-  &:hover {
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 110%;
-      height: 1px;
-      ${props => css`background: ${props.theme.global.colors.brand}`}
-    }
-  }
+
+  ${props =>
+    props.mobile
+      ? null
+      : css`
+          &:hover {
+            &::after {
+              content: '';
+              position: absolute;
+              bottom: 0;
+              left: 0;
+              width: 110%;
+              height: 1px;
+              ${props =>
+                css`
+                  background: ${props.theme.global.colors.brand};
+                `}
+            }
+          }
+        `}
 `
 
 const Thumbnail = styled(Box)`
@@ -48,11 +59,13 @@ const Thumbnail = styled(Box)`
 `
 
 export const StyledImage = styled(Image)`
-  ${props => css`border: 1px solid ${props.theme.global.colors.brand}`}
+  ${props =>
+    css`
+      border: 1px solid ${props.theme.global.colors.brand};
+    `}
 `
 
-const MapLabel = ({ location, screenSize, theme }) => {
-  console.log(theme)
+const MapLabel = ({ location, screenSize }) => {
   const mobile = screenSize === 'small'
 
   const [isHovered, onHover] = React.useState(false)
@@ -67,7 +80,7 @@ const MapLabel = ({ location, screenSize, theme }) => {
   }
 
   return (
-    <Relative direction='row' margin={{ bottom: 'xsmall' }}>
+    <Relative direction='row' margin={{ bottom: 'xsmall' }} mobile={mobile}>
       <StyledAnchor
         href='/map'
         label={location.label}
