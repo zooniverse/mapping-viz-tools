@@ -1,7 +1,7 @@
 import React from 'react'
 import { Anchor, Box, Text } from 'grommet'
 import MappingVizLogo from 'components/MappingVizLogo'
-import styled from 'styled-components'
+import styled, { withTheme, css } from 'styled-components'
 import ChooseLocation from './components/ChooseLocation'
 import {
   ZooniverseLogotype,
@@ -23,7 +23,10 @@ const AccentLine = styled(Box)`
   height: 20vw;
   min-height: 200px;
   width: 1px;
-  background: #113e3b;
+  ${props =>
+    css`
+      background: ${props.theme.global.colors.brand};
+    `}
 `
 
 const Home = ({ screenSize }) => {
@@ -78,4 +81,4 @@ const Home = ({ screenSize }) => {
   )
 }
 
-export default withResponsiveContext(Home)
+export default withTheme(withResponsiveContext(Home))
