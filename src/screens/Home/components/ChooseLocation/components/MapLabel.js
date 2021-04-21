@@ -1,6 +1,6 @@
 import React from 'react'
 import { Anchor, Box, Image } from 'grommet'
-import styled from 'styled-components'
+import styled, { css, withTheme } from 'styled-components'
 import { func, shape, string } from 'prop-types'
 import { withResponsiveContext } from '@zooniverse/react-components'
 
@@ -16,7 +16,7 @@ export const StyledAnchor = styled(Anchor)`
     left: 0;
     width: 100%;
     height: 1px;
-    background: #113e3b;
+    ${props => css`background: ${props.theme.global.colors.brand}`}
   }
 
   &:hover {
@@ -33,25 +33,26 @@ const Relative = styled(Box)`
       position: absolute;
       bottom: 0;
       left: 0;
-      width: 100%;
+      width: 110%;
       height: 1px;
-      background: #113E3B;
+      ${props => css`background: ${props.theme.global.colors.brand}`}
     }
   }
 `
 
 const Thumbnail = styled(Box)`
   position: absolute;
-  left: 100%;
+  left: 110%;
   top: 50%;
   transform: translateY(-50%);
 `
 
 export const StyledImage = styled(Image)`
-  border: 1px solid #113E3B;
+  ${props => css`border: 1px solid ${props.theme.global.colors.brand}`}
 `
 
-const MapLabel = ({ location, screenSize }) => {
+const MapLabel = ({ location, screenSize, theme }) => {
+  console.log(theme)
   const mobile = screenSize === 'small'
 
   const [isHovered, onHover] = React.useState(false)
@@ -99,4 +100,4 @@ MapLabel.defaultProp = {
   onActivate: () => {},
 }
 
-export default withResponsiveContext(MapLabel)
+export default withTheme(withResponsiveContext(MapLabel))

@@ -43,7 +43,7 @@ const Home = ({ screenSize }) => {
 
       <Box
         gap='medium'
-        justify={mobile ? '' : 'between'}
+        justify={mobile ? 'start' : 'between'}
         margin={mobile ? 'medium' : 'large'}
       >
         <Box width={{ max: '40rem' }}>
