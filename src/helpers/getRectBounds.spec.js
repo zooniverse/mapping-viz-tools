@@ -5,7 +5,7 @@ let mockCoords = { lat: 100, lon: 100 }
 const mapRef = {
   current: {
     leafletElement: {
-      layerPointToLatLng: () => mockCoords
+      containerPointToLatLng: () => mockCoords
     }
   }
 }
