@@ -1,6 +1,8 @@
 import React from 'react'
 import { mount } from 'enzyme'
-import MapLabel, { StyledAnchor, StyledImage } from './MapLabel'
+import { MapLabel, StyledAnchor, StyledImage } from './MapLabel'
+import theme from '../../../../../theme'
+import { Grommet } from 'grommet'
 
 let wrapper
 
@@ -11,7 +13,10 @@ describe('Component > MapLabel', function () {
   }
 
   beforeEach(function () {
-    wrapper = mount(<MapLabel location={location} />)
+    wrapper = mount(<MapLabel location={location} />, {
+      wrappingComponent: Grommet,
+      wrappingComponentProps: { theme: theme },
+    })
   })
 
   it('should render without crashing', () => {

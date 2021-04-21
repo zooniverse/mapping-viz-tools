@@ -1,7 +1,7 @@
 import React from 'react'
 import { Anchor, Box, Image } from 'grommet'
 import styled, { css, withTheme } from 'styled-components'
-import { func, shape, string } from 'prop-types'
+import { shape, string } from 'prop-types'
 import { withResponsiveContext } from '@zooniverse/react-components'
 
 export const StyledAnchor = styled(Anchor)`
@@ -106,11 +106,7 @@ MapLabel.propTypes = {
     label: string,
     map: string,
   }).isRequired,
-  onActivate: func,
-}
-
-MapLabel.defaultProp = {
-  onActivate: () => {},
 }
 
 export default withTheme(withResponsiveContext(MapLabel))
+export { MapLabel }
