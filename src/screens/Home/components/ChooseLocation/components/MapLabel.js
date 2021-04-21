@@ -1,38 +1,86 @@
 import React from 'react'
-import { Anchor, Box } from 'grommet'
-import styled from 'styled-components'
-import { func, shape, string } from 'prop-types'
+import { Anchor, Box, Image } from 'grommet'
+import styled, { css, withTheme } from 'styled-components'
+import { shape, string } from 'prop-types'
+import { withResponsiveContext } from '@zooniverse/react-components'
 
 export const StyledAnchor = styled(Anchor)`
-  padding: 0.5em;
   white-space: nowrap;
+  position: relative;
+  text-decoration: none;
 
-  :focus, :hover {
-    background: white;
-    text-decoration: underline;
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    ${props =>
+      css`
+        background: ${props.theme.global.colors.brand};
+      `}
+  }
+
+  &:hover {
+    text-decoration: none;
   }
 `
 
-export const StyledHr = styled.hr`
-  border-top: 1px solid black;
-  margin: auto;
-  width: 100%;
+const Relative = styled(Box)`
+  position: relative;
+
+  ${props =>
+    props.mobile
+      ? null
+      : css`
+          &:hover {
+            &::after {
+              content: '';
+              position: absolute;
+              bottom: 0;
+              left: 0;
+              width: 110%;
+              height: 1px;
+              ${props =>
+                css`
+                  background: ${props.theme.global.colors.brand};
+                `}
+            }
+          }
+        `}
 `
 
-export default function MapLabel({ location, onActivate }) {
+const Thumbnail = styled(Box)`
+  position: absolute;
+  left: 110%;
+  top: 50%;
+  transform: translateY(-50%);
+`
+
+export const StyledImage = styled(Image)`
+  ${props =>
+    css`
+      border: 1px solid ${props.theme.global.colors.brand};
+    `}
+`
+
+const MapLabel = ({ location, screenSize }) => {
+  const mobile = screenSize === 'small'
+
   const [isHovered, onHover] = React.useState(false)
   const activate = () => {
+    if (mobile) return
     onHover(true)
-    onActivate(location)
   }
 
   const deactivate = () => {
+    if (mobile) return
     onHover(false)
-    onActivate(null)
   }
 
   return (
-    <Box direction='row'>
+    <Relative direction='row' margin={{ bottom: 'xsmall' }} mobile={mobile}>
       <StyledAnchor
         href='/map'
         label={location.label}
@@ -41,19 +89,24 @@ export default function MapLabel({ location, onActivate }) {
         onMouseEnter={activate}
         onMouseLeave={deactivate}
       />
-      {isHovered && <StyledHr />}
-    </Box>
+      {isHovered && !mobile && (
+        <Thumbnail>
+          <StyledImage
+            a11yTitle={`Map of ${location.label}`}
+            src={location.map}
+          />
+        </Thumbnail>
+      )}
+    </Relative>
   )
 }
 
 MapLabel.propTypes = {
   location: shape({
     label: string,
-    map: string
+    map: string,
   }).isRequired,
-  onActivate: func
 }
 
-MapLabel.defaultProp = {
-  onActivate: () => {}
-}
+export default withTheme(withResponsiveContext(MapLabel))
+export { MapLabel }
