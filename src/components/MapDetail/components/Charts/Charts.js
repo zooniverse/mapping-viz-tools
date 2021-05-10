@@ -1,12 +1,12 @@
 import React from 'react'
 import { Grid } from 'grommet'
 import Plot from '../Plot'
-import { mockChartData } from '../Charts/mockChartData'
 import getAverages from 'helpers/getAverages'
 import { number, arrayOf, shape, string } from 'prop-types'
 
 const Charts = ({ subjects = [], year, years = [] }) => {
   const [kelpAverages, setKelpAverages] = React.useState(null)
+  const [tempAverages, setTempAverages] = React.useState(null)
 
   React.useEffect(() => {
     if (subjects.length) {
@@ -20,7 +20,15 @@ const Charts = ({ subjects = [], year, years = [] }) => {
       }, [])
       setKelpAverages(getAverages(kelpData))
 
-      // TO DO: add similar data handling for subject.temperature_grid_index,
+      const tempData = subjects.reduce((accumulator, currentSubject) => {
+        accumulator.push({
+          x: parseInt(currentSubject.date.substring(0, 4)),
+          y: currentSubject.temp_celsius,
+        })
+
+        return accumulator
+      }, [])
+      setTempAverages(getAverages(tempData))
     }
   }, [subjects])
 
@@ -34,10 +42,10 @@ const Charts = ({ subjects = [], year, years = [] }) => {
         years={years}
       />
       <Plot
-        data={mockChartData}
+        data={tempAverages}
         title='Temperature'
         year={year}
-        yAxis='Avg Temp (F)'
+        yAxis='Avg Temp (C)'
         years={years}
       />
     </Grid>

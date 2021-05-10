@@ -109,7 +109,6 @@ const Plot = ({ data, title = '', year, yAxis, years }) => {
               legendPosition: 'middle',
               tickSize: 0,
               tickValues: [
-                '1985',
                 '1990',
                 '1995',
                 '2000',
