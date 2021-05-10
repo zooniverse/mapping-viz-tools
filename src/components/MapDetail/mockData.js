@@ -1,7 +1,7 @@
 const data = [
   {
     id: 1,
-    date: '1990-09-23T00:00:00.000Z',
+    date: '2000-09-23T00:00:00.000Z',
     subjectId: 15112333,
     latitude: -51.8557484758465,
     longitude: -58.4818413309715,
@@ -90,7 +90,7 @@ const data = [
     sstGridIndex: 905
   }, {
     id: 3,
-    date: '1990-01-21T00:00:00.000Z',
+    date: '2000-01-21T00:00:00.000Z',
     subjectId: 15112327,
     latitude: -51.7662394078781,
     longitude: -58.0224661260516,
@@ -218,7 +218,7 @@ const data = [
       },
     media_location: 'panoptes-uploads.zooniverse.org/production/subject_location/fdd9a35a-0a96-4535-a000-ce3fff680c7f.png',
     subjectSet: 0,
-    kelp_km2: "978",
+    kelp_km2: "9.78",
     sstGridIndex: 978
   }, {
     id: 6,
@@ -266,7 +266,7 @@ const data = [
     sstGridIndex: 978
   }, {
     id: 7,
-    date: '1990-09-25T00:00:00.000Z',
+    date: '2000-09-25T00:00:00.000Z',
     subjectId: 15112317,
     latitude: -51.6730781438224,
     longitude: -57.8685356815718,
