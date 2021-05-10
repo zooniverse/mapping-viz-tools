@@ -14,7 +14,7 @@ const expectedAvgData = [
   { x: 2016, y: 3.8519 }
 ]
 
-describe.only('Components > Charts', () => {
+describe('Components > Charts', () => {
   let wrapper
 
   it('should render without crashing', () => {
