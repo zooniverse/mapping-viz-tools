@@ -12,7 +12,7 @@
     "dompurify": "^2.0.12",
     "grommet": "^2.13.0",
     "leaflet": "^1.6.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "react": "16.14.0",
     "react-dom": "16.14.0",
     "react-leaflet": "^2.7.0",
