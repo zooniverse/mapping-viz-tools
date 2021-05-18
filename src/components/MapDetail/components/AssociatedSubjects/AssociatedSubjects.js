@@ -4,7 +4,6 @@ import {
   Button,
   Heading,
   Image,
-  Paragraph,
   Text
 } from 'grommet'
 import { FormNext } from 'grommet-icons'

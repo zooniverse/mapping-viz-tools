@@ -8,7 +8,7 @@ let manySubjects = new Array(11).fill({ subjectMediaLocation: 'test.png' })
 const setActiveSubjectSpy = jest.fn()
 const setShowSubjectsModalSpy = jest.fn()
 
-describe.only('Components > AssociatedSubjects', function () {
+describe('Components > AssociatedSubjects', function () {
   let wrapper
 
   afterEach(() => jest.clearAllMocks());
