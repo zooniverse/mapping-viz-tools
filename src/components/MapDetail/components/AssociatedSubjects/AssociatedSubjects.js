@@ -4,6 +4,7 @@ import {
   Button,
   Heading,
   Image,
+  Paragraph,
   Text
 } from 'grommet'
 import { FormNext } from 'grommet-icons'
@@ -49,6 +50,7 @@ export default function AssociatedSubjects({
         direction='row'
         wrap
       >
+        {!subjects.length && <Text>Select another year.</Text>}
         {firstTenSubjects.map((subject, i) => {
           return (
             <StyledButton

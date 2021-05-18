@@ -1,6 +1,6 @@
 import React from 'react'
-import { shallow } from 'enzyme'
-import { Button } from 'grommet'
+import { shallow, mount } from 'enzyme'
+import { Button, Text } from 'grommet'
 import AssociatedSubjects, { StyledButton } from './AssociatedSubjects'
 import mockData from '../../mockData'
 
@@ -8,7 +8,7 @@ let manySubjects = new Array(11).fill({ subjectMediaLocation: 'test.png' })
 const setActiveSubjectSpy = jest.fn()
 const setShowSubjectsModalSpy = jest.fn()
 
-describe('Components > AssociatedSubjects', function () {
+describe.only('Components > AssociatedSubjects', function () {
   let wrapper
 
   afterEach(() => jest.clearAllMocks());
@@ -16,6 +16,21 @@ describe('Components > AssociatedSubjects', function () {
   it('should render without props', function () {
     wrapper = shallow(<AssociatedSubjects />)
     expect(wrapper).toBeDefined()
+  })
+
+  describe('no subjects', function () {
+    beforeEach(function () {
+      wrapper = mount(
+        <AssociatedSubjects
+          subjects={[]}
+        />
+      )
+    })
+
+    it('should suggest selecting another year if no subjects', function () {
+      const text = wrapper.find(Text)
+      expect(text.find('span').text()).toEqual('Select another year.')
+    })
   })
 
   describe('with props', function () {
