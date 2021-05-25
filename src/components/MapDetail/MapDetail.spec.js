@@ -8,6 +8,7 @@ import MapDetail, { Uppercase } from './MapDetail'
 import mockData from './mockData'
 import Loading from './components/Loading'
 import MetadataModal from '../../components/Modals/Metadata'
+import AssociatedSubjects from './components/AssociatedSubjects'
 
 describe('Components > MapDetail', () => {
   let wrapper
@@ -44,6 +45,10 @@ describe('Components > MapDetail', () => {
 
   it('should render without crashing', () => {
     expect(wrapper).toBeDefined()
+  })
+
+  it('should filter subjects based on current selected year', function () {
+    expect(wrapper.find(AssociatedSubjects).props().subjects).toHaveLength(3)
   })
 
   describe('map area details', () => {

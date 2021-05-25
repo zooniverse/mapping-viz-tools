@@ -65,6 +65,7 @@ export default function MapDetail({
   const [activeSubject, setActiveSubject] = React.useState(null)
   const [showSubjectsModal, setShowSubjectsModal] = React.useState(false)
   const [year, setYear] = React.useState(2000)
+  const [filteredSubjects, setFilteredSubjects] = React.useState([])
 
   // adjust x-axis range for both Charts and Timeline
   const yearsArray = (start, end) => {
@@ -84,7 +85,22 @@ export default function MapDetail({
       setCenterLat(getLocationDetails(center.lat, 'lat'))
       setCenterLng(getLocationDetails(center.lng, 'lng'))
     }
+    filterByYear()
   }, [coordinates, mapRef, asyncStatus])
+
+  React.useEffect(() => {
+    filterByYear()
+  }, [year])
+
+  const filterByYear = () => {
+    const newSubjects = subjects.reduce((acc, current) => {
+      if (parseInt(current.date.substring(0, 4)) === year) {
+        acc.push(current)
+      }
+      return acc
+    }, [])
+    setFilteredSubjects(newSubjects)
+  }
 
   const Content = () => {
     return (
@@ -159,15 +175,13 @@ export default function MapDetail({
                   url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
                 />
                 {showSubjects &&
-                  subjects.map((subject, i) => 
-                    parseInt(subject.date.substring(0, 4)) === year ? (
-                      <Marker
+                  filteredSubjects.map((subject, i) => (
+                    <Marker
                       key={`SUBJECT_MARKER_${subject.id}`}
                       onClick={() => setActiveSubject(subject)}
                       position={[subject.latitude, subject.longitude]}
-                      />
-                      ) : null
-                  )}
+                    />
+                  ))}
               </StyledMap>
             </Box>
             <Timeline year={year} years={years} setYear={setYear} />
@@ -183,7 +197,7 @@ export default function MapDetail({
             <AssociatedSubjects
               setActiveSubject={setActiveSubject}
               setShowSubjectsModal={setShowSubjectsModal}
-              subjects={subjects}
+              subjects={filteredSubjects}
             />
           </Box>
         </Box>
