@@ -1,12 +1,14 @@
-import React from 'react';
-import { storiesOf } from '@storybook/react';
 import MapPage from '../screens/MapPage'
 import { Grommet } from 'grommet'
 import theme from 'theme'
 
-storiesOf('MapPage', module)
-  .add('Default', () => (
-    <Grommet theme={theme}>
-      <MapPage />
-    </Grommet>
-  ))
+export default {
+  title: 'MapPage',
+  component: MapPage,
+}
+
+export const Default = () => (
+  <Grommet theme={theme}>
+    <MapPage />
+  </Grommet>
+)
