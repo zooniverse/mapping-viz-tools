@@ -1,15 +1,16 @@
 import { Grommet } from 'grommet'
 import theme from 'theme'
-import Subjects from '../components/Modals/Subjects'
+import 'leaflet/dist/leaflet.css'
+import MapDetail from '../components/MapDetail'
 import mockData from '../components/MapDetail/mockData'
 
 export default {
-  title: 'Associated Subjects',
-  component: Subjects,
+  title: 'MapDetail',
+  component: MapDetail,
 }
 
 export const Default = () => (
   <Grommet theme={theme}>
-    <Subjects subjects={mockData} />
+    <MapDetail subjects={mockData} />
   </Grommet>
 )
