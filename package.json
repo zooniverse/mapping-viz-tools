@@ -2,6 +2,10 @@
   "name": "mapping-viz-tools",
   "version": "0.1.0",
   "private": true,
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=16"
+  },
   "dependencies": {
     "@nivo/core": "^0.67.0",
     "@nivo/line": "^0.67.0",
@@ -56,7 +60,7 @@
     "enzyme": "^3.11.0",
     "jest-styled-components": "^7.0.3",
     "nock": "^13.0.11",
-    "react-scripts": "^4.0.3",
+    "react-scripts": "^5.0.0",
     "react-test-renderer": "17.0.2",
     "source-map-explorer": "^2.5.2"
   }
