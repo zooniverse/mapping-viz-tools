@@ -7647,7 +7647,7 @@ grommet-styles@^0.2.0:
   resolved "https://registry.yarnpkg.com/grommet-styles/-/grommet-styles-0.2.0.tgz#b2eac2b7e2747cb523434d21728ce5234f8ce4f4"
   integrity sha512-0OMSYuGeyifYKpg4Gv2HzL8rUdd0ddnJ5LbCBKgDuloC71XIwr9g/Fxa6rs737MbPV7OZ4pEm4wvrjH4epzf1A==
 
-grommet@^2.13.0:
+grommet@^2.22.0:
   version "2.22.0"
   resolved "https://registry.yarnpkg.com/grommet/-/grommet-2.22.0.tgz#65463ab1d81ad56b9f56c00513630dfbb8b52715"
   integrity sha512-R15s222QL7kIDAtvNw1McbzhGLGTQrzzu3WHw/ITSFS6SV+rCIEEf/5/azrKP9X9+E6BbLGQCI0dJvboiy0hQg==
@@ -13620,7 +13620,7 @@ style-to-object@^0.2.1:
   dependencies:
     inline-style-parser "0.1.1"
 
-styled-components@^5.1.1:
+styled-components@^5.3.5:
   version "5.3.5"
   resolved "https://registry.yarnpkg.com/styled-components/-/styled-components-5.3.5.tgz#a750a398d01f1ca73af16a241dec3da6deae5ec4"
   integrity sha512-ndETJ9RKaaL6q41B69WudeqLzOpY1A/ET/glXkNZ2T7dPjPqpPCXXQjDFYZWwNnE5co0wX+gTCqx9mfxTmSIPg==

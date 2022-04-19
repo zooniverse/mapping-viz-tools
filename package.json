@@ -14,14 +14,14 @@
     "@zooniverse/react-components": "^1.1.0",
     "d3-shape": "^2.1.0",
     "dompurify": "^2.0.12",
-    "grommet": "^2.13.0",
+    "grommet": "^2.22.0",
     "leaflet": "^1.6.0",
     "lodash": "^4.17.21",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-leaflet": "^2.7.0",
     "react-router-dom": "^5.2.0",
-    "styled-components": "^5.1.1"
+    "styled-components": "^5.3.5"
   },
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
