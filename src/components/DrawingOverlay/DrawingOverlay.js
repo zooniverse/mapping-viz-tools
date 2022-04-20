@@ -2,6 +2,7 @@ import React from 'react'
 import { bool, func, object, shape } from 'prop-types'
 import styled, { css } from 'styled-components'
 import getRectBounds from 'helpers/getRectBounds'
+import { useMap } from 'react-leaflet'
 
 export const SVG = styled.svg`
 	${props => props.canDraw ? css`cursor: crosshair;` : css`cursor: default;`}
@@ -11,9 +12,10 @@ export const SVG = styled.svg`
 export default function DrawingOverlay({
     canDraw = false,
     changeDrawing = () => {},
-    mapRef,
+    // mapRef,
     setCoords = () => {}
 }) {
+		const mapRef = useMap()
     const [initCoords, setInitCoords] = React.useState({})
     const [rectangle, setRectangle] = React.useState(null)
     const [isDrawing, setIsDrawing] = React.useState(false)
@@ -57,8 +59,7 @@ export default function DrawingOverlay({
 
 		setIsDrawing(false)
 		changeDrawing(false)
-
-		if (mapRef && mapRef.current && rectangle) {
+		if (mapRef && rectangle) {
 			setCoords(getRectBounds(mapRef, rectangle))
 		}
 		setRectangle(null)
@@ -91,7 +92,7 @@ export default function DrawingOverlay({
 DrawingOverlay.propTypes = {
 	canDraw: bool,
 	changeDrawing: func,
-	mapRef: shape({
-		current: object
-	})
+	// mapRef: shape({
+	// 	current: object
+	// })
 }
