@@ -30,6 +30,7 @@ export default function AssociatedSubjects({
       border={{ color: 'kelp', side: 'top' }}
       gap='xsmall'
       pad={{ top: 'xsmall' }}
+      margin={{ top: 'xsmall' }}
       width='medium'
     >
       <Box align='center' direction='row' justify='between'>
@@ -56,26 +57,31 @@ export default function AssociatedSubjects({
           <Box height='50px' margin={{ bottom: '10px' }}>
             <Text>Select another year.</Text>
           </Box>
-          <Box height='50px' margin={{ bottom: '10px' }}/>
+          <Box height='50px' margin={{ bottom: '10px' }} />
         </Box>
       ) : (
-        <Box direction='row' wrap>
-          {firstTenSubjects.map((subject, i) => {
-            return (
-              <StyledButton
-                key={`ASSOCIATED_SUBJECT_${subject.id}`}
-                a11yTitle={`Subject ${subject.id}`}
-                onClick={() => setActiveSubject(subject)}
-                plain
-              >
-                <Image
-                  alt={`Associated Subject ${subject.id}`}
-                  fit='contain'
-                  src={`//${subject.media_location}`}
-                />
-              </StyledButton>
-            )
-          })}
+        <Box>
+          <Box direction='row' wrap>
+            {firstTenSubjects.map((subject, i) => {
+              return (
+                <StyledButton
+                  key={`ASSOCIATED_SUBJECT_${subject.id}`}
+                  a11yTitle={`Subject ${subject.id}`}
+                  onClick={() => setActiveSubject(subject)}
+                  plain
+                >
+                  <Image
+                    alt={`Associated Subject ${subject.id}`}
+                    fit='contain'
+                    src={`//${subject.media_location}`}
+                  />
+                </StyledButton>
+              )
+            })}
+          </Box>
+          {subjects?.length && subjects?.length <= 5 && (
+            <Box height='50px' margin={{ bottom: '10px' }} />
+          )}
         </Box>
       )}
     </Box>
