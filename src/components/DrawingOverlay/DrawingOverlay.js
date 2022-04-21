@@ -1,5 +1,5 @@
 import React from 'react'
-import { bool, func, object, shape } from 'prop-types'
+import { bool, func } from 'prop-types'
 import styled, { css } from 'styled-components'
 import getRectBounds from 'helpers/getRectBounds'
 import { useMap } from 'react-leaflet'
@@ -12,7 +12,6 @@ export const SVG = styled.svg`
 export default function DrawingOverlay({
     canDraw = false,
     changeDrawing = () => {},
-    // mapRef,
     setCoords = () => {}
 }) {
 		const mapRef = useMap()
@@ -20,10 +19,10 @@ export default function DrawingOverlay({
     const [rectangle, setRectangle] = React.useState(null)
     const [isDrawing, setIsDrawing] = React.useState(false)
     const svgRef = React.useRef(null)
-
-  const getXY = (e) => {
-    const ref = svgRef?.current
-    const boundingBox = ref?.getBoundingClientRect();
+		
+		const getXY = (e) => {
+			const ref = svgRef?.current
+			const boundingBox = ref?.getBoundingClientRect();
 		if (!boundingBox) return
 		let clientX = e?.clientX || 0
 		let clientY = e?.clientY || 0
@@ -51,7 +50,7 @@ export default function DrawingOverlay({
 			x: Math.min(initCoords.x, newCoords.x),
 			y: Math.min(initCoords.y, newCoords.y)
 		}
-		setRectangle(newRect) 
+		setRectangle(newRect)
 	}    
 
 	const onPointerUp = (e) => {
@@ -92,7 +91,4 @@ export default function DrawingOverlay({
 DrawingOverlay.propTypes = {
 	canDraw: bool,
 	changeDrawing: func,
-	// mapRef: shape({
-	// 	current: object
-	// })
 }
