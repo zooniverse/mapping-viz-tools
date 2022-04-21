@@ -150,8 +150,8 @@ export default function MapDetail({
                 {showSubjects &&
                   filteredSubjects.map((subject, i) => (
                     <Marker
+                      eventHandlers={{ click: () => setActiveSubject(subject) }}
                       key={`SUBJECT_MARKER_${subject.id}`}
-                      onClick={() => setActiveSubject(subject)}
                       position={[subject.latitude, subject.longitude]}
                     />
                   ))}
@@ -239,7 +239,7 @@ MapDetail.propTypes = {
   onClose: func,
   subjects: arrayOf(shape({
     id: number,
-    latitude: number,
-    longitude: number
+    latitude: string,
+    longitude: string
   }))
 }
