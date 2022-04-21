@@ -18,12 +18,6 @@ const StyledHeading = styled(Heading)`
   font-family: Neuton;
 `
 
-const StyledMap = styled(MapContainer)`
-  .leaflet-control-zoom {
-    display: none;
-  }
-`
-
 const StyledText = styled(Text)`
   font-family: Neuton;
 `
@@ -140,12 +134,13 @@ export default function MapDetail({
               justify='center'
               style={{ position: 'relative' }}
             >
-              <StyledMap
+              <MapContainer
                 bounds={[coordinates.southWest, coordinates.northEast]}
                 doubleClickZoom={false}
                 dragging={false}
                 scrollWheelZoom={false}
                 style={{ width: coordinates.width, height: coordinates.height }}
+                zoomControl={false}
                 zoomSnap={0}
               >
                 <TileLayer
@@ -162,7 +157,7 @@ export default function MapDetail({
                       position={[subject.latitude, subject.longitude]}
                     />
                   ))}
-              </StyledMap>
+              </MapContainer>
             </Box>
             <Timeline year={year} years={years} setYear={setYear} />
           </Box>
@@ -243,12 +238,10 @@ MapDetail.propTypes = {
     height: string,
     width: string,
   }),
-  data: arrayOf(
-    shape({
-      subjectMediaLocation: string,
-    })
-  ),
   onClose: func,
-  setActiveSubject: func,
-  setShowSubjectsModal: func,
+  subjects: arrayOf(shape({
+    id: number,
+    latitude: number,
+    longitude: number
+  }))
 }
