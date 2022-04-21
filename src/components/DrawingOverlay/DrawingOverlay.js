@@ -1,6 +1,7 @@
 import React from 'react'
 import { bool, func, object, shape } from 'prop-types'
 import styled, { css } from 'styled-components'
+import { useMap } from 'react-leaflet'
 import getRectBounds from 'helpers/getRectBounds'
 
 export const SVG = styled.svg`
@@ -11,9 +12,9 @@ export const SVG = styled.svg`
 export default function DrawingOverlay({
     canDraw = false,
     changeDrawing = () => {},
-    mapRef,
     setCoords = () => {}
 }) {
+		const mapRef = useMap()
     const [initCoords, setInitCoords] = React.useState({})
     const [rectangle, setRectangle] = React.useState(null)
     const [isDrawing, setIsDrawing] = React.useState(false)
@@ -57,8 +58,8 @@ export default function DrawingOverlay({
 
 		setIsDrawing(false)
 		changeDrawing(false)
-
-		if (mapRef && mapRef.current && rectangle) {
+		console.log(mapRef)
+		if (mapRef && rectangle) {
 			setCoords(getRectBounds(mapRef, rectangle))
 		}
 		setRectangle(null)

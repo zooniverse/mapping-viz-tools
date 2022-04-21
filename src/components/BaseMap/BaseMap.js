@@ -1,9 +1,9 @@
 import React from 'react'
-import { Map, TileLayer } from 'react-leaflet'
+import { MapContainer, TileLayer } from 'react-leaflet'
 
 function BaseMap(props, ref) {
     return (
-        <Map 
+        <MapContainer
             center={[-51.75, -59.5]}
             doubleClickZoom={false}
             dragging={false}
@@ -16,7 +16,7 @@ function BaseMap(props, ref) {
                 attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-        </Map>
+        </MapContainer>
     )
 }
 

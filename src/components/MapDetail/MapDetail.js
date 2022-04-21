@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { Close } from 'grommet-icons'
 import { getArea, getLocationDetails } from 'helpers/getLocationDetails'
 import { arrayOf, func, number, shape, string } from 'prop-types'
-import { Map, Marker, TileLayer } from 'react-leaflet'
+import { MapContainer, Marker, TileLayer } from 'react-leaflet'
 import STATUS from 'helpers/asyncStatus'
 import Loading from './components/Loading'
 import AssociatedSubjects from './components/AssociatedSubjects'
@@ -12,12 +12,13 @@ import Charts from './components/Charts'
 import Timeline from './components/Timeline'
 import MetadataModal from '../../components/Modals/Metadata'
 import SubjectsModal from '../../components/Modals/Subjects'
+import { MiniMapContext } from '../../screens/MapPage/MapPage'
 
 const StyledHeading = styled(Heading)`
   font-family: Neuton;
 `
 
-const StyledMap = styled(Map)`
+const StyledMap = styled(MapContainer)`
   .leaflet-control-zoom {
     display: none;
   }
@@ -57,7 +58,9 @@ export default function MapDetail({
   onClose = () => {},
   subjects,
 }) {
-  const mapRef = React.useRef(null)
+  const value = React.useContext(MiniMapContext)
+  const { miniMap, setMiniMap } = value
+
   const [centerLat, setCenterLat] = React.useState(null)
   const [centerLng, setCenterLng] = React.useState(null)
   const [area, setArea] = React.useState(null)
@@ -78,15 +81,15 @@ export default function MapDetail({
   const years = yearsArray(1995, 2018)
 
   React.useEffect(() => {
-    const leaflet = mapRef?.current?.leafletElement
-    const center = leaflet?.getCenter()
-    if (center) {
-      setArea(getArea(coordinates))
-      setCenterLat(getLocationDetails(center.lat, 'lat'))
-      setCenterLng(getLocationDetails(center.lng, 'lng'))
-    }
+    // const leaflet = mapRef?.current?.leafletElement
+    // const center = leaflet?.getCenter()
+    // if (center) {
+    //   setArea(getArea(coordinates))
+    //   setCenterLat(getLocationDetails(center.lat, 'lat'))
+    //   setCenterLng(getLocationDetails(center.lng, 'lng'))
+    // }
     filterByYear()
-  }, [coordinates, mapRef, asyncStatus])
+  }, [coordinates, asyncStatus])
 
   React.useEffect(() => {
     filterByYear()
@@ -165,10 +168,10 @@ export default function MapDetail({
                 bounds={[coordinates.southWest, coordinates.northEast]}
                 doubleClickZoom={false}
                 dragging={false}
-                ref={mapRef}
                 scrollWheelZoom={false}
                 style={{ width: coordinates.width, height: coordinates.height }}
                 zoomSnap={0}
+                // ref={setMiniMap}
               >
                 <TileLayer
                   attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
