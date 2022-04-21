@@ -1,17 +1,17 @@
 import React from 'react'
-import {
-  Box,
-  Button,
-  Heading,
-  Image,
-  Text
-} from 'grommet'
+import { Box, Button, Heading, Image, Text } from 'grommet'
 import { FormNext } from 'grommet-icons'
 import { arrayOf, func, shape, string } from 'prop-types'
 import styled from 'styled-components'
 
 export const StyledButton = styled(Button)`
-  flex: 0 1 20%;
+  display: flex;
+  width: 50px;
+  height: 50px;
+  margin-bottom: 10px;
+  &:not(:nth-child(5n)) {
+    margin-right: 10px;
+  }
 `
 
 const Uppercase = styled(Text)`
@@ -21,58 +21,69 @@ const Uppercase = styled(Text)`
 export default function AssociatedSubjects({
   setActiveSubject = () => {},
   setShowSubjectsModal = () => {},
-  subjects = []
+  subjects = [],
 }) {
-  const firstTenSubjects = subjects.slice(0,10)
+  const firstTenSubjects = subjects.slice(0, 10)
 
   return (
     <Box
       border={{ color: 'kelp', side: 'top' }}
       gap='xsmall'
-      pad={{ top: 'small' }}
+      pad={{ top: 'xsmall' }}
+      margin={{ top: 'xsmall' }}
       width='medium'
     >
       <Box align='center' direction='row' justify='between'>
-        <Heading color='kelp' level='6'>Associated Zooniverse Subjects ({subjects.length})</Heading>
+        <Heading color='kelp' level='6'>
+          Associated Subjects ({subjects.length})
+        </Heading>
         {subjects.length > 10 && (
           <Button
-            gap='0.2em'
+            gap='10px'
             icon={<FormNext size='small' />}
-            label={<Uppercase color='kelp' size='small'>See More</Uppercase>}
+            label={
+              <Uppercase color='kelp' size='small'>
+                See More
+              </Uppercase>
+            }
             onClick={() => setShowSubjectsModal(true)}
             plain
             reverse
           />
         )}
       </Box>
-      <Box
-        direction='row'
-        wrap
-      >
-        {!subjects.length && <Text>Select another year.</Text>}
-        {firstTenSubjects.map((subject, i) => {
-          return (
-            <StyledButton
-              key={`ASSOCIATED_SUBJECT_${subject.id}`}
-              a11yTitle={`Subject ${subject.id}`}
-              margin={{ bottom: '0.5rem' }}
-              onClick={() => setActiveSubject(subject)}
-              plain
-            >
-              <Box
-                height='2.75em'
-                width='2.75em'
-              >
-                <Image
-                  alt={`Associated Subject ${subject.id}`}
-                  fit='contain'
-                  src={`//${subject.media_location}`}
-                />
-              </Box>
-            </StyledButton>
-          )
-        })}
-      </Box>
+      {!subjects?.length ? (
+        <Box>
+          <Box height='50px' margin={{ bottom: '10px' }}>
+            <Text>Select another year.</Text>
+          </Box>
+          <Box height='50px' margin={{ bottom: '10px' }} />
+        </Box>
+      ) : (
+        <Box>
+          <Box direction='row' wrap>
+            {firstTenSubjects.map((subject, i) => {
+              return (
+                <StyledButton
+                  key={`ASSOCIATED_SUBJECT_${subject.id}`}
+                  a11yTitle={`Subject ${subject.id}`}
+                  onClick={() => setActiveSubject(subject)}
+                  plain
+                >
+                  <Image
+                    alt={`Associated Subject ${subject.id}`}
+                    fit='contain'
+                    src={`//${subject.media_location}`}
+                  />
+                </StyledButton>
+              )
+            })}
+          </Box>
+          {subjects?.length && subjects?.length <= 5 && (
+            <Box height='50px' margin={{ bottom: '10px' }} />
+          )}
+        </Box>
+      )}
     </Box>
   )
 }
@@ -80,7 +91,9 @@ export default function AssociatedSubjects({
 AssociatedSubjects.propTypes = {
   setActiveSubject: func,
   setShowSubjectsModal: func,
-  subjects: arrayOf(shape({
-    media_location: string
-  }))
+  subjects: arrayOf(
+    shape({
+      media_location: string,
+    })
+  ),
 }

@@ -161,11 +161,11 @@ export default function MapDetail({
           </Box>
 
           <Box basis='40%' gap='xsmall'>
-            <Text color='kelp'>Additional data</Text>
-            <StyledText>
+            <Heading level='6' color='kelp'>Additional Data</Heading>
+            {/* <StyledText>
               Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-            </StyledText>
+            </StyledText> */}
             <Charts subjects={subjects} year={year} years={years} />
             <AssociatedSubjects
               setActiveSubject={setActiveSubject}
