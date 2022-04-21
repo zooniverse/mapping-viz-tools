@@ -11,27 +11,26 @@ export const Uppercase = styled(Text)`
   text-transform: uppercase;
 `
 
-const LocationDetails = ({ coordinates }) => {
-  const map = useMap()
-
+const LocationDetails = ({ coordinates, mapCenterLat, mapCenterLng }) => {
   const [centerLat, setCenterLat] = React.useState(null)
   const [centerLng, setCenterLng] = React.useState(null)
   const [area, setArea] = React.useState(null)
 
   React.useEffect(() => {
-    if (map && coordinates) {
+    if (coordinates) {
       setArea(getArea(coordinates))
-      setCenterLat(getLocationDetails(map.getCenter().lat, 'lat'))
-      setCenterLng(getLocationDetails(map.getCenter().lng, 'lng'))
     }
-  }, [coordinates])
+
+    if (mapCenterLat && mapCenterLng) {
+      setCenterLat(getLocationDetails(mapCenterLat, 'lat'))
+      setCenterLng(getLocationDetails(mapCenterLng, 'lng'))
+    }
+  }, [coordinates, mapCenterLat, mapCenterLng])
 
   return (
     <Box
       direction='row'
       gap='xsmall'
-      pad='xxsmall'
-      style={{ position: 'absolute', top: 0, zIndex: 1000 }}
     >
       <Uppercase color='kelp' size='0.75rem'>
         {centerLat?.degrees}&#176;{centerLat?.minutes}'{centerLat?.direction}{' '}

@@ -18,10 +18,6 @@ const StyledHeading = styled(Heading)`
   font-family: Neuton;
 `
 
-const StyledText = styled(Text)`
-  font-family: Neuton;
-`
-
 const HeadingTwo = styled(StyledHeading)`
   font-size: 2.5rem;
   font-weight: 300;
@@ -46,17 +42,51 @@ const CustomLayer = styled.div`
   justify-content: center;
 `
 
-export default function MapDetail({
+const MapDetail = ({
   asyncStatus,
   coordinates,
   onClose = () => {},
   subjects,
-}) {
+}) => {
+  const [mapCenterLat, setMapCenterLat] = React.useState(null)
+  const [mapCenterLng, setMapCenterLng] = React.useState(null)
   const [showSubjects, setShowSubjects] = React.useState(false)
   const [activeSubject, setActiveSubject] = React.useState(null)
   const [showSubjectsModal, setShowSubjectsModal] = React.useState(false)
-  const [year, setYear] = React.useState(2000)
+  const [year, setYear] = React.useState(2005)
   const [filteredSubjects, setFilteredSubjects] = React.useState([])
+
+  const miniMap = React.useMemo(
+    () => (
+      <MapContainer
+        bounds={[coordinates.southWest, coordinates.northEast]}
+        doubleClickZoom={false}
+        dragging={false}
+        scrollWheelZoom={false}
+        style={{ width: coordinates.width, height: coordinates.height }}
+        zoomControl={false}
+        zoomSnap={0}
+        whenCreated={mapInstance => {
+          setMapCenterLat(mapInstance.getCenter().lat)
+          setMapCenterLng(mapInstance.getCenter().lng)
+        }}
+      >
+        <TileLayer
+          attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+          url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+        />
+        {showSubjects &&
+          filteredSubjects.map((subject, i) => (
+            <Marker
+              eventHandlers={{ click: () => setActiveSubject(subject) }}
+              key={`SUBJECT_MARKER_${subject.id}`}
+              position={[subject.latitude, subject.longitude]}
+            />
+          ))}
+      </MapContainer>
+    ),
+    [coordinates, showSubjects, filteredSubjects]
+  )
 
   // adjust x-axis range for both Charts and Timeline
   const yearsArray = (start, end) => {
@@ -68,10 +98,6 @@ export default function MapDetail({
   }
   const years = yearsArray(1995, 2018)
 
-  React.useEffect(() => {
-    filterByYear()
-  }, [coordinates, asyncStatus, year])
-
   const filterByYear = () => {
     const newSubjects = subjects.reduce((acc, current) => {
       if (parseInt(current.date.substring(0, 4)) === year) {
@@ -81,6 +107,10 @@ export default function MapDetail({
     }, [])
     setFilteredSubjects(newSubjects)
   }
+
+  React.useEffect(function onMount() {
+    filterByYear()
+  }, [coordinates, asyncStatus, year])
 
   const Content = () => {
     return (
@@ -113,7 +143,11 @@ export default function MapDetail({
               Falkland Islands
             </HeadingTwo>
             <Box align='center' direction='row' justify='between'>
-              <Box direction='row' gap='xsmall' />
+              <LocationDetails
+                coordinates={coordinates}
+                mapCenterLat={mapCenterLat}
+                mapCenterLng={mapCenterLng}
+              />
               <CheckBox
                 checked={showSubjects}
                 label={
@@ -132,40 +166,15 @@ export default function MapDetail({
               justify='center'
               style={{ position: 'relative' }}
             >
-              <MapContainer
-                bounds={[coordinates.southWest, coordinates.northEast]}
-                doubleClickZoom={false}
-                dragging={false}
-                scrollWheelZoom={false}
-                style={{ width: coordinates.width, height: coordinates.height }}
-                zoomControl={false}
-                zoomSnap={0}
-              >
-                <TileLayer
-                  attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                  url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-                  />
-                {/** LocationDetails must be a child of MapContainer */}
-                <LocationDetails coordinates={coordinates} />
-                {showSubjects &&
-                  filteredSubjects.map((subject, i) => (
-                    <Marker
-                      eventHandlers={{ click: () => setActiveSubject(subject) }}
-                      key={`SUBJECT_MARKER_${subject.id}`}
-                      position={[subject.latitude, subject.longitude]}
-                    />
-                  ))}
-              </MapContainer>
+              {miniMap}
             </Box>
             <Timeline year={year} years={years} setYear={setYear} />
           </Box>
 
           <Box basis='40%' gap='xsmall'>
-            <Heading level='6' color='kelp'>Additional Data</Heading>
-            {/* <StyledText>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-            </StyledText> */}
+            <Heading level='6' color='kelp'>
+              Additional Data
+            </Heading>
             <Charts subjects={subjects} year={year} years={years} />
             <AssociatedSubjects
               setActiveSubject={setActiveSubject}
@@ -186,7 +195,7 @@ export default function MapDetail({
             <SubjectsModal
               onClose={setShowSubjectsModal}
               onSelectSubject={setActiveSubject}
-              subjects={subjects}
+              subjects={filteredSubjects}
             />
           </CustomLayer>
         )}
@@ -208,20 +217,7 @@ export default function MapDetail({
   )
 }
 
-MapDetail.defaultProps = {
-  coordinates: {
-    northEast: {
-      lat: -51.4,
-      lng: -59.5,
-    },
-    southWest: {
-      lat: -52,
-      lng: -60.7,
-    },
-    height: '100%',
-    width: '100%',
-  },
-}
+export default MapDetail
 
 MapDetail.propTypes = {
   coordinates: shape({
@@ -237,9 +233,11 @@ MapDetail.propTypes = {
     width: string,
   }),
   onClose: func,
-  subjects: arrayOf(shape({
-    id: number,
-    latitude: string,
-    longitude: string
-  }))
+  subjects: arrayOf(
+    shape({
+      id: number,
+      latitude: string,
+      longitude: string,
+    })
+  ),
 }
