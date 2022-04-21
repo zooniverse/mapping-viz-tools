@@ -113,9 +113,7 @@ export default function MapDetail({
               Falkland Islands
             </HeadingTwo>
             <Box align='center' direction='row' justify='between'>
-              <Box direction='row' gap='xsmall'>
-                {/* This is empty to create UI space for LocationDetails */}
-              </Box>
+              <Box direction='row' gap='xsmall' />
               <CheckBox
                 checked={showSubjects}
                 label={
