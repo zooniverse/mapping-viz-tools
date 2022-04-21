@@ -1,5 +1,6 @@
 import React from 'react'
 import { MapContainer, TileLayer } from 'react-leaflet'
+// Not used in this branch due to limitations of refs in react-leaflet version 3
 
 function BaseMap(props, ref) {
     return (

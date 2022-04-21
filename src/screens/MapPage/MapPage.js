@@ -1,6 +1,5 @@
 import React from 'react'
 import { Box, Layer } from 'grommet'
-import BaseMap from 'components/BaseMap'
 import MapDetail from 'components/MapDetail'
 import styled from 'styled-components'
 import STATUS from 'helpers/asyncStatus'
@@ -53,7 +52,6 @@ export default function MapPage() {
       <SidePanel changeDrawing={changeDrawing} isDrawing={canDraw} />
 
       <Relative>
-        {/* <BaseMap ref={mapRef} /> */}
         <MapContainer
           center={[-51.75, -59.5]}
           doubleClickZoom={false}
@@ -61,7 +59,6 @@ export default function MapPage() {
           scrollWheelZoom={false}
           style={{ width: '100%', height: '100%', position: 'absolute' }}
           zoom={8}
-          // whenCreated={(mapInstance) => mapRef = mapInstance}
         >
           <TileLayer
             attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -70,7 +67,6 @@ export default function MapPage() {
           <DrawingOverlay
             canDraw={canDraw}
             changeDrawing={changeDrawing}
-            // mapRef={mapRef}
             setCoords={setCoords}
           />
         </MapContainer>

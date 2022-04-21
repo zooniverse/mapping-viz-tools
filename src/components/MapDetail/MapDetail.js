@@ -1,18 +1,18 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Box, Button, CheckBox, Heading, Text } from 'grommet'
 import styled from 'styled-components'
 import { Close } from 'grommet-icons'
-import { getArea, getLocationDetails } from 'helpers/getLocationDetails'
 import { arrayOf, func, number, shape, string } from 'prop-types'
 import { MapContainer, Marker, TileLayer } from 'react-leaflet'
 import STATUS from 'helpers/asyncStatus'
+
 import Loading from './components/Loading'
 import AssociatedSubjects from './components/AssociatedSubjects'
 import Charts from './components/Charts'
 import Timeline from './components/Timeline'
 import MetadataModal from '../../components/Modals/Metadata'
 import SubjectsModal from '../../components/Modals/Subjects'
-import { useMap } from 'react-leaflet'
+import LocationDetails from './components/LocationDetails'
 
 const StyledHeading = styled(Heading)`
   font-family: Neuton;
@@ -52,28 +52,12 @@ const CustomLayer = styled.div`
   justify-content: center;
 `
 
-const GetCenter = ({ setCenter }) => {
-  const map = useMap()
-
-  useEffect(() => {
-    if (map) {
-      setCenter(map.getCenter())
-    }
-  }, [])
-
-  return <Box width='0' height='0' />
-}
-
 export default function MapDetail({
   asyncStatus,
   coordinates,
   onClose = () => {},
   subjects,
 }) {
-  const [center, setCenter] = React.useState(null)
-  const [centerLat, setCenterLat] = React.useState(null)
-  const [centerLng, setCenterLng] = React.useState(null)
-  const [area, setArea] = React.useState(null)
   const [showSubjects, setShowSubjects] = React.useState(false)
   const [activeSubject, setActiveSubject] = React.useState(null)
   const [showSubjectsModal, setShowSubjectsModal] = React.useState(false)
@@ -90,19 +74,9 @@ export default function MapDetail({
   }
   const years = yearsArray(1995, 2018)
 
-  // React.useEffect(() => {
-  //   const center = mapRef?.getCenter()
-  //   if (center) {
-  //     setArea(getArea(coordinates))
-  //     setCenterLat(getLocationDetails(center.lat, 'lat'))
-  //     setCenterLng(getLocationDetails(center.lng, 'lng'))
-  //   }
-  //   filterByYear()
-  // }, [coordinates, mapRef, asyncStatus])
-
   React.useEffect(() => {
     filterByYear()
-  }, [year])
+  }, [coordinates, asyncStatus, year])
 
   const filterByYear = () => {
     const newSubjects = subjects.reduce((acc, current) => {
@@ -146,14 +120,7 @@ export default function MapDetail({
             </HeadingTwo>
             <Box align='center' direction='row' justify='between'>
               <Box direction='row' gap='xsmall'>
-                <Uppercase color='kelp' size='0.75rem'>
-                  {centerLat?.degrees}&#176;{centerLat?.minutes}'
-                  {centerLat?.direction} {centerLng?.degrees}&#176;
-                  {centerLng?.minutes}'{centerLng?.direction}
-                </Uppercase>
-                <Uppercase color='kelp' size='0.75rem'>
-                  {area?.miles} SQ MI / {area?.kms} SQ KM
-                </Uppercase>
+                {/* This is empty to create UI space for LocationDetails */}
               </Box>
               <CheckBox
                 checked={showSubjects}
@@ -184,16 +151,17 @@ export default function MapDetail({
                 <TileLayer
                   attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                   url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-                />
-                {/* <GetCenter setCenter={setCenter}/> */}
-                {/* {showSubjects &&
+                  />
+                {/** LocationDetails must be a child of MapContainer */}
+                <LocationDetails coordinates={coordinates} />
+                {showSubjects &&
                   filteredSubjects.map((subject, i) => (
                     <Marker
                       key={`SUBJECT_MARKER_${subject.id}`}
                       onClick={() => setActiveSubject(subject)}
                       position={[subject.latitude, subject.longitude]}
                     />
-                  ))} */}
+                  ))}
               </StyledMap>
             </Box>
             <Timeline year={year} years={years} setYear={setYear} />
