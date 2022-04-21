@@ -3,11 +3,7 @@ import getRectBounds, { getAspectSize } from './getRectBounds'
 let mockCoords = { lat: 100, lon: 100 }
 
 const mapRef = {
-  current: {
-    leafletElement: {
-      containerPointToLatLng: () => mockCoords
-    }
-  }
+  containerPointToLatLng: () => mockCoords,
 }
 
 describe('Helper > getRectBounds', function () {
@@ -30,14 +26,14 @@ describe('Helper > getAspectSize', function () {
   it('should return a full height with a smaller width', function () {
     const tallRect = { height: 100, width: 50 }
     const result = getAspectSize(tallRect)
-    const expectation = { height:  '100%', width: '50%' }
+    const expectation = { height: '100%', width: '50%' }
     expect(result).toEqual(expectation)
   })
 
   it('should return a full width with a smaller height', function () {
     const wideRect = { height: 50, width: 100 }
     const result = getAspectSize(wideRect)
-    const expectation = { height:  '50%', width: '100%' }
+    const expectation = { height: '50%', width: '100%' }
     expect(result).toEqual(expectation)
   })
 })
