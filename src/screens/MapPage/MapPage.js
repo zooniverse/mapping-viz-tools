@@ -32,7 +32,6 @@ export default function MapPage() {
   const [miniMapCoords, setCoords] = React.useState(null)
   const [subjects, setSubjects] = React.useState([])
   const [asyncStatus, setAsyncStatus] = React.useState(STATUS.LOADING)
-  // const mapRef = React.useRef(null)
 
   React.useEffect(() => {
     async function fetchSubjects() {

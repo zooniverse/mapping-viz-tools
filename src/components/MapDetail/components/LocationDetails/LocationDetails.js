@@ -1,9 +1,6 @@
-/** Refer to the Readme for why this component is styled as such */
-
 import React from 'react'
 import { Box, Text } from 'grommet'
 import styled from 'styled-components'
-import { useMap } from 'react-leaflet'
 import { getArea, getLocationDetails } from 'helpers/getLocationDetails'
 
 export const Uppercase = styled(Text)`
