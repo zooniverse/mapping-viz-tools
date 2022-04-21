@@ -56,6 +56,7 @@ const Thumbnail = styled(Box)`
   left: 110%;
   top: 50%;
   transform: translateY(-50%);
+  width: 190px;
 `
 
 export const StyledImage = styled(Image)`
