@@ -1,7 +1,8 @@
 const DEFAULT_ENV = 'development';
 const envFromBrowser = locationMatch(/\W?env=(\w+)/);
+const envFromCreateReactApp = process.env.REACT_APP_ENV;
 const envFromShell = process.env.NODE_ENV;
-const env = envFromBrowser || envFromShell || DEFAULT_ENV;
+const env = envFromBrowser || envFromCreateReactApp || envFromShell || DEFAULT_ENV;
 
 if (!env.match(/^(production|staging|development|test)$/)) {
   throw new Error(`Error: Invalid Environment - ${env}`);
