@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react'
 import { Box, Button, CheckBox, Heading, Text } from 'grommet'
 import styled from 'styled-components'
@@ -21,10 +22,6 @@ const StyledMap = styled(Map)`
   .leaflet-control-zoom {
     display: none;
   }
-`
-
-const StyledText = styled(Text)`
-  font-family: Neuton;
 `
 
 const HeadingTwo = styled(StyledHeading)`
@@ -189,10 +186,6 @@ export default function MapDetail({
 
           <Box basis='40%' gap='xsmall'>
             <Heading level='6' color='kelp'>Additional Data</Heading>
-            {/* <StyledText>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-            </StyledText> */}
             <Charts subjects={subjects} year={year} years={years} />
             <AssociatedSubjects
               setActiveSubject={setActiveSubject}
