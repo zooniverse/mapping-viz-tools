@@ -26,8 +26,6 @@ jobs:
         node-version: '16.x'
     - run: yarn install --frozen-lockfile
     - run: yarn build
-      env:
-        REACT_APP_ENV: development
 
     - name: Write commit_id.txt
       run: echo ${HEAD_COMMIT} > ./build/commit_id.txt
