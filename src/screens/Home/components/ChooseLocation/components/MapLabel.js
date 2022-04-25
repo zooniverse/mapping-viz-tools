@@ -1,13 +1,13 @@
 import React from 'react'
-import { Anchor, Box, Image } from 'grommet'
+import { Box, Image } from 'grommet'
 import styled, { css, withTheme } from 'styled-components'
 import { shape, string } from 'prop-types'
 import { withResponsiveContext } from '@zooniverse/react-components'
+import { Link } from 'react-router-dom'
 
-export const StyledAnchor = styled(Anchor)`
+export const LinkStyle = styled(Box)`
   white-space: nowrap;
   position: relative;
-  text-decoration: none;
 
   &::after {
     content: '';
@@ -66,7 +66,7 @@ export const StyledImage = styled(Image)`
     `}
 `
 
-const MapLabel = ({ location, screenSize }) => {
+const MapLabel = ({ location, screenSize, theme }) => {
   const mobile = screenSize === 'small'
 
   const [isHovered, onHover] = React.useState(false)
@@ -82,14 +82,19 @@ const MapLabel = ({ location, screenSize }) => {
 
   return (
     <Relative direction='row' margin={{ bottom: 'xsmall' }} mobile={mobile}>
-      <StyledAnchor
-        href='/map'
-        label={location.label}
+      <LinkStyle
         onBlur={deactivate}
         onFocus={activate}
         onMouseEnter={activate}
         onMouseLeave={deactivate}
-      />
+      >
+        <Link
+          to='/map'
+          style={{ color: theme.global.colors.brand, textDecoration: 'none' }}
+        >
+          {location.label}
+        </Link>
+      </LinkStyle>
       {isHovered && !mobile && (
         <Thumbnail>
           <StyledImage
