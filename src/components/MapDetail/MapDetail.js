@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react'
 import { Box, Button, CheckBox, Heading, Text } from 'grommet'
 import styled from 'styled-components'
@@ -172,9 +173,7 @@ const MapDetail = ({
           </Box>
 
           <Box basis='40%' gap='xsmall'>
-            <Heading level='6' color='kelp'>
-              Additional Data
-            </Heading>
+            <Heading level='6' color='kelp'>Additional Data</Heading>
             <Charts subjects={subjects} year={year} years={years} />
             <AssociatedSubjects
               setActiveSubject={setActiveSubject}

@@ -36,3 +36,6 @@ Launches the Storybook viewer at [http://localhost:9009/](http://localhost:9009/
 Uses [source-map-explorer](https://www.npmjs.com/package/source-map-explorer) to visually analyze the bundle for bloats.  
 To run this:
 `yarn build && yarn analyze`
+
+## Deployment
+

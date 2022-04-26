@@ -23,6 +23,7 @@
     "react-router-dom": "^5.2.0",
     "styled-components": "^5.3.5"
   },
+  "homepage": "https://mapping-viz-staging.zooniverse.org",
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "start": "react-scripts start",
