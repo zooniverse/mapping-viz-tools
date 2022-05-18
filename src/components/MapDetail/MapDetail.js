@@ -53,6 +53,7 @@ export default function MapDetail({
   coordinates,
   onClose = () => {},
   subjects,
+  subjectsErrorUI
 }) {
   const mapRef = React.useRef(null)
   const [centerLat, setCenterLat] = React.useState(null)
@@ -191,6 +192,7 @@ export default function MapDetail({
               setActiveSubject={setActiveSubject}
               setShowSubjectsModal={setShowSubjectsModal}
               subjects={filteredSubjects}
+              subjectsErrorUI={subjectsErrorUI}
             />
           </Box>
         </Box>
