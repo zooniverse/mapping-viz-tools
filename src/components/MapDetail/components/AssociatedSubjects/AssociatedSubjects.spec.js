@@ -19,17 +19,26 @@ describe('Components > AssociatedSubjects', function () {
   })
 
   describe('no subjects', function () {
-    beforeEach(function () {
+    it('should suggest selecting another year if no subjects', function () {
       wrapper = mount(
         <AssociatedSubjects
           subjects={[]}
+          subjectsErrorUI={false}
         />
       )
-    })
-
-    it('should suggest selecting another year if no subjects', function () {
       const text = wrapper.find(Text)
       expect(text.find('span').text()).toEqual('Select another year.')
+    })
+
+    it('should display an error message if subjects database throws', function () {
+      wrapper = mount(
+        <AssociatedSubjects
+          subjects={[]}
+          subjectsErrorUI={true}
+        />
+      )
+      const text = wrapper.find(Text)
+      expect(text.find('span').text()).toEqual('Something went wrong in the subjects database.')
     })
   })
 

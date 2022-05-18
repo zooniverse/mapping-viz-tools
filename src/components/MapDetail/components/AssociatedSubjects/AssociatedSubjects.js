@@ -22,6 +22,7 @@ export default function AssociatedSubjects({
   setActiveSubject = () => {},
   setShowSubjectsModal = () => {},
   subjects = [],
+  subjectsErrorUI,
 }) {
   const firstTenSubjects = subjects.slice(0, 10)
 
@@ -55,7 +56,13 @@ export default function AssociatedSubjects({
       {!subjects?.length ? (
         <Box>
           <Box height='50px' margin={{ bottom: '10px' }}>
-            <Text>Select another year.</Text>
+            {subjectsErrorUI ? (
+              <Text color='red'>
+                Something went wrong in the subjects database.
+              </Text>
+            ) : (
+              <Text>Select another year.</Text>
+            )}
           </Box>
           <Box height='50px' margin={{ bottom: '10px' }} />
         </Box>
