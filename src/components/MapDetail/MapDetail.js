@@ -110,97 +110,8 @@ const MapDetail = ({
   }
 
   React.useEffect(function onMount() {
-    filterByYear()
-  }, [coordinates, asyncStatus, year])
-
-  const Content = () => {
-    return (
-      <Box>
-        <Box
-          border={{ color: 'kelp', side: 'bottom' }}
-          direction='row'
-          justify='between'
-          alignContent='center'
-          pad={{ bottom: 'small' }}
-          margin={{ bottom: 'small' }}
-        >
-          <StyledHeading color='kelp' level='4' margin='0'>
-            Map Detail
-          </StyledHeading>
-          <Button
-            color='kelp'
-            gap='xsmall'
-            icon={<Close color='black' size='small' />}
-            label={<Uppercase size='xsmall'>Close</Uppercase>}
-            onClick={onClose}
-            plain
-            reverse
-          />
-        </Box>
-
-        <Box direction='row' gap='medium'>
-          <Box basis='60%' gap='xsmall'>
-            <HeadingTwo color='kelp' level='2' margin='none'>
-              Falkland Islands
-            </HeadingTwo>
-            <Box align='center' direction='row' justify='between'>
-              <LocationDetails
-                coordinates={coordinates}
-                mapCenterLat={mapCenterLat}
-                mapCenterLng={mapCenterLng}
-              />
-              <CheckBox
-                checked={showSubjects}
-                label={
-                  <Uppercase color='kelp' size='0.75rem'>
-                    Subjects
-                  </Uppercase>
-                }
-                onChange={() => setShowSubjects(!showSubjects)}
-              />
-            </Box>
-            <Box
-              align='center'
-              background='gray'
-              border={{ color: 'kelp' }}
-              flex
-              justify='center'
-              style={{ position: 'relative' }}
-            >
-              {miniMap}
-            </Box>
-            <Timeline year={year} years={years} setYear={setYear} />
-          </Box>
-
-          <Box basis='40%' gap='xsmall'>
-            <Heading level='6' color='kelp'>Additional Data</Heading>
-            <Charts subjects={subjects} year={year} years={years} />
-            <AssociatedSubjects
-              setActiveSubject={setActiveSubject}
-              setShowSubjectsModal={setShowSubjectsModal}
-              subjects={filteredSubjects}
-            />
-          </Box>
-        </Box>
-
-        {activeSubject && (
-          <CustomLayer>
-            <MetadataModal onClose={setActiveSubject} subject={activeSubject} />
-          </CustomLayer>
-        )}
-
-        {showSubjectsModal && (
-          <CustomLayer>
-            <SubjectsModal
-              onClose={setShowSubjectsModal}
-              onSelectSubject={setActiveSubject}
-              subjects={filteredSubjects}
-            />
-          </CustomLayer>
-        )}
-      </Box>
-    )
-  }
+      filterByYear()
+    }, [asyncStatus, year])
 
   return (
     <Box
@@ -211,7 +122,99 @@ const MapDetail = ({
       pad={{ horizontal: 'large', vertical: 'small' }}
       width='60rem'
     >
-      {asyncStatus === STATUS.LOADING ? <Loading /> : <Content />}
+      {asyncStatus === STATUS.LOADING ? (
+        <Loading />
+      ) : (
+        <Box>
+          <Box
+            border={{ color: 'kelp', side: 'bottom' }}
+            direction='row'
+            justify='between'
+            alignContent='center'
+            pad={{ bottom: 'small' }}
+            margin={{ bottom: 'small' }}
+          >
+            <StyledHeading color='kelp' level='4' margin='0'>
+              Map Detail
+            </StyledHeading>
+            <Button
+              color='kelp'
+              gap='xsmall'
+              icon={<Close color='black' size='small' />}
+              label={<Uppercase size='xsmall'>Close</Uppercase>}
+              onClick={onClose}
+              plain
+              reverse
+            />
+          </Box>
+
+          <Box direction='row' gap='medium'>
+            <Box basis='60%' gap='xsmall'>
+              <HeadingTwo color='kelp' level='2' margin='none'>
+                Falkland Islands
+              </HeadingTwo>
+              <Box align='center' direction='row' justify='between'>
+                <LocationDetails
+                  coordinates={coordinates}
+                  mapCenterLat={mapCenterLat}
+                  mapCenterLng={mapCenterLng}
+                />
+                <CheckBox
+                  checked={showSubjects}
+                  label={
+                    <Uppercase color='kelp' size='0.75rem'>
+                      Subjects
+                    </Uppercase>
+                  }
+                  onChange={() => setShowSubjects(!showSubjects)}
+                />
+              </Box>
+              <Box
+                align='center'
+                background='gray'
+                border={{ color: 'kelp' }}
+                flex
+                justify='center'
+                style={{ position: 'relative' }}
+              >
+                {miniMap}
+              </Box>
+              <Timeline year={year} years={years} setYear={setYear} />
+            </Box>
+
+            <Box basis='40%' gap='xsmall'>
+              <Heading level='6' color='kelp'>
+                Additional Data
+              </Heading>
+              <Charts subjects={subjects} year={year} years={years} />
+              <AssociatedSubjects
+                setActiveSubject={setActiveSubject}
+                setShowSubjectsModal={setShowSubjectsModal}
+                subjects={filteredSubjects}
+              />
+            </Box>
+          </Box>
+
+          {activeSubject && (
+            <CustomLayer>
+              <MetadataModal
+                onClose={setActiveSubject}
+                subject={activeSubject}
+              />
+            </CustomLayer>
+          )}
+
+          {showSubjectsModal && (
+            <CustomLayer>
+              <SubjectsModal
+                onClose={setShowSubjectsModal}
+                onSelectSubject={setActiveSubject}
+                subjects={filteredSubjects}
+              />
+            </CustomLayer>
+          )}
+        </Box>
+      )}
     </Box>
   )
 }

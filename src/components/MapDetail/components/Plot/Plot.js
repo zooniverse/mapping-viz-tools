@@ -37,6 +37,8 @@ const Plot = ({ data, title = '', year, yAxis, years }) => {
   const [leastSquares, setLeastSquares] = React.useState([])
 
   React.useEffect(() => {
+    // This is being called many times when year changes, and it should not
+    // console.log('Plot useEffect in response to data')
     let xValues = []
     let yValues = []
     if (data) {
