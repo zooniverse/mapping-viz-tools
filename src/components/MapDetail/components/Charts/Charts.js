@@ -9,8 +9,6 @@ const Charts = ({ subjects = [], year, years = [] }) => {
   const [tempAverages, setTempAverages] = React.useState(null)
 
   React.useEffect(() => {
-    // This is being called twice in response to year change, it should not - why are subjects different?
-    console.log('Charts useEffect in response to subjects')
     if (subjects?.length) {
       const kelpData = subjects.reduce((accumulator, currentSubject) => {
         accumulator.push({
