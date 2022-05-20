@@ -9,7 +9,7 @@ const Charts = ({ subjects = [], year, years = [] }) => {
   const [tempAverages, setTempAverages] = React.useState(null)
 
   React.useEffect(() => {
-    if (subjects.length) {
+    if (subjects?.length) {
       const kelpData = subjects.reduce((accumulator, currentSubject) => {
         accumulator.push({
           x: parseInt(currentSubject.date.substring(0, 4)),
@@ -20,7 +20,7 @@ const Charts = ({ subjects = [], year, years = [] }) => {
       }, [])
       setKelpAverages(getAverages(kelpData))
 
-      const tempData = subjects.reduce((accumulator, currentSubject) => {
+      const tempData = subjects?.reduce((accumulator, currentSubject) => {
         accumulator.push({
           x: parseInt(currentSubject.date.substring(0, 4)),
           y: currentSubject.temp_celsius,

@@ -14,8 +14,21 @@ describe('Components > MapDetail', () => {
   let wrapper
   const onCloseSpy = jest.fn()
 
+  const defaultCoords = {
+    northEast: {
+      lat: -51.34401520040366,
+      lng: -57.813190743327155,
+    },
+    southWest: {
+      lat: -51.45852322420228,
+      lng: -57.941539138555534,
+    },
+    width: '100%',
+    height: '100%',
+  }
+
   it('should render without props', () => {
-    wrapper = shallow(<MapDetail />)
+    wrapper = shallow(<MapDetail coordinates={defaultCoords} />)
     expect(wrapper).toBeDefined()
   })
 
@@ -23,6 +36,7 @@ describe('Components > MapDetail', () => {
     wrapper = mount(
       <MapDetail
         asyncStatus={STATUS.LOADING}
+        coordinates={defaultCoords}
         subjects={mockData}
         onClose={onCloseSpy}
       />
@@ -35,6 +49,7 @@ describe('Components > MapDetail', () => {
     wrapper = mount(
       <MapDetail
         asyncStatus={STATUS.READY}
+        coordinates={defaultCoords}
         subjects={mockData}
         onClose={onCloseSpy}
       />
@@ -49,23 +64,6 @@ describe('Components > MapDetail', () => {
 
   it('should filter subjects based on current selected year', function () {
     expect(wrapper.find(AssociatedSubjects).props().subjects).toHaveLength(3)
-  })
-
-  describe('map area details', () => {
-    // based on coordinates defaultProps
-    it('should display map center coordinates', () => {
-      const expectedDisplay = `-51°70'S -60°10'W`
-      const centerCoords = wrapper.find(Uppercase).at(1)
-      const inner = centerCoords.find('span')
-      expect(inner.text()).toEqual(expectedDisplay)
-    })
-
-    it('should display map area measurement', () => {
-      const expectedDisplay = `3451 SQ MI / 5554 SQ KM`
-      const mapArea = wrapper.find(Uppercase).at(2)
-      const inner = mapArea.find('span')
-      expect(inner.text()).toEqual(expectedDisplay)
-    })
   })
 
   describe('subject markers', () => {
@@ -83,8 +81,8 @@ describe('Components > MapDetail', () => {
       let checkBox = wrapper.find(CheckBox).first()
       act(() => checkBox.props().onChange())
       wrapper.update()
-      let firstMarker = wrapper.find(Marker).first()
-      act(() => firstMarker.props().onClick())
+      const firstMarker = wrapper.find(Marker).first()
+      act(() => firstMarker.prop('eventHandlers').click())
       wrapper.update()
       const metadataModal = wrapper.find(MetadataModal)
       expect(metadataModal.props().subject).toEqual(mockData[0])

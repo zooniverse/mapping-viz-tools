@@ -3,25 +3,20 @@ import React from 'react'
 import { Box, Button, CheckBox, Heading, Text } from 'grommet'
 import styled from 'styled-components'
 import { Close } from 'grommet-icons'
-import { getArea, getLocationDetails } from 'helpers/getLocationDetails'
 import { arrayOf, func, number, shape, string } from 'prop-types'
-import { Map, Marker, TileLayer } from 'react-leaflet'
+import { MapContainer, Marker, TileLayer } from 'react-leaflet'
 import STATUS from 'helpers/asyncStatus'
+
 import Loading from './components/Loading'
 import AssociatedSubjects from './components/AssociatedSubjects'
 import Charts from './components/Charts'
 import Timeline from './components/Timeline'
 import MetadataModal from '../../components/Modals/Metadata'
 import SubjectsModal from '../../components/Modals/Subjects'
+import LocationDetails from './components/LocationDetails'
 
 const StyledHeading = styled(Heading)`
   font-family: Neuton;
-`
-
-const StyledMap = styled(Map)`
-  .leaflet-control-zoom {
-    display: none;
-  }
 `
 
 const HeadingTwo = styled(StyledHeading)`
@@ -48,22 +43,52 @@ const CustomLayer = styled.div`
   justify-content: center;
 `
 
-export default function MapDetail({
+const MapDetail = ({
   asyncStatus,
   coordinates,
   onClose = () => {},
   subjects,
   subjectsErrorUI
-}) {
-  const mapRef = React.useRef(null)
-  const [centerLat, setCenterLat] = React.useState(null)
-  const [centerLng, setCenterLng] = React.useState(null)
-  const [area, setArea] = React.useState(null)
+}) => {
+  const [mapCenterLat, setMapCenterLat] = React.useState(null)
+  const [mapCenterLng, setMapCenterLng] = React.useState(null)
   const [showSubjects, setShowSubjects] = React.useState(false)
   const [activeSubject, setActiveSubject] = React.useState(null)
   const [showSubjectsModal, setShowSubjectsModal] = React.useState(false)
-  const [year, setYear] = React.useState(2000)
+  const [year, setYear] = React.useState(2005)
   const [filteredSubjects, setFilteredSubjects] = React.useState([])
+
+  const miniMap = React.useMemo(
+    () => (
+      <MapContainer
+        bounds={[coordinates.southWest, coordinates.northEast]}
+        doubleClickZoom={false}
+        dragging={false}
+        scrollWheelZoom={false}
+        style={{ width: coordinates.width, height: coordinates.height }}
+        zoomControl={false}
+        zoomSnap={0}
+        whenCreated={mapInstance => {
+          setMapCenterLat(mapInstance.getCenter().lat)
+          setMapCenterLng(mapInstance.getCenter().lng)
+        }}
+      >
+        <TileLayer
+          attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+          url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+        />
+        {showSubjects &&
+          filteredSubjects.map((subject, i) => (
+            <Marker
+              eventHandlers={{ click: () => setActiveSubject(subject) }}
+              key={`SUBJECT_MARKER_${subject.id}`}
+              position={[subject.latitude, subject.longitude]}
+            />
+          ))}
+      </MapContainer>
+    ),
+    [coordinates, showSubjects, filteredSubjects]
+  )
 
   // adjust x-axis range for both Charts and Timeline
   const yearsArray = (start, end) => {
@@ -75,21 +100,6 @@ export default function MapDetail({
   }
   const years = yearsArray(1995, 2018)
 
-  React.useEffect(() => {
-    const leaflet = mapRef?.current?.leafletElement
-    const center = leaflet?.getCenter()
-    if (center) {
-      setArea(getArea(coordinates))
-      setCenterLat(getLocationDetails(center.lat, 'lat'))
-      setCenterLng(getLocationDetails(center.lng, 'lng'))
-    }
-    filterByYear()
-  }, [coordinates, mapRef, asyncStatus])
-
-  React.useEffect(() => {
-    filterByYear()
-  }, [year])
-
   const filterByYear = () => {
     const newSubjects = subjects.reduce((acc, current) => {
       if (parseInt(current.date.substring(0, 4)) === year) {
@@ -100,121 +110,9 @@ export default function MapDetail({
     setFilteredSubjects(newSubjects)
   }
 
-  const Content = () => {
-    return (
-      <Box>
-        <Box
-          border={{ color: 'kelp', side: 'bottom' }}
-          direction='row'
-          justify='between'
-          alignContent='center'
-          pad={{ bottom: 'small' }}
-          margin={{ bottom: 'small' }}
-        >
-          <StyledHeading color='kelp' level='4' margin='0'>
-            Map Detail
-          </StyledHeading>
-          <Button
-            color='kelp'
-            gap='xsmall'
-            icon={<Close color='black' size='small' />}
-            label={<Uppercase size='xsmall'>Close</Uppercase>}
-            onClick={onClose}
-            plain
-            reverse
-          />
-        </Box>
-
-        <Box direction='row' gap='medium'>
-          <Box basis='60%' gap='xsmall'>
-            <HeadingTwo color='kelp' level='2' margin='none'>
-              Falkland Islands
-            </HeadingTwo>
-            <Box align='center' direction='row' justify='between'>
-              <Box direction='row' gap='xsmall'>
-                <Uppercase color='kelp' size='0.75rem'>
-                  {centerLat?.degrees}&#176;{centerLat?.minutes}'
-                  {centerLat?.direction} {centerLng?.degrees}&#176;
-                  {centerLng?.minutes}'{centerLng?.direction}
-                </Uppercase>
-                <Uppercase color='kelp' size='0.75rem'>
-                  {area?.miles} SQ MI / {area?.kms} SQ KM
-                </Uppercase>
-              </Box>
-              <CheckBox
-                checked={showSubjects}
-                label={
-                  <Uppercase color='kelp' size='0.75rem'>
-                    Subjects
-                  </Uppercase>
-                }
-                onChange={() => setShowSubjects(!showSubjects)}
-              />
-            </Box>
-            <Box
-              align='center'
-              background='gray'
-              border={{ color: 'kelp' }}
-              flex
-              justify='center'
-              style={{ position: 'relative' }}
-            >
-              <StyledMap
-                bounds={[coordinates.southWest, coordinates.northEast]}
-                doubleClickZoom={false}
-                dragging={false}
-                ref={mapRef}
-                scrollWheelZoom={false}
-                style={{ width: coordinates.width, height: coordinates.height }}
-                zoomSnap={0}
-              >
-                <TileLayer
-                  attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                  url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-                />
-                {showSubjects &&
-                  filteredSubjects.map((subject, i) => (
-                    <Marker
-                      key={`SUBJECT_MARKER_${subject.id}`}
-                      onClick={() => setActiveSubject(subject)}
-                      position={[subject.latitude, subject.longitude]}
-                    />
-                  ))}
-              </StyledMap>
-            </Box>
-            <Timeline year={year} years={years} setYear={setYear} />
-          </Box>
-
-          <Box basis='40%' gap='xsmall'>
-            <Heading level='6' color='kelp'>Additional Data</Heading>
-            <Charts subjects={subjects} year={year} years={years} />
-            <AssociatedSubjects
-              setActiveSubject={setActiveSubject}
-              setShowSubjectsModal={setShowSubjectsModal}
-              subjects={filteredSubjects}
-              subjectsErrorUI={subjectsErrorUI}
-            />
-          </Box>
-        </Box>
-
-        {activeSubject && (
-          <CustomLayer>
-            <MetadataModal onClose={setActiveSubject} subject={activeSubject} />
-          </CustomLayer>
-        )}
-
-        {showSubjectsModal && (
-          <CustomLayer>
-            <SubjectsModal
-              onClose={setShowSubjectsModal}
-              onSelectSubject={setActiveSubject}
-              subjects={subjects}
-            />
-          </CustomLayer>
-        )}
-      </Box>
-    )
-  }
+  React.useEffect(function onMount() {
+      filterByYear()
+    }, [asyncStatus, year])
 
   return (
     <Box
@@ -225,25 +123,105 @@ export default function MapDetail({
       pad={{ horizontal: 'large', vertical: 'small' }}
       width='60rem'
     >
-      {asyncStatus === STATUS.LOADING ? <Loading /> : <Content />}
+      {asyncStatus === STATUS.LOADING ? (
+        <Loading />
+      ) : (
+        <Box>
+          <Box
+            border={{ color: 'kelp', side: 'bottom' }}
+            direction='row'
+            justify='between'
+            alignContent='center'
+            pad={{ bottom: 'small' }}
+            margin={{ bottom: 'small' }}
+          >
+            <StyledHeading color='kelp' level='4' margin='0'>
+              Map Detail
+            </StyledHeading>
+            <Button
+              color='kelp'
+              gap='xsmall'
+              icon={<Close color='black' size='small' />}
+              label={<Uppercase size='xsmall'>Close</Uppercase>}
+              onClick={onClose}
+              plain
+              reverse
+            />
+          </Box>
+
+          <Box direction='row' gap='medium'>
+            <Box basis='63%' gap='xsmall'>
+              <HeadingTwo color='kelp' level='2' margin='none'>
+                Falkland Islands
+              </HeadingTwo>
+              <Box align='center' direction='row' justify='between'>
+                <LocationDetails
+                  coordinates={coordinates}
+                  mapCenterLat={mapCenterLat}
+                  mapCenterLng={mapCenterLng}
+                />
+                <CheckBox
+                  checked={showSubjects}
+                  label={
+                    <Uppercase color='kelp' size='0.75rem'>
+                      Subjects
+                    </Uppercase>
+                  }
+                  onChange={() => setShowSubjects(!showSubjects)}
+                />
+              </Box>
+              <Box
+                align='center'
+                background='gray'
+                border={{ color: 'kelp' }}
+                flex
+                justify='center'
+                style={{ position: 'relative' }}
+              >
+                {miniMap}
+              </Box>
+              <Timeline year={year} years={years} setYear={setYear} />
+            </Box>
+
+            <Box basis='37%' gap='xsmall'>
+              <Heading level='6' color='kelp'>
+                Additional Data
+              </Heading>
+              <Charts subjects={subjects} year={year} years={years} />
+              <AssociatedSubjects
+                setActiveSubject={setActiveSubject}
+                setShowSubjectsModal={setShowSubjectsModal}
+                subjects={filteredSubjects}
+                subjectsErrorUI={subjectsErrorUI}
+              />
+            </Box>
+          </Box>
+
+          {activeSubject && (
+            <CustomLayer>
+              <MetadataModal
+                onClose={setActiveSubject}
+                subject={activeSubject}
+              />
+            </CustomLayer>
+          )}
+
+          {showSubjectsModal && (
+            <CustomLayer>
+              <SubjectsModal
+                onClose={setShowSubjectsModal}
+                onSelectSubject={setActiveSubject}
+                subjects={filteredSubjects}
+              />
+            </CustomLayer>
+          )}
+        </Box>
+      )}
     </Box>
   )
 }
 
-MapDetail.defaultProps = {
-  coordinates: {
-    northEast: {
-      lat: -51.4,
-      lng: -59.5,
-    },
-    southWest: {
-      lat: -52,
-      lng: -60.7,
-    },
-    height: '100%',
-    width: '100%',
-  },
-}
+export default MapDetail
 
 MapDetail.propTypes = {
   coordinates: shape({
@@ -258,12 +236,12 @@ MapDetail.propTypes = {
     height: string,
     width: string,
   }),
-  data: arrayOf(
+  onClose: func,
+  subjects: arrayOf(
     shape({
-      subjectMediaLocation: string,
+      id: number,
+      latitude: string,
+      longitude: string,
     })
   ),
-  onClose: func,
-  setActiveSubject: func,
-  setShowSubjectsModal: func,
 }
