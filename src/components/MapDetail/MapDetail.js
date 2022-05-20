@@ -48,6 +48,7 @@ const MapDetail = ({
   coordinates,
   onClose = () => {},
   subjects,
+  subjectsErrorUI
 }) => {
   const [mapCenterLat, setMapCenterLat] = React.useState(null)
   const [mapCenterLng, setMapCenterLng] = React.useState(null)

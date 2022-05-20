@@ -31,20 +31,27 @@ export default function MapPage() {
   const [canDraw, changeDrawing] = React.useState(false)
   const [miniMapCoords, setCoords] = React.useState(null)
   const [subjects, setSubjects] = React.useState([])
+  const [subjectsErrorUI, setSubjectsErrorUI] = React.useState(false)
   const [asyncStatus, setAsyncStatus] = React.useState(STATUS.LOADING)
 
   React.useEffect(() => {
     async function fetchSubjects() {
       if (miniMapCoords) {
         const subjectsInCoords = await getSubjects(miniMapCoords)
-        setSubjects(subjectsInCoords)
-        setAsyncStatus(STATUS.READY)
+        if (subjectsInCoords?.message === 'subjects client error') {
+          setSubjectsErrorUI(true)
+          setAsyncStatus(STATUS.READY)
+        } else {
+          if (subjectsErrorUI) setSubjectsErrorUI(false)
+          setSubjects(subjectsInCoords)
+          setAsyncStatus(STATUS.READY)
+        }
       } else {
         setAsyncStatus(STATUS.LOADING)
       }
     }
     fetchSubjects()
-  }, [miniMapCoords])
+  }, [miniMapCoords, subjectsErrorUI])
 
   return (
     <Box direction='row' height={{ min: '100%' }}>
@@ -78,6 +85,7 @@ export default function MapPage() {
             coordinates={miniMapCoords}
             onClose={() => setCoords(null)}
             subjects={subjects}
+            subjectsErrorUI={subjectsErrorUI}
           />
         </Layer>
       )}

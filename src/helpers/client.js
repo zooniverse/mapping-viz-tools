@@ -16,6 +16,7 @@ async function getSubjects(coordinates) {
   } catch (error) {
     console.error(error)
     // UI error response handling to be added
+    return new Error('subjects client error')
   }
 }
 

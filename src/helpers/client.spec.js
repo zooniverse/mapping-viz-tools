@@ -77,6 +77,6 @@ describe('missing coordinates when fetching subject data', () => {
   })
 
   it('should return an error and no subjects', () => {
-    expect(response).toBeUndefined()
+    expect(response.message).toEqual('subjects client error')
   })
 })
