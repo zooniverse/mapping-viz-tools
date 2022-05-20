@@ -150,7 +150,7 @@ const MapDetail = ({
           </Box>
 
           <Box direction='row' gap='medium'>
-            <Box basis='60%' gap='xsmall'>
+            <Box basis='63%' gap='xsmall'>
               <HeadingTwo color='kelp' level='2' margin='none'>
                 Falkland Islands
               </HeadingTwo>
@@ -183,7 +183,7 @@ const MapDetail = ({
               <Timeline year={year} years={years} setYear={setYear} />
             </Box>
 
-            <Box basis='40%' gap='xsmall'>
+            <Box basis='37%' gap='xsmall'>
               <Heading level='6' color='kelp'>
                 Additional Data
               </Heading>
@@ -192,6 +192,7 @@ const MapDetail = ({
                 setActiveSubject={setActiveSubject}
                 setShowSubjectsModal={setShowSubjectsModal}
                 subjects={filteredSubjects}
+                subjectsErrorUI={subjectsErrorUI}
               />
             </Box>
           </Box>

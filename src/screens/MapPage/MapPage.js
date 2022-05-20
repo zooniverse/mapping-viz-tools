@@ -39,7 +39,8 @@ export default function MapPage() {
       if (miniMapCoords) {
         const subjectsInCoords = await getSubjects(miniMapCoords)
         if (subjectsInCoords?.message === 'subjects client error') {
-          setSubjectsErrorUI(true)
+          setSubjectsErrorUI(true) // display an error message in AssociatedSubjects
+          setSubjects([]) // clear any subjects that might've been fetched before the subjects API failed
           setAsyncStatus(STATUS.READY)
         } else {
           if (subjectsErrorUI) setSubjectsErrorUI(false)
