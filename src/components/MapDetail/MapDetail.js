@@ -58,6 +58,8 @@ const MapDetail = ({
   const [year, setYear] = React.useState(2005)
   const [filteredSubjects, setFilteredSubjects] = React.useState([])
 
+  const kelpLayerRef = React.useRef()
+
   const miniMap = React.useMemo(
     () => (
       <MapContainer
@@ -67,7 +69,6 @@ const MapDetail = ({
         scrollWheelZoom={false}
         style={{ width: coordinates.width, height: coordinates.height }}
         zoomControl={false}
-        zoomSnap={0}
         whenCreated={mapInstance => {
           setMapCenterLat(mapInstance.getCenter().lat)
           setMapCenterLng(mapInstance.getCenter().lng)
@@ -76,6 +77,11 @@ const MapDetail = ({
         <TileLayer
           attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+        />
+        <TileLayer
+          ref={kelpLayerRef}
+          attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+          url={`https://static.zooniverse.org/mapping-viz-tiles/falklands/${year}/{z}/{x}/{y}.png`}
         />
         {showSubjects &&
           filteredSubjects.map((subject, i) => (
@@ -89,6 +95,14 @@ const MapDetail = ({
     ),
     [coordinates, showSubjects, filteredSubjects]
   )
+
+  React.useEffect(() => {
+    if (kelpLayerRef?.current) {
+      kelpLayerRef.current.setUrl(
+        `https://static.zooniverse.org/mapping-viz-tiles/falklands/${year}/{z}/{x}/{y}.png`
+      )
+    }
+  }, [year])
 
   // adjust x-axis range for both Charts and Timeline
   const yearsArray = (start, end) => {
