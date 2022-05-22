@@ -11,9 +11,9 @@ const StyledText = styled(Text)`
 `
 
 const OPTIONS = [
-  { label: 'Falkland Islands', map: Map },
-  // { label: 'Baja, California', map: Map},
-  // { label: 'Tasmania, Australia', map: Map}
+  { label: 'Falkland Islands', map: Map, disabled: false },
+  { label: 'Baja, California', map: Map, disabled: true },
+  { label: 'Tasmania, Australia', map: Map, disabled: true }
 ]
 
 const ChooseLocation = () => {
@@ -26,6 +26,7 @@ const ChooseLocation = () => {
         {OPTIONS.map((location, i) => {
           return (
             <MapLabel
+              disabled={location.disabled}
               key={location.label}
               location={location}
             />
