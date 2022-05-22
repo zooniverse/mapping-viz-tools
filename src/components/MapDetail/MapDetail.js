@@ -48,7 +48,7 @@ const MapDetail = ({
   coordinates,
   onClose = () => {},
   subjects,
-  subjectsErrorUI
+  subjectsErrorUI,
 }) => {
   const [mapCenterLat, setMapCenterLat] = React.useState(null)
   const [mapCenterLng, setMapCenterLng] = React.useState(null)
@@ -57,6 +57,8 @@ const MapDetail = ({
   const [showSubjectsModal, setShowSubjectsModal] = React.useState(false)
   const [year, setYear] = React.useState(2005)
   const [filteredSubjects, setFilteredSubjects] = React.useState([])
+
+  const kelpLayerRef = React.useRef()
 
   const miniMap = React.useMemo(
     () => (
@@ -67,7 +69,6 @@ const MapDetail = ({
         scrollWheelZoom={false}
         style={{ width: coordinates.width, height: coordinates.height }}
         zoomControl={false}
-        zoomSnap={0}
         whenCreated={mapInstance => {
           setMapCenterLat(mapInstance.getCenter().lat)
           setMapCenterLng(mapInstance.getCenter().lng)
@@ -77,6 +78,11 @@ const MapDetail = ({
           attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
         />
+        <TileLayer
+          ref={kelpLayerRef}
+          attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+          url={`https://static.zooniverse.org/mapping-viz-tiles/falklands/${year}/{z}/{x}/{y}.png`}
+        />
         {showSubjects &&
           filteredSubjects.map((subject, i) => (
             <Marker
@@ -85,10 +91,40 @@ const MapDetail = ({
               position={[subject.latitude, subject.longitude]}
             />
           ))}
+        {/** This is a hack to style a legend exactly like the leaflet attribution */}
+        <div className='leaflet-control-container'>
+          <div className='leaflet-bottom leaflet-left'>
+            <div className='leaflet-control-attribution leaflet-control'>
+              <Box
+                align='center'
+                direction='row'
+                gap='xxsmall'
+                justify='center'
+                pad={{ vertical: '2px' }}
+              >
+                <Box
+                  height='0.6rem'
+                  width='0.6rem'
+                  background='#589454'
+                  border={{ color: 'black' }}
+                />
+                <Text size='11px'>Sum of Kelp in {year}</Text>
+              </Box>
+            </div>
+          </div>
+        </div>
       </MapContainer>
     ),
     [coordinates, showSubjects, filteredSubjects]
   )
+
+  React.useEffect(() => {
+    if (kelpLayerRef?.current) {
+      kelpLayerRef.current.setUrl(
+        `https://static.zooniverse.org/mapping-viz-tiles/falklands/${year}/{z}/{x}/{y}.png`
+      )
+    }
+  }, [year])
 
   // adjust x-axis range for both Charts and Timeline
   const yearsArray = (start, end) => {
@@ -110,9 +146,12 @@ const MapDetail = ({
     setFilteredSubjects(newSubjects)
   }
 
-  React.useEffect(function onMount() {
+  React.useEffect(
+    function onMount() {
       filterByYear()
-    }, [asyncStatus, year])
+    },
+    [asyncStatus, year]
+  )
 
   return (
     <Box
@@ -164,7 +203,7 @@ const MapDetail = ({
                   checked={showSubjects}
                   label={
                     <Uppercase color='kelp' size='0.75rem'>
-                      Subjects
+                      Show Subjects
                     </Uppercase>
                   }
                   onChange={() => setShowSubjects(!showSubjects)}
