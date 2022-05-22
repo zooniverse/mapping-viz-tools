@@ -6,6 +6,7 @@ import { Close } from 'grommet-icons'
 import { arrayOf, func, number, shape, string } from 'prop-types'
 import { MapContainer, Marker, TileLayer } from 'react-leaflet'
 import STATUS from 'helpers/asyncStatus'
+import yearsArray from 'helpers/yearsArray'
 
 import Loading from './components/Loading'
 import AssociatedSubjects from './components/AssociatedSubjects'
@@ -93,7 +94,7 @@ const MapDetail = ({
           ))}
         {/** This is a hack to style a legend exactly like the leaflet attribution */}
         <div className='leaflet-control-container'>
-          <div className='leaflet-bottom leaflet-left'>
+          <div className='leaflet-top leaflet-right'>
             <div className='leaflet-control-attribution leaflet-control'>
               <Box
                 align='center'
@@ -108,7 +109,7 @@ const MapDetail = ({
                   background='#589454'
                   border={{ color: 'black' }}
                 />
-                <Text size='11px'>Sum of Kelp in {year}</Text>
+                <Text size='11px'>= Sum of Kelp in {year}</Text>
               </Box>
             </div>
           </div>
@@ -127,13 +128,6 @@ const MapDetail = ({
   }, [year])
 
   // adjust x-axis range for both Charts and Timeline
-  const yearsArray = (start, end) => {
-    let newArray = []
-    for (let year = start; year <= end; year++) {
-      newArray.push(year)
-    }
-    return newArray
-  }
   const years = yearsArray(1995, 2018)
 
   const filterByYear = () => {

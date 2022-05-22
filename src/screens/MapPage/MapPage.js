@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Layer } from 'grommet'
+import { Box, Layer, Text } from 'grommet'
 import MapDetail from 'components/MapDetail'
 import styled from 'styled-components'
 import STATUS from 'helpers/asyncStatus'
@@ -7,6 +7,7 @@ import { getSubjects } from 'helpers/client'
 import DrawingOverlay from 'components/DrawingOverlay'
 import SidePanel from './components/SidePanel'
 import { MapContainer, TileLayer } from 'react-leaflet'
+import yearsArray from 'helpers/yearsArray'
 
 const Relative = styled.div`
   position: relative;
@@ -54,6 +55,9 @@ export default function MapPage() {
     fetchSubjects()
   }, [miniMapCoords, subjectsErrorUI])
 
+  // adjust as needed for data that exists in static.zooniverse.org
+  const yearsOfKelpData = yearsArray(1997, 2016)
+
   return (
     <Box direction='row' height={{ min: '100%' }}>
       <SidePanel changeDrawing={changeDrawing} isDrawing={canDraw} />
@@ -71,11 +75,43 @@ export default function MapPage() {
             attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
           />
+          {yearsOfKelpData?.length &&
+            yearsOfKelpData.map(year => (
+              <TileLayer
+                key={year}
+                attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                url={`https://static.zooniverse.org/mapping-viz-tiles/falklands/${year}/{z}/{x}/{y}.png`}
+              />
+            ))}
           <DrawingOverlay
             canDraw={canDraw}
             changeDrawing={changeDrawing}
             setCoords={setCoords}
           />
+          {/** This is a hack to style a legend exactly like the leaflet attribution */}
+          <div className='leaflet-control-container'>
+            <div className='leaflet-bottom leaflet-left'>
+              <div className='leaflet-control-attribution leaflet-control'>
+                <Box
+                  align='center'
+                  direction='row'
+                  gap='xxsmall'
+                  justify='center'
+                  pad={{ vertical: '2px' }}
+                >
+                  <Box
+                    height='0.6rem'
+                    width='0.6rem'
+                    background='#589454'
+                    border={{ color: 'black' }}
+                  />
+                  <Text size='11px'>{`= Sum of Kelp from ${
+                    yearsOfKelpData[0]
+                  } to ${yearsOfKelpData[yearsOfKelpData.length - 1]}`}</Text>
+                </Box>
+              </div>
+            </div>
+          </div>
         </MapContainer>
       </Relative>
 
