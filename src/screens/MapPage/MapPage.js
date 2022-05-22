@@ -35,6 +35,8 @@ export default function MapPage() {
   const [subjectsErrorUI, setSubjectsErrorUI] = React.useState(false)
   const [asyncStatus, setAsyncStatus] = React.useState(STATUS.LOADING)
 
+  const [showKelpLayers, setKelpLayers] = React.useState(true)
+
   React.useEffect(() => {
     async function fetchSubjects() {
       if (miniMapCoords) {
@@ -55,12 +57,21 @@ export default function MapPage() {
     fetchSubjects()
   }, [miniMapCoords, subjectsErrorUI])
 
+  const toggleKelp = () => {
+    setKelpLayers(!showKelpLayers)
+  }
+
   // adjust as needed for data that exists in static.zooniverse.org
   const yearsOfKelpData = yearsArray(1997, 2016)
 
   return (
     <Box direction='row' height={{ min: '100%' }}>
-      <SidePanel changeDrawing={changeDrawing} isDrawing={canDraw} />
+      <SidePanel
+        changeDrawing={changeDrawing}
+        isDrawing={canDraw}
+        toggleKelp={toggleKelp}
+        showKelpLayers={showKelpLayers}
+      />
 
       <Relative>
         <MapContainer
@@ -76,6 +87,7 @@ export default function MapPage() {
             url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
           />
           {yearsOfKelpData?.length &&
+            showKelpLayers &&
             yearsOfKelpData.map(year => (
               <TileLayer
                 key={year}

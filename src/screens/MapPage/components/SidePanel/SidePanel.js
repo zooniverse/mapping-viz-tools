@@ -28,7 +28,7 @@ const StyledText = styled(Text)`
   font-family: 'Neuton-Light';
 `
 
-export default function SidePanel({ changeDrawing = () => {}, isDrawing = false }) {
+export default function SidePanel({ changeDrawing = () => {}, isDrawing = false, toggleKelp = () => {}, showKelpLayers }) {
   return (
     <Box
       as='aside'
@@ -78,9 +78,9 @@ export default function SidePanel({ changeDrawing = () => {}, isDrawing = false 
       <Box gap='xsmall' margin={{ vertical: 'small' }}>
         <Text color='kelp'>Dig deeper</Text>
         <Text size='xsmall'>
-          Toggle additional data layers to see how environmental factors affect
-          kelp forests.
+          Toggle additional data layers.
         </Text>
+        <CheckBox checked={showKelpLayers} onChange={toggleKelp} label={<Uppercase color='kelp' size='xsmall'>Kelp</Uppercase>} />
         <CheckBox disabled label={<Uppercase color='kelp' size='xsmall'>Satellite Imagery</Uppercase>} />
         <CheckBox disabled label={<Uppercase color='kelp' size='xsmall'>ZooMapper Tiles</Uppercase>} />
       </Box>
