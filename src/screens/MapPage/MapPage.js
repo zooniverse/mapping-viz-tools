@@ -101,7 +101,7 @@ export default function MapPage() {
             setCoords={setCoords}
           />
           {/** This is a hack to style a legend exactly like the leaflet attribution */}
-          <div className='leaflet-control-container'>
+          {showKelpLayers && <div className='leaflet-control-container'>
             <div className='leaflet-bottom leaflet-left'>
               <div className='leaflet-control-attribution leaflet-control'>
                 <Box
@@ -123,7 +123,7 @@ export default function MapPage() {
                 </Box>
               </div>
             </div>
-          </div>
+          </div>}
         </MapContainer>
       </Relative>
 

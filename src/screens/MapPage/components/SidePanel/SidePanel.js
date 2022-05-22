@@ -87,7 +87,7 @@ export default function SidePanel({ changeDrawing = () => {}, isDrawing = false,
 
       <Box border={{ color: 'kelp', side: 'top' }} gap='xsmall'>
         <Text color='kelp' margin={{ top: 'small' }}>World map</Text>
-        <Image alt='Current location on a world map' src={Map} />
+        <Image fit='contain' alt='Current location on a world map' src={Map} />
       </Box>
     </Box>
   )
