@@ -4,7 +4,7 @@ import { Box, Button, CheckBox, Heading, Text } from 'grommet'
 import styled from 'styled-components'
 import { Close } from 'grommet-icons'
 import { arrayOf, func, number, shape, string } from 'prop-types'
-import { Pane, MapContainer, Marker, TileLayer } from 'react-leaflet'
+import { MapContainer, Marker, TileLayer } from 'react-leaflet'
 import STATUS from 'helpers/asyncStatus'
 
 import Loading from './components/Loading'
