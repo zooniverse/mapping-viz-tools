@@ -4,7 +4,7 @@ import { Box, Button, CheckBox, Heading, Text } from 'grommet'
 import styled from 'styled-components'
 import { Close } from 'grommet-icons'
 import { arrayOf, func, number, shape, string } from 'prop-types'
-import { MapContainer, Marker, TileLayer } from 'react-leaflet'
+import { Pane, MapContainer, Marker, TileLayer } from 'react-leaflet'
 import STATUS from 'helpers/asyncStatus'
 
 import Loading from './components/Loading'
@@ -48,7 +48,7 @@ const MapDetail = ({
   coordinates,
   onClose = () => {},
   subjects,
-  subjectsErrorUI
+  subjectsErrorUI,
 }) => {
   const [mapCenterLat, setMapCenterLat] = React.useState(null)
   const [mapCenterLng, setMapCenterLng] = React.useState(null)
@@ -91,6 +91,28 @@ const MapDetail = ({
               position={[subject.latitude, subject.longitude]}
             />
           ))}
+        {/** This is a hack to style a legend exactly like the leaflet attribution */}
+        <div className='leaflet-control-container'>
+          <div className='leaflet-bottom leaflet-left'>
+            <div className='leaflet-control-attribution leaflet-control'>
+              <Box
+                align='center'
+                direction='row'
+                gap='xxsmall'
+                justify='center'
+                pad={{ vertical: '2px' }}
+              >
+                <Box
+                  height='0.6rem'
+                  width='0.6rem'
+                  background='#589454'
+                  border={{ color: 'black' }}
+                />
+                <Text size='11px'>Sum of Kelp in {year}</Text>
+              </Box>
+            </div>
+          </div>
+        </div>
       </MapContainer>
     ),
     [coordinates, showSubjects, filteredSubjects]
@@ -124,9 +146,12 @@ const MapDetail = ({
     setFilteredSubjects(newSubjects)
   }
 
-  React.useEffect(function onMount() {
+  React.useEffect(
+    function onMount() {
       filterByYear()
-    }, [asyncStatus, year])
+    },
+    [asyncStatus, year]
+  )
 
   return (
     <Box
@@ -178,7 +203,7 @@ const MapDetail = ({
                   checked={showSubjects}
                   label={
                     <Uppercase color='kelp' size='0.75rem'>
-                      Subjects
+                      Show Subjects
                     </Uppercase>
                   }
                   onChange={() => setShowSubjects(!showSubjects)}
