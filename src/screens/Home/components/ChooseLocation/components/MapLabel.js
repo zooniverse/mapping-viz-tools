@@ -5,6 +5,24 @@ import { shape, string } from 'prop-types'
 import { withResponsiveContext } from '@zooniverse/react-components'
 import { Link } from 'react-router-dom'
 
+const DisabledLink = styled(Box)`
+  white-space: nowrap;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    ${props =>
+      css`
+        background: ${props.theme.global.colors.brand};
+      `}
+  }
+`
+
 export const LinkStyle = styled(Box)`
   white-space: nowrap;
   position: relative;
@@ -66,7 +84,7 @@ export const StyledImage = styled(Image)`
     `}
 `
 
-const MapLabel = ({ location, screenSize, theme }) => {
+const MapLabel = ({ disabled, location, screenSize, theme }) => {
   const mobile = screenSize === 'small'
 
   const [isHovered, onHover] = React.useState(false)
@@ -80,7 +98,7 @@ const MapLabel = ({ location, screenSize, theme }) => {
     onHover(false)
   }
 
-  return (
+  return !disabled ? (
     <Relative direction='row' margin={{ bottom: 'xsmall' }} mobile={mobile}>
       <LinkStyle
         onBlur={deactivate}
@@ -104,6 +122,21 @@ const MapLabel = ({ location, screenSize, theme }) => {
         </Thumbnail>
       )}
     </Relative>
+  ) : (
+    <Box direction='row' margin={{ bottom: 'xsmall' }} style={{ opacity: 0.4 }}>
+      <DisabledLink>
+        <Link
+          to=''
+          style={{
+            color: theme.global.colors.brand,
+            textDecoration: 'none',
+            pointerEvents: 'none',
+          }}
+        >
+          {location.label}
+        </Link>
+      </DisabledLink>
+    </Box>
   )
 }
 

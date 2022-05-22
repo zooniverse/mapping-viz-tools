@@ -73,7 +73,7 @@ const Home = ({ screenSize }) => {
               This project is a collaboration between Zooniverse-Adler
               Planetarium and the Floating Forests team.
             </StyledText>
-            <Anchor href='#' label='Learn more' size='small' />
+            <Anchor href='https://www.zooniverse.org/projects/zooniverse/floating-forests' label='Learn more' size='small' />
           </Relative>
         </Box>
       </Box>
