@@ -39,3 +39,12 @@ To run this:
 
 ## Deployment
 
+On push to the `master` branch, the staging site is deployed to [https://mapping-viz-staging.zooniverse.org](https://mapping-viz-staging.zooniverse.org/).
+
+## Environmental Variables
+
+Add notes here about REACT_APP_ENV: development.
+
+## Other Notes
+
+Occasionally, Open Street Maps will not load via TileLayer using localhost in Chrome. OSM detects that environment to prevent abuse of their tile servers.
