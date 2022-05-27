@@ -20,7 +20,7 @@ const baseLayers = [
     url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
   },
   {
-    attribution: '&copy <a href="">NASA Blue Marble, OpenGeo</a>',
+    attribution: '&copy <a href="https://svs.gsfc.nasa.gov/2915">NASA Blue Marble, OpenGeo</a>',
     id: 1,
     name: 'Satellite Imagery',
     url: 'https://gibs-{s}.earthdata.nasa.gov/wmts/epsg3857/best/BlueMarble_ShadedRelief_Bathymetry/default//EPSG3857_500m/{z}/{y}/{x}.jpeg'

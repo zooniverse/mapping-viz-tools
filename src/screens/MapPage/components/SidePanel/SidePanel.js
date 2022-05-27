@@ -10,7 +10,7 @@ import {
 } from 'grommet'
 import Logo from 'images/logo.png'
 import RectangleIcon from 'images/rectangle_icon.svg'
-import Map from 'images/map.png'
+import Map from 'images/sat-world-map.jpg'
 import styled, { css } from 'styled-components'
 import { bool, func, number } from 'prop-types'
 // import LocationDrop from '../LocationDrop'
@@ -23,7 +23,7 @@ export const StyledButton = styled(Button)`
   ${props =>
     props.isDrawing
       ? css`
-          background: #eefec0;
+          background: #EEFEC0;
         `
       : css`
           background: white;
