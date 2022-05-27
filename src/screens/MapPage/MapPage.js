@@ -9,7 +9,28 @@ import SidePanel from './components/SidePanel'
 import { MapContainer, TileLayer } from 'react-leaflet'
 import yearsArray from 'helpers/yearsArray'
 
+// adjust as needed for data that exists in static.zooniverse.org
+const yearsOfKelpData = yearsArray(1997, 2016)
 
+const baseLayers = [
+  {
+    attribution: '&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+    id: 0,
+    name: 'Open Street Maps',
+    url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+  },
+  {
+    attribution: '&copy <a href="">NASA Blue Marble, OpenGeo</a>',
+    id: 1,
+    name: 'Satellite Imagery',
+    url: 'https://gibs-{s}.earthdata.nasa.gov/wmts/epsg3857/best/BlueMarble_ShadedRelief_Bathymetry/default//EPSG3857_500m/{z}/{y}/{x}.jpeg'
+  }, {
+    attribution: '&copy <a href="https://github.com/zooniverse/zoomapper">ZooMapper</a>',
+    id: 2,
+    name: 'ZooMapper Tiles',
+    url: 'https://zoomapper-staging.zooniverse.org/styles/basic/{z}/{x}/{y}.png'
+  }
+]
 
 const Relative = styled.div`
   position: relative;
@@ -39,6 +60,7 @@ export default function MapPage() {
 
   const [showKelpLayers, setKelpLayers] = React.useState(true)
   const [baseLayer, setBaseLayer] = React.useState(0)
+  const baseLayerRef = React.useRef(null)
 
   React.useEffect(() => {
     async function fetchSubjects() {
@@ -64,12 +86,16 @@ export default function MapPage() {
     setKelpLayers(!showKelpLayers)
   }
 
-  // adjust as needed for data that exists in static.zooniverse.org
-  const yearsOfKelpData = yearsArray(1997, 2016)
+  React.useEffect(() => {
+    if (baseLayerRef?.current) {
+      baseLayerRef.current.setUrl(baseLayers[baseLayer].url)
+    }
+  }, [baseLayer])
 
   return (
     <Box direction='row' height={{ min: '100%' }}>
       <SidePanel
+        baseLayer={baseLayer}
         changeDrawing={changeDrawing}
         isDrawing={canDraw}
         setBaseLayer={setBaseLayer}
@@ -86,22 +112,17 @@ export default function MapPage() {
           style={{ width: '100%', height: '100%', position: 'absolute' }}
           zoom={8}
         >
-          {baseLayer === 0 && <TileLayer
-            attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-            name="Open Street Maps"
-            url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-          />}
-          {baseLayer === 1 && <TileLayer
-            attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-            name="Satellite"
-            url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-          />}
+          <TileLayer
+            attribution={baseLayers[baseLayer].attribution}
+            ref={baseLayerRef}
+            url={baseLayers[baseLayer].url}
+          />
           {yearsOfKelpData?.length &&
             showKelpLayers &&
             yearsOfKelpData.map(year => (
               <TileLayer
                 key={year}
-                attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                // attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 url={`https://static.zooniverse.org/mapping-viz-tiles/falklands/${year}/{z}/{x}/{y}.png`}
               />
             ))}
@@ -110,7 +131,7 @@ export default function MapPage() {
             changeDrawing={changeDrawing}
             setCoords={setCoords}
           />
-          {/** This is a hack to style a legend exactly like the leaflet attribution */}
+          {/** This is a hack to style a kelp legend exactly like the leaflet attribution */}
           {showKelpLayers && (
             <div className='leaflet-control-container'>
               <div className='leaflet-bottom leaflet-left'>

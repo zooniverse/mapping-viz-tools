@@ -1,17 +1,18 @@
 import React from 'react'
 import {
+  Anchor,
   Box,
   Button,
   CheckBox,
   Image,
   Text,
-  RadioButtonGroup
+  RadioButtonGroup,
 } from 'grommet'
 import Logo from 'images/logo.png'
 import RectangleIcon from 'images/rectangle_icon.svg'
 import Map from 'images/map.png'
 import styled, { css } from 'styled-components'
-import { bool, func } from 'prop-types'
+import { bool, func, number } from 'prop-types'
 // import LocationDrop from '../LocationDrop'
 
 const Uppercase = styled(Text)`
@@ -67,7 +68,7 @@ export default function SidePanel({
   baseLayer = 0,
   changeDrawing = () => {},
   isDrawing = false,
-  setBaseLayer = () => true,
+  setBaseLayer = () => {},
   showKelpLayers,
   toggleKelp = () => {},
 }) {
@@ -78,15 +79,17 @@ export default function SidePanel({
       border={{ color: 'kelp', side: 'right', size: 'xsmall' }}
       height={{ min: '100%' }}
       pad='small'
-      width='15rem'
+      width='16rem'
     >
-      <Box gap='xsmall' margin={{ bottom: 'small' }} width='10rem'>
-        <Image
-          alt='Floating Forests logo'
-          fit='contain'
-          margin={{ right: 'auto' }}
-          src={Logo}
-        />
+      <Box gap='xxsmall' margin={{ bottom: 'small' }}>
+        <Anchor href='/'>
+          <Image
+            alt='Floating Forests logo'
+            fit='contain'
+            margin={{ right: 'auto' }}
+            src={Logo}
+          />
+        </Anchor>
         <StyledText color='kelp' size='xlarge'>
           Falkland Islands
         </StyledText>
@@ -134,8 +137,8 @@ export default function SidePanel({
         <Text color='kelp'>Base Layer</Text>
         <RadioButtonGroup
           gap='xsmall'
-          name="Base Layer Toggle"
-          onChange={e => setBaseLayer(e.target.value)}
+          name='Base Layer Toggle'
+          onChange={e => setBaseLayer(parseInt(e.target.value))}
           options={radioOptions}
           value={baseLayer}
         />
@@ -152,6 +155,10 @@ export default function SidePanel({
 }
 
 SidePanel.propTypes = {
+  baseLayer: number,
   changeDrawing: func,
   isDrawing: bool,
+  setBaseLayer: func,
+  showKelpLayers: bool,
+  toggleKelp: func
 }
