@@ -4,7 +4,8 @@ import {
   Button,
   CheckBox,
   Image,
-  Text
+  Text,
+  RadioButtonGroup
 } from 'grommet'
 import Logo from 'images/logo.png'
 import RectangleIcon from 'images/rectangle_icon.svg'
@@ -18,7 +19,14 @@ const Uppercase = styled(Text)`
 `
 
 export const StyledButton = styled(Button)`
-  ${props => props.isDrawing ? css`background: #EEFEC0;` : css`background: white;`}
+  ${props =>
+    props.isDrawing
+      ? css`
+          background: #eefec0;
+        `
+      : css`
+          background: white;
+        `}
   box-shadow: 0px 2.5px 5px gray;
   padding: 0.5em;
   width: 10rem;
@@ -28,7 +36,41 @@ const StyledText = styled(Text)`
   font-family: 'Neuton-Light';
 `
 
-export default function SidePanel({ changeDrawing = () => {}, isDrawing = false, toggleKelp = () => {}, showKelpLayers }) {
+const radioOptions = [
+  {
+    value: 0,
+    label: (
+      <Uppercase color='kelp' size='xsmall'>
+        Open Street Maps
+      </Uppercase>
+    ),
+  },
+  {
+    value: 1,
+    label: (
+      <Uppercase color='kelp' size='xsmall'>
+        Satellite Imagery
+      </Uppercase>
+    ),
+  },
+  {
+    value: 2,
+    label: (
+      <Uppercase color='kelp' size='xsmall'>
+        ZooMapper Tiles
+      </Uppercase>
+    ),
+  },
+]
+
+export default function SidePanel({
+  baseLayer = 0,
+  changeDrawing = () => {},
+  isDrawing = false,
+  setBaseLayer = () => true,
+  showKelpLayers,
+  toggleKelp = () => {},
+}) {
   return (
     <Box
       as='aside'
@@ -58,8 +100,8 @@ export default function SidePanel({ changeDrawing = () => {}, isDrawing = false,
       >
         <Text color='kelp'>Getting started</Text>
         <Text size='xsmall'>
-          Use the rectangle tool to draw a box around the
-          area of the map you'd like to learn more about
+          Use the rectangle tool to draw a box around the area of the map you'd
+          like to learn more about
         </Text>
         <StyledButton
           aria-checked={isDrawing}
@@ -71,22 +113,38 @@ export default function SidePanel({ changeDrawing = () => {}, isDrawing = false,
           label={<Uppercase size='xsmall'>Rectangle Tool</Uppercase>}
           onClick={() => changeDrawing(!isDrawing)}
           plain
-          role='checkbox'          
+          role='checkbox'
         />
       </Box>
 
       <Box gap='xsmall' margin={{ vertical: 'small' }}>
         <Text color='kelp'>Dig deeper</Text>
-        <Text size='xsmall'>
+        {/* <Text size='xsmall'>
           Toggle additional data layers.
-        </Text>
-        <CheckBox checked={showKelpLayers} onChange={toggleKelp} label={<Uppercase color='kelp' size='xsmall'>Kelp</Uppercase>} />
-        <CheckBox disabled label={<Uppercase color='kelp' size='xsmall'>Satellite Imagery</Uppercase>} />
-        <CheckBox disabled label={<Uppercase color='kelp' size='xsmall'>ZooMapper Tiles</Uppercase>} />
+        </Text> */}
+        <CheckBox
+          checked={showKelpLayers}
+          onChange={toggleKelp}
+          label={
+            <Uppercase color='kelp' size='xsmall' margin={{ left: '20px' }}>
+              Kelp Layer
+            </Uppercase>
+          }
+        />
+        <Text color='kelp'>Base Layer</Text>
+        <RadioButtonGroup
+          gap='xsmall'
+          name="Base Layer Toggle"
+          onChange={e => setBaseLayer(e.target.value)}
+          options={radioOptions}
+          value={baseLayer}
+        />
       </Box>
 
       <Box border={{ color: 'kelp', side: 'top' }} gap='xsmall'>
-        <Text color='kelp' margin={{ top: 'small' }}>World map</Text>
+        <Text color='kelp' margin={{ top: 'small' }}>
+          World map
+        </Text>
         <Image fit='contain' alt='Current location on a world map' src={Map} />
       </Box>
     </Box>
@@ -95,5 +153,5 @@ export default function SidePanel({ changeDrawing = () => {}, isDrawing = false,
 
 SidePanel.propTypes = {
   changeDrawing: func,
-  isDrawing: bool
+  isDrawing: bool,
 }
