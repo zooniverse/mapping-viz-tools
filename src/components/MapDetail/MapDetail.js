@@ -62,7 +62,7 @@ const MapDetail = ({
   const [year, setYear] = React.useState(2005)
   const [filteredSubjects, setFilteredSubjects] = React.useState([])
 
-  const kelpLayerRef = React.useRef()
+  const kelpLayerRef = React.useRef(null)
 
   const miniMap = React.useMemo(
     () => (
