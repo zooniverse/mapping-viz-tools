@@ -1,10 +1,13 @@
 import React from 'react'
-import { Box, DataTable, Image, Text } from 'grommet'
+import { Anchor, Box, DataTable, Image, Text } from 'grommet'
 import { Close } from 'grommet-icons'
 import styled from 'styled-components'
 import { PlainButton } from '@zooniverse/react-components'
 import { func, shape, string } from 'prop-types'
-import ConditionalLink from './components/ConditionalLink'
+
+const StyledAnchor = styled(Anchor)`
+  word-break: break-all;
+`
 
 const StyledDataTable = styled(DataTable)`
   width: 100%;
@@ -32,7 +35,19 @@ const columns = [
   },
   {
     property: 'value',
-    render: datum => <ConditionalLink color='kelp' text={datum.value} />,
+    render: datum =>
+      datum.key === 'map_link' ? (
+        <StyledAnchor
+          href={datum.value}
+          color='kelp'
+          size='small'
+          target='_blank'
+        >
+          Google Maps
+        </StyledAnchor>
+      ) : (
+        <Text>{datum.value}</Text>
+      ),
   },
 ]
 
@@ -45,7 +60,7 @@ export default function Metadata({
   const privateChars = ['#', '//']
   const filteredData = Object.keys(subject.metadata).reduce((acc, key) => {
     if (!privateChars.includes(key[0])) {
-      const displayKey = (str) => str[0] === '!' ? str.substr(1) : str
+      const displayKey = str => (str[0] === '!' ? str.substr(1) : str)
       acc.push({
         key: displayKey(key),
         value: subject.metadata[key],
