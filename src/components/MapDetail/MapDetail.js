@@ -16,6 +16,9 @@ import MetadataModal from '../../components/Modals/Metadata'
 import SubjectsModal from '../../components/Modals/Subjects'
 import LocationDetails from './components/LocationDetails'
 
+// adjust x-axis range for both Charts and Timeline
+const years = yearsArray(1995, 2018)
+
 const StyledHeading = styled(Heading)`
   font-family: Neuton;
 `
@@ -59,7 +62,7 @@ const MapDetail = ({
   const [year, setYear] = React.useState(2005)
   const [filteredSubjects, setFilteredSubjects] = React.useState([])
 
-  const kelpLayerRef = React.useRef()
+  const kelpLayerRef = React.useRef(null)
 
   const miniMap = React.useMemo(
     () => (
@@ -126,9 +129,6 @@ const MapDetail = ({
       )
     }
   }, [year])
-
-  // adjust x-axis range for both Charts and Timeline
-  const years = yearsArray(1995, 2018)
 
   const filterByYear = () => {
     const newSubjects = subjects.reduce((acc, current) => {
