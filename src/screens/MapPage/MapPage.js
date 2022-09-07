@@ -28,7 +28,7 @@ const baseLayers = [
     attribution: '&copy <a href="https://github.com/zooniverse/zoomapper">ZooMapper</a>',
     id: 2,
     name: 'ZooMapper Tiles',
-    url: 'https://zoomapper-staging.zooniverse.org/styles/basic/{z}/{x}/{y}.png'
+    url: 'https://zoomapper.zooniverse.org/styles/basic/{z}/{x}/{y}.png'
   }
 ]
 
