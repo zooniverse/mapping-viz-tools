@@ -12,7 +12,7 @@
     "@nivo/scatterplot": "^0.80.0",
     "@zooniverse/grommet-theme": "^3.1.1",
     "@zooniverse/react-components": "^1.1.0",
-    "d3-shape": "^2.1.0",
+    "d3-shape": "^3.1.0",
     "dompurify": "^2.4.1",
     "grommet": "^2.22.0",
     "leaflet": "^1.8.0",
