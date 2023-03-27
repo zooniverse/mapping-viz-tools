@@ -24,7 +24,7 @@
     "react-dom": "17.0.2",
     "react-leaflet": "^3.2.5",
     "react-router-dom": "^5.2.0",
-    "styled-components": "^5.3.8"
+    "styled-components": "^5.3.9"
   },
   "homepage": "https://mapping-viz-staging.zooniverse.org",
   "scripts": {
