@@ -7747,10 +7747,10 @@ graceful-fs@^4.1.11, graceful-fs@^4.1.15, graceful-fs@^4.1.2, graceful-fs@^4.1.6
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.10.tgz#147d3a006da4ca3ce14728c7aefc287c367d7a6c"
   integrity sha512-9ByhssR2fPVsNZj478qUUbKfmL0+t5BDVyjShtyZZLiK7ZDAArFFfopyOTj0M05wE2tJPisA4iTnnXl2YoPvOA==
 
-grommet-icons@^4.7.0:
-  version "4.7.0"
-  resolved "https://registry.yarnpkg.com/grommet-icons/-/grommet-icons-4.7.0.tgz#1d537b2bdc507be07d5643309d433bbe1464c5b6"
-  integrity sha512-ptw8x86Age/Yz6SplCLtJ8q1z/4ZLktMruCOnE6oTgc7hcIV/8ieOucTrLbu+PDi7rKxoP321O3OG3Zo/3qXjw==
+grommet-icons@^4.10.0:
+  version "4.10.0"
+  resolved "https://registry.yarnpkg.com/grommet-icons/-/grommet-icons-4.10.0.tgz#a56bc083f7d52502a12871c031a6746c61164cce"
+  integrity sha512-f3Re6jFRh93n2Cn2hyrJUANG7wOsv3wlEuyW/A1kIYzamDWnNfoZLgDQZXbAmMUMb1NdN7OU/0JrINxTCUOAEA==
   dependencies:
     grommet-styles "^0.2.0"
 
@@ -7759,14 +7759,14 @@ grommet-styles@^0.2.0:
   resolved "https://registry.yarnpkg.com/grommet-styles/-/grommet-styles-0.2.0.tgz#b2eac2b7e2747cb523434d21728ce5234f8ce4f4"
   integrity sha512-0OMSYuGeyifYKpg4Gv2HzL8rUdd0ddnJ5LbCBKgDuloC71XIwr9g/Fxa6rs737MbPV7OZ4pEm4wvrjH4epzf1A==
 
-grommet@^2.22.0:
-  version "2.22.0"
-  resolved "https://registry.yarnpkg.com/grommet/-/grommet-2.22.0.tgz#65463ab1d81ad56b9f56c00513630dfbb8b52715"
-  integrity sha512-R15s222QL7kIDAtvNw1McbzhGLGTQrzzu3WHw/ITSFS6SV+rCIEEf/5/azrKP9X9+E6BbLGQCI0dJvboiy0hQg==
+grommet@^2.32.0:
+  version "2.32.0"
+  resolved "https://registry.yarnpkg.com/grommet/-/grommet-2.32.0.tgz#46b1ef5b86f2fb1ffb74ab781e93e22adf411a64"
+  integrity sha512-KSDg8kqpEUcNYf4uOSTpu2KLF8hCNlTk/V0HPTZhNXS3Mz95C/A10v8TntvxdtUha9wkiWBwssRelyCGb45aDA==
   dependencies:
-    grommet-icons "^4.7.0"
+    grommet-icons "^4.10.0"
     hoist-non-react-statics "^3.2.0"
-    markdown-to-jsx "^7.1.5"
+    markdown-to-jsx "^7.2.0"
     prop-types "^15.8.1"
 
 gud@^1.0.0:
@@ -9860,10 +9860,10 @@ markdown-table@^1.1.0:
   resolved "https://registry.yarnpkg.com/markdown-table/-/markdown-table-1.1.3.tgz#9fcb69bcfdb8717bfd0398c6ec2d93036ef8de60"
   integrity sha512-1RUZVgQlpJSPWYbFSpmudq5nHY1doEIv89gBtF0s4gW1GF2XorxcA/70M5vq7rLv0a6mhOUccRsqkwhwLCIQ2Q==
 
-markdown-to-jsx@^7.1.5:
-  version "7.1.7"
-  resolved "https://registry.yarnpkg.com/markdown-to-jsx/-/markdown-to-jsx-7.1.7.tgz#a5f22102fb12241c8cea1ca6a4050bb76b23a25d"
-  integrity sha512-VI3TyyHlGkO8uFle0IOibzpO1c1iJDcXcS/zBrQrXQQvJ2tpdwVzVZ7XdKsyRz1NdRmre4dqQkMZzUHaKIG/1w==
+markdown-to-jsx@^7.2.0:
+  version "7.2.0"
+  resolved "https://registry.yarnpkg.com/markdown-to-jsx/-/markdown-to-jsx-7.2.0.tgz#e7b46b65955f6a04d48a753acd55874a14bdda4b"
+  integrity sha512-3l4/Bigjm4bEqjCR6Xr+d4DtM1X6vvtGsMGSjJYyep8RjjIvcWtrXBS8Wbfe1/P+atKNMccpsraESIaWVplzVg==
 
 md5.js@^1.3.4:
   version "1.3.5"
