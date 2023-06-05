@@ -18,7 +18,7 @@
     "d3-shape": "^2.1.0",
     "dompurify": "^3.0.3",
     "grommet": "^2.22.0",
-    "leaflet": "^1.8.0",
+    "leaflet": "^1.9.4",
     "lodash": "^4.17.21",
     "react": "17.0.2",
     "react-dom": "17.0.2",
