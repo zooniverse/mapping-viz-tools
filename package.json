@@ -11,7 +11,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@nivo/core": "^0.80.0",
-    "@nivo/line": "^0.80.0",
+    "@nivo/line": "^0.83.0",
     "@nivo/scatterplot": "^0.80.0",
     "@zooniverse/grommet-theme": "^3.1.1",
     "@zooniverse/react-components": "^1.4.1",
