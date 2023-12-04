@@ -16,7 +16,7 @@
     "@zooniverse/grommet-theme": "^3.1.1",
     "@zooniverse/react-components": "^1.4.1",
     "d3-shape": "^2.1.0",
-    "dompurify": "^3.0.3",
+    "dompurify": "^3.0.6",
     "grommet": "^2.22.0",
     "leaflet": "^1.8.0",
     "lodash": "^4.17.21",
